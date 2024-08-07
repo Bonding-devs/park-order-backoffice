@@ -64,7 +64,6 @@ import UnderMaintenance from './pages/Authentication/UnderMaintenance';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
-  console.log("push clone")
 
   useEffect(() => {
     window.scrollTo(0, 0);
