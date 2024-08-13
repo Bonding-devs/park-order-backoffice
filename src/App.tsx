@@ -60,7 +60,6 @@ import ComingSoon from './pages/Authentication/ComingSoon';
 import TwoStepVerification from './pages/Authentication/TwoStepVerification';
 import UnderMaintenance from './pages/Authentication/UnderMaintenance';
 
-
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
