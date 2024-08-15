@@ -95,9 +95,8 @@ const SignIn: React.FC = () => {
 
                 <div className="mt-6 text-center">
                   <p>
-                    Don't have an account?{' '}
-                    <Link to="/auth/signup" className="text-primary">
-                      Sign Up
+                    <Link to="/auth/reset-password" className="text-primary">
+                      Forgot Password?
                     </Link>
                   </p>
                 </div>

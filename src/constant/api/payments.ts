@@ -1,4 +1,4 @@
-export const PAYMENTS = {
-    GET : `/api/v1/payment-methods`,
-    CREATE_PAYMENT : `/api/v1/payments/create-setup-intent`
-}
+export const PAYMENTS_URL = {
+  GET: `/api/v1/payment-methods`,
+  CREATE: `/api/v1/payments/create-setup-intent`,
+};
