@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { createSetupIntent, fetchPaymentMethods } from '../api/paymentsApi';
-import { PaymentMethod } from '../models/paymentMethod';
+import { createSetupIntent, fetchPaymentMethods } from '../../api/paymentsApi';
+
 
 export const usePaymentMethods = () => {
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [clientSecret, setClientSecret] = useState<string>('');

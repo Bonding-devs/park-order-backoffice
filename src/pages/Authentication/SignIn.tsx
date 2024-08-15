@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLogin } from '../../hooks/useLogin';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import { useLogin } from '../../modules/Login/useLogin';
 
 const SignIn: React.FC = () => {
   const {

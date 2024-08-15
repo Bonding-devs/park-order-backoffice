@@ -7,7 +7,6 @@ import SignUp from '../pages/Authentication/SignUp';
 import TwoStepVerification from '../pages/Authentication/TwoStepVerification';
 import UnderMaintenance from '../pages/Authentication/UnderMaintenance';
 import Calendar from '../pages/Calendar';
-import ShiftInfo from '../pages/CandidateApplications/CandidateApplications';
 import AdvancedChart from '../pages/Chart/AdvancedChart';
 import BasicChart from '../pages/Chart/BasicChart';
 import Analytics from '../pages/Dashboard/Analytics';
@@ -20,8 +19,7 @@ import ProFormElements from '../pages/Form/ProFormElements';
 import ProFormLayout from '../pages/Form/ProFormLayout';
 import Inbox from '../pages/Inbox';
 import Invoice from '../pages/Invoice';
-import AddLocationForm from '../pages/Locations/AddLocationForm';
-import Locations from '../pages/Locations/Locations';
+
 import Messages from '../pages/Messages';
 import DataTables from '../pages/Pages/DataTables';
 import {
@@ -49,26 +47,25 @@ import Buttons from '../pages/UiElements/Buttons';
 import ButtonsGroup from '../pages/UiElements/ButtonsGroup';
 import Cards from '../pages/UiElements/Cards';
 import Carousel from '../pages/UiElements/Carousel';
-import Contractors from '../pages/Contractor/Reviews';
+
 import Dropdowns from '../pages/UiElements/Dropdowns';
 import Images from '../pages/UiElements/Images';
 import List from '../pages/UiElements/List';
 import Modals from '../pages/UiElements/Modals';
 import Notifications from '../pages/UiElements/Notifications';
 import Pagination from '../pages/UiElements/Pagination';
-import PrivacyPolicy from '../pages/Information/PrivacyPolicy';
+
 import Popovers from '../pages/UiElements/Popovers';
 import Progress from '../pages/UiElements/Progress';
 import Spinners from '../pages/UiElements/Spinners';
 import Tabs from '../pages/UiElements/Tabs';
-import TermsConditions from '../pages/Information/TermsConditions';
+
 
 import Tooltips from '../pages/UiElements/Tooltips';
 import Videos from '../pages/UiElements/Videos';
 
 import PaymentMethodsPage from '../pages/Billing/PaymentMethods';
-import OrganizationsPage from '../pages/Organizations/Organizations';
-import ShiftDetailsPage from '../pages/Pages/ShiftDetailsPage';
+
 import ProtectedRoute from './ProtectedRoute';
 import RoleProtectedRoute from './RoleProtectedRoute';
 
@@ -167,17 +164,12 @@ const AppRoutes = () => (
         />
       </Route>
 
-      <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
-        <Route path="/contractors/reviews" element={<Contractors />} />
-      </Route>
+
 
       <Route element={<RoleProtectedRoute allowedRoles={['owner']} />}>
         <Route path="/calendar" element={<Calendar />} />
       </Route>
 
-      <Route element={<RoleProtectedRoute allowedRoles={['admin', 'owner']} />}>
-        <Route path="/shifts/:shiftId" element={<ShiftDetailsPage />} />
-      </Route>
       <Route element={<RoleProtectedRoute allowedRoles={['owner']} />}>
         <Route path="/payment-methods" element={<PaymentMethodsPage />} />
       </Route>
@@ -593,68 +585,6 @@ const AppRoutes = () => (
           <>
             <PageTitle title="Under Maintenance" />
             <UnderMaintenance />
-          </>
-        }
-      />
-
-      <Route element={<RoleProtectedRoute allowedRoles={['owner']} />}>
-        <Route
-          path="/locations"
-          element={
-            <>
-              <PageTitle title="Locations" />
-              <Locations />
-            </>
-          }
-        />
-      </Route>
-      <Route
-        path="/locations/add"
-        element={
-          <>
-            <PageTitle title="Add Location" />
-            <AddLocationForm />
-          </>
-        }
-      />
-
-      <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
-        <Route
-          path="/list-applications"
-          element={
-            <>
-              <PageTitle title="List Candidates Applications" />
-              <ShiftInfo />
-            </>
-          }
-        />
-      </Route>
-      <Route element={<RoleProtectedRoute allowedRoles={['admin']} />}>
-        <Route
-          path="/organizations"
-          element={
-            <>
-              <PageTitle title="Organizations" />
-              <OrganizationsPage />
-            </>
-          }
-        />
-      </Route>
-      <Route
-        path="/information/terms-conditions"
-        element={
-          <>
-            <PageTitle title="Terms & Conditions" />
-            <TermsConditions />
-          </>
-        }
-      />
-      <Route
-        path="/information/privacy-policy"
-        element={
-          <>
-            <PageTitle title="Privacy Policy" />
-            <PrivacyPolicy />
           </>
         }
       />

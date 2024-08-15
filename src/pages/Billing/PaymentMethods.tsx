@@ -3,11 +3,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from '../../common/Modal';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { usePaymentMethods } from '../../hooks/usePaymentMethods';
 import DefaultLayout from '../../layout/DefaultLayout';
-import PaymentMethodForm from './PaymentMethodForm';
-import { CustomGrid } from '../../components';
+import PaymentMethodForm from '../../modules/PaymentMethod/PaymentMethodForm';
 import { columnPaymentMethod } from '../../modules/PaymentMethod/configuration';
+import { usePaymentMethods } from '../../modules/PaymentMethod/usePaymentMethods';
+import { CustomGrid } from '../../components';
 
 const PaymentMethodsPage: React.FC = () => {
   const {
@@ -15,7 +15,6 @@ const PaymentMethodsPage: React.FC = () => {
     loading,
     error,
     cretePaymentMethodIntent,
-    clientSecret,
     reFetchDataPaymentMethods,
   } = usePaymentMethods();
 
@@ -42,7 +41,6 @@ const PaymentMethodsPage: React.FC = () => {
           <Modal buttonText="Add payment method">
             {({ closeModal }) => (
               <PaymentMethodForm
-                clientSecret={clientSecret}
                 closeModal={closeModal}
                 reFetchData={reFetchDataPaymentMethods}
               />

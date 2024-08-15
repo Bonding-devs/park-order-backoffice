@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalConfirm from '../BondingComponents/ModalConfirm';
 import { useAuth } from '../../context/AuthContext';
-import userPlaceholder from '../../images/user/default_user.jpg';
+import userPlaceholder from '../../images/user/user-24.png';
 
 const DropdownUser = () => {
   const { user, loading } = useAuth();
