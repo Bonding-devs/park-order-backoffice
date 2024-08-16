@@ -1,9 +1,9 @@
-import { AUTH } from "../constant";
+import { AUTH_URL } from "../constant";
 import { HTTP_METHODS, STORAGE_KEYS } from "../globals";
 import { createApiRequest } from "../services/axios";
 
 export const loginApi = async (email, password) => {
-  const url = AUTH.POST;
+  const url = AUTH_URL.LOGIN;
   const data = { email, password };
 
   try {

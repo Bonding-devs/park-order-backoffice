@@ -1,5 +1,4 @@
-import {PAYMENTS} from "./api/payments"
-import {AUTH} from "./api/auth"
+import { PAYMENTS_URL } from './api/payments';
+import { AUTH_URL } from './api/auth';
 
-
-export { PAYMENTS , AUTH};
+export { PAYMENTS_URL, AUTH_URL };

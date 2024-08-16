@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { User } from '../models/user.tsx';
 import axiosInstance from '../services/axios.ts';
+import { AUTH_URL } from '../constant/index.ts';
 
 interface AuthContextType {
   user: any;
@@ -42,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchUserProfile = async (isLogin = false) => {
     try {
-      const response = await axiosInstance.get('/api/v1/auth/me');
+      const response = await axiosInstance.get(AUTH_URL.ME);
       setUser(response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
       redirectionPage(response.data, isLogin);
