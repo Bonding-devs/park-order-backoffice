@@ -1,4 +1,4 @@
-import { PAYMENTS_URL } from './api/payments';
+import { WORK_ORDER_URL } from './api/workOrder';
 import { AUTH_URL } from './api/auth';
 
-export { PAYMENTS_URL, AUTH_URL };
+export { WORK_ORDER_URL, AUTH_URL };

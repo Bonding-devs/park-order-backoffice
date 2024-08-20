@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 // table header
-export const columnPaymentMethod = [
+export const columnWorkOrders = [
   {
     Header: 'Card Brand',
     accessor: 'cardBrand',

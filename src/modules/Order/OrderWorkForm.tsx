@@ -1,27 +1,19 @@
-
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 interface PaymentMethodFormProps {
   closeModal: () => void;
   reFetchData: () => void;
 }
 
-const PaymentMethodForm: React.FC<PaymentMethodFormProps> = () => {
-
+const WorkOrdersForm: React.FC<PaymentMethodFormProps> = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-  }
-
-
-
+  };
 
   return (
     <div className="flex flex-col gap-9">
@@ -31,7 +23,6 @@ const PaymentMethodForm: React.FC<PaymentMethodFormProps> = () => {
           <div className="p-6.5">
             <div className="mb-5 flex flex-col gap-6 xl:flex-row">
               <div className="w-full xl:w-1/2">
-
                 {error && (
                   <div className="text-red-500 mb-4">{error.message}</div>
                 )}
@@ -48,8 +39,6 @@ const PaymentMethodForm: React.FC<PaymentMethodFormProps> = () => {
       </div>
     </div>
   );
-}
+};
 
-
-
-export default PaymentMethodForm;
+export default WorkOrdersForm;
