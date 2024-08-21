@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BadgeFour: React.FC = ({ priority }) => {
+const CustomPriority: React.FC = ({ priority }) => {
   const renderPriority = (priority) => {
     switch (priority) {
       case 1:
@@ -43,4 +43,4 @@ const BadgeFour: React.FC = ({ priority }) => {
   return <div className="">{renderPriority(priority)}</div>;
 };
 
-export default BadgeFour;
+export default CustomPriority;

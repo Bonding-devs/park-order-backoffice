@@ -60,11 +60,10 @@ import Progress from '../pages/UiElements/Progress';
 import Spinners from '../pages/UiElements/Spinners';
 import Tabs from '../pages/UiElements/Tabs';
 
-
 import Tooltips from '../pages/UiElements/Tooltips';
 import Videos from '../pages/UiElements/Videos';
 
-import PaymentMethodsPage from '../pages/Billing/PaymentMethods';
+import WorkOrderPage from '../pages/Order/WorkOrder';
 
 import ProtectedRoute from './ProtectedRoute';
 import RoleProtectedRoute from './RoleProtectedRoute';
@@ -118,6 +117,7 @@ const AppRoutes = () => (
       }
     />
 
+    <Route path="/work-orders" element={<WorkOrderPage />} />
     <Route element={<ProtectedRoute />}>
       <Route
         path="/dashboard"
@@ -164,15 +164,10 @@ const AppRoutes = () => (
         />
       </Route>
 
-
-
       <Route element={<RoleProtectedRoute allowedRoles={['owner']} />}>
         <Route path="/calendar" element={<Calendar />} />
       </Route>
 
-      <Route element={<RoleProtectedRoute allowedRoles={['owner']} />}>
-        <Route path="/payment-methods" element={<PaymentMethodsPage />} />
-      </Route>
       <Route
         path="/profile"
         element={
