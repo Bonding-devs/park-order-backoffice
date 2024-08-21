@@ -5,7 +5,7 @@ const CustomStatus: React.FC = ({ status }) => {
     switch (status) {
       case 1:
         return (
-          <button className="inline-flex rounded border border-[#3BA2B8] px-2 py-1 text-sm font-medium text-[#3BA2B8] hover:opacity-80">
+          <button className="inline-flex rounded border border-[#EFEFEF] px-2 py-1 text-sm font-medium text-[#212B36] hover:opacity-80 dark:text-white">
             To Do
           </button>
         );
@@ -19,7 +19,7 @@ const CustomStatus: React.FC = ({ status }) => {
 
       default:
         return (
-          <button className="inline-flex rounded border border-[#3BA2B8] px-2 py-1 text-sm font-medium text-[#3BA2B8] hover:opacity-80">
+          <button className="inline-flex rounded border border-[#EFEFEF] px-2 py-1 text-sm font-medium text-[#212B36] hover:opacity-80 dark:text-white">
             To Do
           </button>
         );
