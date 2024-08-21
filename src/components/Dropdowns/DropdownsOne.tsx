@@ -1,8 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const DropdownsOne: React.FC = () => {
+const DropdownsOne: React.FC = ({
+  state = {
+    name: 'Done',
+    state: 0,
+  },
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const [states, seStates] = useState([
+    {
+      name: 'Done',
+      state: 1,
+    },
+    {
+      name: 'To Do',
+      state: 0,
+    },
+  ]);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -34,22 +50,17 @@ const DropdownsOne: React.FC = () => {
   });
 
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="border-b border-stroke px-4 py-4 dark:border-strokedark sm:px-6 xl:px-7.5">
-        <h3 className="font-medium text-black dark:text-white">
-          Dropdowns Style 1
-        </h3>
-      </div>
-
-      <div className="p-4 sm:p-6 xl:p-10">
-        <div className="relative mb-50 inline-block">
+    <>
+      <div className="py-1">
+        <div className="relative inline-block">
           <Link
             ref={trigger}
             onClick={() => setDropdownOpen(!dropdownOpen)}
             to="#"
-            className="inline-flex items-center gap-2.5 rounded-md bg-primary py-3 px-5.5 font-medium text-white hover:bg-opacity-90"
+            className="inline-flex items-center gap-2.5 rounded-md bg-primary px-2 py-1 font-medium text-white hover:bg-opacity-90"
           >
-            Dropdown Button
+            <span className="pr-4 "> {state.name}</span>
+
             <svg
               className={`fill-current duration-200 ease-linear ${
                 dropdownOpen && 'rotate-180'
@@ -76,49 +87,29 @@ const DropdownsOne: React.FC = () => {
             ref={dropdown}
             onFocus={() => setDropdownOpen(true)}
             onBlur={() => setDropdownOpen(false)}
-            className={`absolute left-0 top-full z-40 mt-2 w-full rounded-md border border-stroke bg-white py-3 shadow-card dark:border-strokedark dark:bg-boxdark ${
+            className={`absolute left-0 top-full z-40 mt-1 w-full rounded-md border border-stroke bg-white py-1 shadow-card dark:border-strokedark dark:bg-boxdark ${
               dropdownOpen === true ? 'block' : 'hidden'
             }`}
           >
             <ul className="flex flex-col">
-              <li>
-                <Link
-                  to="#"
-                  className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
-                >
-                  Settings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
-                >
-                  Earnings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  className="flex py-2 px-5 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
-                >
-                  Logout
-                </Link>
-              </li>
+              {states.map((item) => {
+                return (
+                  <li>
+                    <Link
+                      to="#"
+                      className="flex px-2 py-1 font-medium hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default DropdownsOne
+export default DropdownsOne;

@@ -1,0 +1,218 @@
+import React, { useState } from 'react';
+import DropdownDefault from '../Dropdowns/DropdownDefault';
+import UserOne from '../../images/user/user-01.png';
+import UserTwo from '../../images/user/user-02.png';
+import UserThree from '../../images/user/user-03.png';
+import UserFour from '../../images/user/user-04.png';
+import UserFive from '../../images/user/user-05.png';
+import { Link } from 'react-router-dom';
+import DropdownsOne from '../Dropdowns/DropdownsOne';
+import BadgeFour from '../Badges/BadgeFour';
+
+const CustomTableView: React.FC = ({ children }) => {
+  const [openTab, setOpenTab] = useState(1);
+
+  const activeClasses = 'text-primary border-primary';
+  const inactiveClasses = 'border-transparent';
+  const chatList = [
+    {
+      id: 1,
+      imgSrc: UserThree,
+      title: 'test 1',
+      description: 'I cam across y',
+      priority: 3,
+      status: 1,
+    },
+    {
+      id: 2,
+      imgSrc: UserFour,
+      title: 'test 2',
+      description: 'I cam across y',
+      priority: 2,
+      status: 2,
+    },
+    {
+      id: 3,
+      imgSrc: UserFive,
+      title: 'test 3',
+      description: 'I cam across y',
+      priority: 1,
+      status: 3,
+    },
+    {
+      id: 4,
+      imgSrc: UserOne,
+      title: 'test 4',
+      description: 'I cam across y',
+      priority: 1,
+      status: 2,
+    },
+    {
+      id: 5,
+      imgSrc: UserTwo,
+      title: 'test 5',
+      description: 'I cam across y',
+      priority: 4,
+      status: 4,
+    },
+  ];
+
+  return (
+    <>
+      <div className="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-174px)]">
+        <div className="h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:flex">
+          <div className="hidden h-full flex-col xl:flex xl:w-2/4">
+            {/* <!-- ====== Chat List Start --> */}
+            <div className="sticky  items-center border-b border-stroke px-6 py-3 dark:border-strokedark">
+              <div className="w-3/3">
+                <div className="relative right-0">
+                  <div className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl p-1">
+                    <Link
+                      to="#"
+                      className={`flex-auto border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
+                        openTab === 1 ? activeClasses : inactiveClasses
+                      }`}
+                      onClick={() => setOpenTab(1)}
+                    >
+                      All
+                    </Link>
+
+                    <Link
+                      to="#"
+                      className={`flex-auto border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
+                        openTab === 2 ? activeClasses : inactiveClasses
+                      }`}
+                      onClick={() => setOpenTab(2)}
+                    >
+                      Done
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/*        <div class="w-2/2">
+                <div class="relative relative right-0 flex list-none flex-wrap p-1">
+                  <Link
+                    to="#"
+                    className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
+                      openTab === 1 ? activeClasses : inactiveClasses
+                    }`}
+                    onClick={() => setOpenTab(1)}
+                  >
+                    To Do
+                  </Link>
+                  <Link
+                    to="#"
+                    className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
+                      openTab === 2 ? activeClasses : inactiveClasses
+                    }`}
+                    onClick={() => setOpenTab(2)}
+                  >
+                    Done
+                  </Link>
+                </div>
+              </div> */}
+            </div>
+            <div className="flex max-h-full flex-col overflow-auto p-5">
+              <form className="sticky mb-7">
+                <input
+                  type="text"
+                  className="w-full rounded border border-stroke bg-gray-2 py-2.5 pl-5 pr-10 text-sm outline-none focus:border-primary dark:border-strokedark dark:bg-boxdark-2"
+                  placeholder="Search..."
+                />
+                <button className="absolute right-4 top-1/2 -translate-y-1/2">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M8.25 3C5.3505 3 3 5.3505 3 8.25C3 11.1495 5.3505 13.5 8.25 13.5C11.1495 13.5 13.5 11.1495 13.5 8.25C13.5 5.3505 11.1495 3 8.25 3ZM1.5 8.25C1.5 4.52208 4.52208 1.5 8.25 1.5C11.9779 1.5 15 4.52208 15 8.25C15 11.9779 11.9779 15 8.25 15C4.52208 15 1.5 11.9779 1.5 8.25Z"
+                      fill="#637381"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M11.957 11.958C12.2499 11.6651 12.7247 11.6651 13.0176 11.958L16.2801 15.2205C16.573 15.5133 16.573 15.9882 16.2801 16.2811C15.9872 16.574 15.5124 16.574 15.2195 16.2811L11.957 13.0186C11.6641 12.7257 11.6641 12.2508 11.957 11.958Z"
+                      fill="#637381"
+                    />
+                  </svg>
+                </button>
+              </form>
+              <div className="no-scrollbar max-h-full space-y-3.5 overflow-auto">
+                {/* <!-- Chat List Item --> */}
+                {chatList.map((object, item) => {
+                  return (
+                    <div
+                      key={item}
+                      className="flex cursor-pointer items-center rounded px-4 py-2 hover:bg-gray-2 dark:hover:bg-strokedark"
+                    >
+                      <div className="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
+                        <img
+                          src={object.imgSrc}
+                          alt="profile"
+                          className="h-full w-full object-cover object-center"
+                        />
+                        <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"></span>
+                      </div>
+
+                      <div className="flex-grid flex  w-full">
+                        <div className="flex-auto ">
+                          <h5 className="text-sm font-medium text-black dark:text-white">
+                            {object.title}
+                          </h5>
+                          <p className="text-sm">{object.description}</p>
+
+                          <DropdownsOne />
+                        </div>
+                        <div className="flex-auto text-right">
+                          <h5 className="text-sm font-medium text-black dark:text-white">
+                            {`# ${object.id}`}
+                          </h5>
+                          <BadgeFour priority={object.priority} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* <!-- Chat List Item --> */}
+              </div>
+            </div>
+            {/* <!-- ====== Chat List End --> */}
+          </div>
+          <div className="flex h-full flex-col border-l border-stroke dark:border-strokedark xl:w-3/4">
+            {/* <!-- ====== Chat Box Start --> */}
+            <div className="sticky flex items-center justify-between border-b border-stroke px-6 py-3 dark:border-strokedark">
+              <div className="flex items-center">
+                <h2 className="font-medium text-black dark:text-white">
+                  New Order Work
+                </h2>
+              </div>
+            </div>
+            <div className="no-scrollbar max-h-full space-y-3.5 overflow-auto px-6 py-7.5">
+              {children}
+            </div>
+            <div className="sticky bottom-0 border-t border-stroke bg-white px-6 py-5 dark:border-strokedark dark:bg-boxdark">
+              <form className="flex items-center justify-between space-x-4.5">
+                <div className="relative w-full">
+                  <div className="absolute right-5 top-1/2 inline-flex -translate-y-1/2 items-center justify-end space-x-4">
+                    <button className="flex items-center justify-center rounded bg-primary px-8 py-2.5 text-center font-medium text-gray hover:bg-opacity-90">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            {/* <!-- ====== Chat Box End --> */}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CustomTableView;

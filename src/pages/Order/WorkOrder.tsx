@@ -7,7 +7,9 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import WorkOrdersForm from '../../modules/Order/OrderWorkForm';
 import { columnWorkOrders } from '../../modules/Order/configuration';
 import { useWorkOrder } from '../../modules/Order/useWorkOrder';
-import { CustomGrid } from '../../components';
+import { CustomGrid, CustomTableView } from '../../components';
+import TabThree from '../../components/Tabs/TabThree';
+import ProFormLayout from '../Form/ProFormLayout';
 
 const WorkOrderPage: React.FC = () => {
   const { workOrders, loading, error, reFetchDataWorkOrders } = useWorkOrder();
@@ -24,20 +26,9 @@ const WorkOrderPage: React.FC = () => {
         <Breadcrumb pageName="Work Orders" reDirectionUrl="/work-order" />
         <ToastContainer />
         <div className="">
-          <Modal buttonText="Add Work Order">
-            {({ closeModal }) => (
-              <WorkOrdersForm
-                closeModal={closeModal}
-                reFetchData={reFetchDataWorkOrders}
-              />
-            )}
-          </Modal>
-
-          <CustomGrid
-            customData={workOrders}
-            customColumn={columnWorkOrders}
-            loading={loading}
-          />
+          <CustomTableView>
+            <WorkOrdersForm />
+          </CustomTableView>
         </div>
       </DefaultLayout>
     </>
