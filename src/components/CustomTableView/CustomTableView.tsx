@@ -8,6 +8,8 @@ import UserFive from '../../images/user/user-05.png';
 import { Link } from 'react-router-dom';
 import DropdownsOne from '../Dropdowns/DropdownsOne';
 import BadgeFour from '../Badges/BadgeFour';
+import CustomPriority from '../CustomPriority/CustomPriority';
+import CustomState from '../CustomStatus/CustomStatus';
 
 const CustomTableView: React.FC = ({ children }) => {
   const [openTab, setOpenTab] = useState(1);
@@ -45,7 +47,7 @@ const CustomTableView: React.FC = ({ children }) => {
       title: 'test 4',
       description: 'I cam across y',
       priority: 1,
-      status: 2,
+      state: 2,
     },
     {
       id: 5,
@@ -167,13 +169,13 @@ const CustomTableView: React.FC = ({ children }) => {
                           </h5>
                           <p className="text-sm">{object.description}</p>
 
-                          <DropdownsOne />
+                          <CustomState status={object.status} />
                         </div>
                         <div className="flex-auto text-right">
                           <h5 className="text-sm font-medium text-black dark:text-white">
                             {`# ${object.id}`}
                           </h5>
-                          <BadgeFour priority={object.priority} />
+                          <CustomPriority priority={object.priority} />
                         </div>
                       </div>
                     </div>
