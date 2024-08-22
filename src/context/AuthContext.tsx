@@ -12,7 +12,7 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-const REDIRECTION_PAGE = '/list-applications';
+const REDIRECTION_PAGE = '/work-orders';
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

@@ -4,8 +4,6 @@ import { AUTH_URL } from '../constant';
 
 const baseUrl = import.meta.env.VITE_API_PARK_ORDER;
 
-console.log();
-
 const axiosInstance = Axios.create({
   baseURL: baseUrl,
   headers: {

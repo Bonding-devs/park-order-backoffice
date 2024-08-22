@@ -117,8 +117,8 @@ const AppRoutes = () => (
       }
     />
 
-    <Route path="/work-orders" element={<WorkOrderPage />} />
     <Route element={<ProtectedRoute />}>
+      <Route path="/work-orders" element={<WorkOrderPage />} />
       <Route
         path="/dashboard"
         element={<Navigate to="/dashboard/analytics" replace />}
