@@ -34,7 +34,11 @@ export const useWorkOrder = () => {
     setLoadingSideView(true);
     setShowSideView(false);
     setShowCreateWorkOrder(true);
-    setLoadingSideView(false);
+
+    //Implementing the setInterval method
+    setInterval(() => {
+      setLoadingSideView(false);
+    }, 3000);
   };
 
   const onClickDetailWorkOrder = () => {
