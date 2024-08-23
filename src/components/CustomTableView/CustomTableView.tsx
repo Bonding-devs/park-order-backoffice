@@ -1,63 +1,23 @@
 import React, { useState } from 'react';
-import DropdownDefault from '../Dropdowns/DropdownDefault';
 import UserOne from '../../images/user/user-01.png';
 import UserTwo from '../../images/user/user-02.png';
 import UserThree from '../../images/user/user-03.png';
 import UserFour from '../../images/user/user-04.png';
 import UserFive from '../../images/user/user-05.png';
 import { Link } from 'react-router-dom';
-import DropdownsOne from '../Dropdowns/DropdownsOne';
-import BadgeFour from '../Badges/BadgeFour';
-import CustomPriority from '../CustomPriority/CustomPriority';
-import CustomState from '../CustomStatus/CustomStatus';
+import CustomTableCell from '../CustomTableCell/CustomTableCell';
+import Loader from '../../common/Loader';
 
-const CustomTableView: React.FC = ({ children }) => {
+const CustomTableView: React.FC = ({
+  children,
+  onClickDetailWorkOrder,
+  data,
+  loading,
+}: any) => {
   const [openTab, setOpenTab] = useState(1);
 
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
-  const chatList = [
-    {
-      id: 1,
-      imgSrc: UserThree,
-      title: 'test 1',
-      description: 'I cam across y',
-      priority: 3,
-      status: 1,
-    },
-    {
-      id: 2,
-      imgSrc: UserFour,
-      title: 'test 2',
-      description: 'I cam across y',
-      priority: 2,
-      status: 2,
-    },
-    {
-      id: 3,
-      imgSrc: UserFive,
-      title: 'test 3',
-      description: 'I cam across y',
-      priority: 1,
-      status: 3,
-    },
-    {
-      id: 4,
-      imgSrc: UserOne,
-      title: 'test 4',
-      description: 'I cam across y',
-      priority: 1,
-      state: 2,
-    },
-    {
-      id: 5,
-      imgSrc: UserTwo,
-      title: 'test 5',
-      description: 'I cam across y',
-      priority: 4,
-      status: 4,
-    },
-  ];
 
   return (
     <>
@@ -91,29 +51,6 @@ const CustomTableView: React.FC = ({ children }) => {
                   </div>
                 </div>
               </div>
-
-              {/*        <div class="w-2/2">
-                <div class="relative relative right-0 flex list-none flex-wrap p-1">
-                  <Link
-                    to="#"
-                    className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-                      openTab === 1 ? activeClasses : inactiveClasses
-                    }`}
-                    onClick={() => setOpenTab(1)}
-                  >
-                    To Do
-                  </Link>
-                  <Link
-                    to="#"
-                    className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-                      openTab === 2 ? activeClasses : inactiveClasses
-                    }`}
-                    onClick={() => setOpenTab(2)}
-                  >
-                    Done
-                  </Link>
-                </div>
-              </div> */}
             </div>
             <div className="flex max-h-full flex-col overflow-auto p-5">
               <form className="sticky mb-7">
@@ -146,70 +83,24 @@ const CustomTableView: React.FC = ({ children }) => {
                 </button>
               </form>
               <div className="no-scrollbar max-h-full space-y-3.5 overflow-auto">
-                {/* <!-- Chat List Item --> */}
-                {chatList.map((object, item) => {
-                  return (
-                    <div
-                      key={item}
-                      className="flex cursor-pointer items-center rounded px-4 py-2 hover:bg-gray-2 dark:hover:bg-strokedark"
-                    >
-                      <div className="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
-                        <img
-                          src={object.imgSrc}
-                          alt="profile"
-                          className="h-full w-full object-cover object-center"
-                        />
-                        <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"></span>
-                      </div>
-
-                      <div className="flex-grid flex  w-full">
-                        <div className="flex-auto ">
-                          <h5 className="text-sm font-medium text-black dark:text-white">
-                            {object.title}
-                          </h5>
-                          <p className="text-sm">{object.description}</p>
-
-                          <CustomState status={object.status} />
-                        </div>
-                        <div className="flex-auto text-right">
-                          <h5 className="text-sm font-medium text-black dark:text-white">
-                            {`# ${object.id}`}
-                          </h5>
-                          <CustomPriority priority={object.priority} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-                {/* <!-- Chat List Item --> */}
+                {loading ? (
+                  <Loader />
+                ) : (
+                  data.map((object, item) => {
+                    return (
+                      <CustomTableCell
+                        object={object}
+                        item={item}
+                        onClick={onClickDetailWorkOrder}
+                      />
+                    );
+                  })
+                )}
               </div>
             </div>
-            {/* <!-- ====== Chat List End --> */}
           </div>
           <div className="flex h-full flex-col border-l border-stroke dark:border-strokedark xl:w-3/4">
-            {/* <!-- ====== Chat Box Start --> */}
-            <div className="sticky flex items-center justify-between border-b border-stroke px-6 py-3 dark:border-strokedark">
-              <div className="flex items-center">
-                <h2 className="font-medium text-black dark:text-white">
-                  New Order Work
-                </h2>
-              </div>
-            </div>
-            <div className="no-scrollbar max-h-full space-y-3.5 overflow-auto px-6 py-7.5">
-              {children}
-            </div>
-            <div className="sticky bottom-0 border-t border-stroke bg-white px-6 py-5 dark:border-strokedark dark:bg-boxdark">
-              <form className="flex items-center justify-between space-x-4.5">
-                <div className="relative w-full">
-                  <div className="absolute right-5 top-1/2 inline-flex -translate-y-1/2 items-center justify-end space-x-4">
-                    <button className="flex items-center justify-center rounded bg-primary px-8 py-2.5 text-center font-medium text-gray hover:bg-opacity-90">
-                      Save
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            {/* <!-- ====== Chat Box End --> */}
+            {children}
           </div>
         </div>
       </div>

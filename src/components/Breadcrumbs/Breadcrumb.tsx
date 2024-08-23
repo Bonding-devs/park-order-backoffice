@@ -3,11 +3,13 @@ interface BreadcrumbProps {
   pageName: string;
   baseName?: string;
   reDirectionUrl?: string;
+  render?: any;
 }
 const Breadcrumb = ({
   pageName,
   baseName,
   reDirectionUrl,
+  render,
 }: BreadcrumbProps) => {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -30,6 +32,7 @@ const Breadcrumb = ({
           </ol>
         </nav>
       )}
+      {render ? render() : <></>}
     </div>
   );
 };

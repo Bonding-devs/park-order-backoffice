@@ -1,30 +1,34 @@
 import React from 'react';
 
-const CustomPriority: React.FC = ({ priority }) => {
+type Priority = {
+  priority: string;
+};
+
+const CustomPriority: React.FC<Priority> = ({ priority }) => {
   const renderPriority = (priority) => {
     switch (priority) {
-      case 1:
+      case 'none':
         return (
           <button className="inline-flex rounded-full bg-[#EFEFEF] px-3 py-1 text-sm font-medium text-[#212B36] hover:bg-opacity-90">
             None
           </button>
         );
 
-      case 2:
+      case 'low':
         return (
           <button className="inline-flex rounded-full bg-[#3CA745] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             Low
           </button>
         );
 
-      case 3:
+      case 'medium':
         return (
           <button className="inline-flex rounded-full bg-[#F9C107] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             Medium
           </button>
         );
 
-      case 4:
+      case 'high':
         return (
           <button className="inline-flex rounded-full bg-[#DC3545] px-3 py-1 text-sm font-medium text-white hover:bg-opacity-90">
             High
