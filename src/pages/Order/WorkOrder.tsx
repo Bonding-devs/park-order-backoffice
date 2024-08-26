@@ -5,7 +5,10 @@ import Modal from '../../common/Modal';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import WorkOrdersForm from '../../modules/Order/OrderWorkForm';
-import { columnWorkOrders } from '../../modules/Order/configuration';
+import {
+  columnWorkOrders,
+  optionStatusWorkOrders,
+} from '../../modules/Order/configuration';
 import { useWorkOrder } from '../../modules/Order/useWorkOrder';
 import { CustomGrid, CustomTableView } from '../../components';
 import TabThree from '../../components/Tabs/TabThree';
@@ -24,6 +27,8 @@ const WorkOrderPage: React.FC = () => {
     onClickDetailWorkOrder,
     loadingSideView,
     showSideView,
+    workOrderDetail,
+    onSubmitWorkOrders,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -32,15 +37,26 @@ const WorkOrderPage: React.FC = () => {
     }
   }, [error]);
 
-  const renderView = () => {
+  const renderView = (workOrderDetail) => {
     if (showSideView) {
       return <></>;
     } else if (loadingSideView) {
       return <Loader />;
     } else if (showCreateWorkOrder) {
-      return <WorkOrdersForm />;
+      return (
+        <WorkOrdersForm
+          onSubmit={() => {
+            onSubmitWorkOrders();
+          }}
+        />
+      );
     } else {
-      return <WorkOrdersView />;
+      return (
+        <WorkOrdersView
+          data={workOrderDetail}
+          status={optionStatusWorkOrders}
+        />
+      );
     }
   };
 
@@ -69,7 +85,7 @@ const WorkOrderPage: React.FC = () => {
             onClickDetailWorkOrder={() => onClickDetailWorkOrder()}
             loading={loading}
           >
-            {renderView()}
+            {renderView(workOrderDetail)}
           </CustomTableView>
         </div>
       </DefaultLayout>
