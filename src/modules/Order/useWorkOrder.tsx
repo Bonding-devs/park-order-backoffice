@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createWorkOrders, fetchWorkOrders } from '../../api/workOrderApi';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 export const useWorkOrder = () => {
@@ -10,6 +11,13 @@ export const useWorkOrder = () => {
   const [loadingSideView, setLoadingSideView] = useState(false);
   const [loadingCreateWO, setLoadingCreateWO] = useState(false);
   const [showSideView, setShowSideView] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   const [workOrderDetail, setWorOrderDetail] = useState({
     id: 'd6ee3dc2-9fb1-4933-840c-31cf937461ad',
@@ -83,10 +91,12 @@ export const useWorkOrder = () => {
     }, 3000);
   };
 
-  const onSubmitWorkOrders = async () => {
+  const onSubmitWorkOrders = async (data) => {
     setLoadingCreateWO(true);
     try {
-      const workOrdersResponse = await createWorkOrders();
+      debugger;
+      const { title } = data;
+      await createWorkOrders(title);
       setError(null);
       toast.success('Successfully created!');
       reFetchDataWorkOrders();
@@ -110,5 +120,7 @@ export const useWorkOrder = () => {
     showSideView,
     workOrderDetail,
     onSubmitWorkOrders,
+    register,
+    handleSubmit,
   };
 };

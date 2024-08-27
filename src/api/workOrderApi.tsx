@@ -18,9 +18,11 @@ export const fetchWorkOrders = async (): Promise<any> => {
   }
 };
 
-export const createWorkOrders = async (
-  data = {
-    title: 'title must be a string 5',
+export const createWorkOrders = async (title): Promise<any> => {
+  const url = WORK_ORDER_URL.create;
+  debugger;
+  const data = {
+    title: title,
     description: 'description must be a string',
     status: 'status must be a string',
     locationId: 'bf84be3a-5cd7-4b34-8d12-0896c9e99da3',
@@ -28,9 +30,7 @@ export const createWorkOrders = async (
     issueId: 'b9a749c7-6349-4f80-a437-ed039c3b855e',
     priority: 'b9a749c7-6349-4f80-a437-ed039c3b855e',
     recurrence: 'none',
-  }
-): Promise<any> => {
-  const url = WORK_ORDER_URL.create;
+  };
   try {
     const response = await createApiRequest({
       url: url,

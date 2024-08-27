@@ -29,6 +29,8 @@ const WorkOrderPage: React.FC = () => {
     showSideView,
     workOrderDetail,
     onSubmitWorkOrders,
+    register,
+    handleSubmit,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -45,9 +47,9 @@ const WorkOrderPage: React.FC = () => {
     } else if (showCreateWorkOrder) {
       return (
         <WorkOrdersForm
-          onSubmit={() => {
-            onSubmitWorkOrders();
-          }}
+          register={register}
+          handleSubmit={handleSubmit}
+          onSubmitWorkOrders={onSubmitWorkOrders}
         />
       );
     } else {
