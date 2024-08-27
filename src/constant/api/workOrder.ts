@@ -1,3 +1,4 @@
 export const WORK_ORDER_URL = {
-  fetch: `api/v1/work-orders?locationId=9ae7cd2e-81e0-44f4-b661-5c4c6a8210b9`,
+  fetch: `api/v1/work-orders?locationId=bf84be3a-5cd7-4b34-8d12-0896c9e99da3`,
+  create: `api/v1/work-orders`,
 };
