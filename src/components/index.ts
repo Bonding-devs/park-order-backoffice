@@ -3,6 +3,8 @@ import CustomTableCell from './CustomTableCell/CustomTableCell';
 import CustomTableView from './CustomTableView/CustomTableView';
 import CustomPriority from './CustomPriority/CustomPriority';
 import CustomStatus from './CustomStatus/CustomStatus';
+import CustomSelect from './CustomSelect/CustomSelect';
+import CustomDatePicker from './CustomDatePicker/CustomDatePicker';
 
 export {
   CustomGrid,
@@ -10,4 +12,6 @@ export {
   CustomTableView,
   CustomPriority,
   CustomStatus,
+  CustomSelect,
+  CustomDatePicker,
 };

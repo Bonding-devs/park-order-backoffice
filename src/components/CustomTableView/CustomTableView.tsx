@@ -13,6 +13,8 @@ const CustomTableView: React.FC = ({
   onClickDetailWorkOrder,
   data,
   loading,
+  onScroll,
+  listInnerRef,
 }: any) => {
   const [openTab, setOpenTab] = useState(1);
 
@@ -28,7 +30,7 @@ const CustomTableView: React.FC = ({
             <div className="sticky  items-center border-b border-stroke px-6 py-3 dark:border-strokedark">
               <div className="w-3/3">
                 <div className="relative right-0">
-                  <div className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl p-1">
+                  <div className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl">
                     <Link
                       to="#"
                       className={`flex-auto border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
@@ -82,7 +84,11 @@ const CustomTableView: React.FC = ({
                   </svg>
                 </button>
               </form>
-              <div className="no-scrollbar max-h-full space-y-3.5 overflow-auto">
+              <div
+                className="no-scrollbar max-h-full space-y-3.5 overflow-auto"
+                onScroll={onScroll}
+                ref={listInnerRef}
+              >
                 {loading ? (
                   <Loader />
                 ) : (

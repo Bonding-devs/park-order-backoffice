@@ -4,12 +4,13 @@ import { HTTP_METHODS } from '../globals';
 import { PaymentMethodResponse } from '../models/paymentMethod';
 import { createApiRequest } from '../services/axios';
 
-export const fetchWorkOrders = async (): Promise<any> => {
-  const url = WORK_ORDER_URL.fetch;
+export const fetchWorkOrders = async (params): Promise<any> => {
+  const url = WORK_ORDER_URL.Base;
   try {
     const response = await createApiRequest({
       url: url,
       method: HTTP_METHODS.GET,
+      params: params,
     });
     return response;
   } catch (error) {
@@ -18,13 +19,14 @@ export const fetchWorkOrders = async (): Promise<any> => {
   }
 };
 
-export const createWorkOrders = async (title): Promise<any> => {
-  const url = WORK_ORDER_URL.create;
+export const createWorkOrders = async (data): Promise<any> => {
+  const { title, description, status } = data;
+  const url = WORK_ORDER_URL.Base;
   debugger;
-  const data = {
+  const dataform = {
     title: title,
-    description: 'description must be a string',
-    status: 'status must be a string',
+    description: description,
+    status: status,
     locationId: 'bf84be3a-5cd7-4b34-8d12-0896c9e99da3',
     categoryId: '4192b59b-6885-4cee-98fe-b8f0097e0557',
     issueId: 'b9a749c7-6349-4f80-a437-ed039c3b855e',
@@ -35,7 +37,7 @@ export const createWorkOrders = async (title): Promise<any> => {
     const response = await createApiRequest({
       url: url,
       method: HTTP_METHODS.POST,
-      data: data,
+      data: dataform,
     });
     return response;
   } catch (error) {

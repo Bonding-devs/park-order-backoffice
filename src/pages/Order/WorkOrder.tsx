@@ -23,14 +23,14 @@ const WorkOrderPage: React.FC = () => {
     error,
     reFetchDataWorkOrders,
     onClickCreateWorkOrder,
-    showCreateWorkOrder,
     onClickDetailWorkOrder,
-    loadingSideView,
-    showSideView,
     workOrderDetail,
     onSubmitWorkOrders,
     register,
     handleSubmit,
+    onScroll,
+    listInnerRef,
+    showView,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -39,26 +39,29 @@ const WorkOrderPage: React.FC = () => {
     }
   }, [error]);
 
-  const renderView = (workOrderDetail) => {
-    if (showSideView) {
-      return <></>;
-    } else if (loadingSideView) {
-      return <Loader />;
-    } else if (showCreateWorkOrder) {
-      return (
-        <WorkOrdersForm
-          register={register}
-          handleSubmit={handleSubmit}
-          onSubmitWorkOrders={onSubmitWorkOrders}
-        />
-      );
-    } else {
-      return (
-        <WorkOrdersView
-          data={workOrderDetail}
-          status={optionStatusWorkOrders}
-        />
-      );
+  const renderView = () => {
+    switch (showView) {
+      case 'loading':
+        return <Loader />;
+      case 'workorderform':
+        return (
+          <WorkOrdersForm
+            register={register}
+            handleSubmit={handleSubmit}
+            onSubmitWorkOrders={onSubmitWorkOrders}
+          />
+        );
+
+      case 'workorderview':
+        return (
+          <WorkOrdersView
+            data={workOrderDetail}
+            status={optionStatusWorkOrders}
+          />
+        );
+
+      default:
+        return <></>;
     }
   };
 
@@ -86,6 +89,8 @@ const WorkOrderPage: React.FC = () => {
             data={workOrders}
             onClickDetailWorkOrder={() => onClickDetailWorkOrder()}
             loading={loading}
+            onScroll={onScroll}
+            listInnerRef={listInnerRef}
           >
             {renderView(workOrderDetail)}
           </CustomTableView>
