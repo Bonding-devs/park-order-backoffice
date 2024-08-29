@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SelectGroupThree from '../../components/Forms/SelectGroup/SelectGroupThree';
-import SelectOptionTwo from '../../components/Forms/SelectOption/SelectOptionTwo';
-import SelectOptionThree from '../../components/Forms/SelectOption/SelectOptionThree';
 import SelectOptionOne from '../../components/Forms/SelectOption/SelectOptionOne';
+import { CustomDatePicker, CustomSelect } from '../../components';
+import { optionStatusWorkOrders } from './configuration';
 
 const WorkOrdersForm: React.FC = ({
   register,
   handleSubmit,
   onSubmitWorkOrders,
 }) => {
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
   const handleSubmitData = async (data) => {
     onSubmitWorkOrders(data);
   };
@@ -23,8 +17,8 @@ const WorkOrdersForm: React.FC = ({
     <form onSubmit={handleSubmit(handleSubmitData)}>
       <div>
         <div className="sticky flex items-center justify-between border-b border-stroke px-6 py-3 dark:border-strokedark">
-          <div className="flex items-center">
-            <h2 className="font-medium text-black dark:text-white">
+          <div className="flex items-center pb-1">
+            <h2 className="pt-2  text-title-md2 font-medium text-black dark:text-white">
               New Order Work
             </h2>
           </div>
@@ -51,8 +45,9 @@ const WorkOrdersForm: React.FC = ({
               <textarea
                 rows={2}
                 placeholder="Type your message"
+                {...register('description', { required: true })}
                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-              ></textarea>
+              />
             </div>
 
             <div className="mb-5.5 flex flex-col gap-6 xl:flex-row">
@@ -60,10 +55,12 @@ const WorkOrdersForm: React.FC = ({
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                   Status
                 </label>
-                <input
-                  type="email"
-                  placeholder="yourmail@gmail.com"
-                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                <CustomSelect
+                  title={'Status'}
+                  data={optionStatusWorkOrders}
+                  name={'status'}
+                  register={register}
+                  required={false}
                 />
               </div>
 
@@ -84,11 +81,7 @@ const WorkOrdersForm: React.FC = ({
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                   Due Date
                 </label>
-                <input
-                  type="email"
-                  placeholder="yourmail@gmail.com"
-                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
+                <CustomDatePicker />
               </div>
 
               <div className="w-full xl:w-1/2">
@@ -97,13 +90,10 @@ const WorkOrdersForm: React.FC = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="(321) 5555-0115"
                   className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
             </div>
-
-            <SelectOptionOne />
           </div>
         </div>
         <div className="sticky bottom-0 border-t border-stroke bg-white px-6 py-5 dark:border-strokedark dark:bg-boxdark">
