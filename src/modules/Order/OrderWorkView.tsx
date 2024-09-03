@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import CustomRadioOrder from '../../components/CustomRadioOrder/CustomRadioOrder';
+import moment from 'moment';
 
 const WorkOrdersView: React.FC = ({ data, status }: any) => {
   return (
@@ -44,7 +45,9 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
                   Due Date
                 </label>
                 <span className="text-gray-700 mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-                  {data.recurrenceEndDate}
+                  {data.scheduledDate
+                    ? moment(data.scheduledDate).format('DD/MM/YYYY')
+                    : ''}
                 </span>
               </div>
 
