@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import CustomPriority from '../CustomPriority/CustomPriority';
-import CustomState from '../CustomStatus/CustomStatus';
+import CustomStatus from '../CustomStatus/CustomStatus';
 
 const CustomTableCell: React.FC = ({ object, item, onClick }: any) => {
   return (
@@ -26,7 +26,7 @@ const CustomTableCell: React.FC = ({ object, item, onClick }: any) => {
           </h5>
           <p className="text-sm">{object.description}</p>
 
-          <CustomState status={object.status} />
+          <CustomStatus status={object.status} />
         </div>
         <div className="flex-auto text-right">
           <h5 className="text-sm font-medium text-black dark:text-white">
