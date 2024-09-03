@@ -67,11 +67,13 @@ export const createApiRequest = async ({
   method,
   data = null,
   params = null,
+  id = null,
 }: {
   url: string;
   method: HTTP_METHODS;
   data?: any;
   params?: any;
+  id?: string;
 }) => {
   try {
     const config: any = {
@@ -83,6 +85,10 @@ export const createApiRequest = async ({
     }
     if (params !== null) {
       config.params = params;
+    }
+
+    if (id) {
+      config.url = `${url}/${id}`;
     }
 
     const response = await axiosInstance(config);

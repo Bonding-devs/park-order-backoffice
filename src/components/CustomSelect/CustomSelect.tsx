@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CustomSelect: React.FC = ({ title, data, name, register, required }) => {
+const CustomSelect: React.FC = ({ data, name, register, required }: any) => {
   return (
     <div className="mb-4.5">
       <div className="relative z-20 bg-transparent dark:bg-form-input">

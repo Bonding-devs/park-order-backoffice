@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import UserOne from '../../images/user/user-01.png';
-import UserTwo from '../../images/user/user-02.png';
-import UserThree from '../../images/user/user-03.png';
-import UserFour from '../../images/user/user-04.png';
-import UserFive from '../../images/user/user-05.png';
+
 import { Link } from 'react-router-dom';
 import CustomTableCell from '../CustomTableCell/CustomTableCell';
-import Loader from '../../common/Loader';
+import Loader from '../../common/LoaderPage/index.tsx';
+import Loading from '../../common/Loading';
 
 const CustomTableView: React.FC = ({
   children,
@@ -15,6 +12,8 @@ const CustomTableView: React.FC = ({
   loading,
   onScroll,
   listInnerRef,
+  onFilter,
+  loadingScroll,
 }: any) => {
   const [openTab, setOpenTab] = useState(1);
 
@@ -30,27 +29,35 @@ const CustomTableView: React.FC = ({
             <div className="sticky  items-center border-b border-stroke px-6 py-3 dark:border-strokedark">
               <div className="w-3/3">
                 <div className="relative right-0">
-                  <div className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl">
-                    <Link
-                      to="#"
-                      className={`flex-auto border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
+                  <ul className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl">
+                    <li
+                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
                         openTab === 1 ? activeClasses : inactiveClasses
                       }`}
-                      onClick={() => setOpenTab(1)}
+                      onClick={() => {
+                        onFilter({ filter: 'all' });
+                        setOpenTab(1);
+                      }}
                     >
                       All
-                    </Link>
+                    </li>
 
-                    <Link
-                      to="#"
-                      className={`flex-auto border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
+                    <li
+                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${
                         openTab === 2 ? activeClasses : inactiveClasses
                       }`}
-                      onClick={() => setOpenTab(2)}
+                      onClick={() => {
+                        onFilter({
+                          params: { status: 'done' },
+                          filter: 'done',
+                          paginate: { offset: 0, limit: 10 },
+                        });
+                        setOpenTab(2);
+                      }}
                     >
                       Done
-                    </Link>
-                  </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -85,22 +92,24 @@ const CustomTableView: React.FC = ({
                 </button>
               </form>
               <div
-                className="no-scrollbar max-h-full space-y-3.5 overflow-auto"
+                className=" max-h-full  space-y-3.5 overflow-auto"
                 onScroll={onScroll}
                 ref={listInnerRef}
               >
                 {loading ? (
                   <Loader />
-                ) : (
+                ) : !loadingScroll ? (
                   data.map((object, item) => {
                     return (
                       <CustomTableCell
                         object={object}
                         item={item}
-                        onClick={onClickDetailWorkOrder}
+                        onClick={() => onClickDetailWorkOrder(object.id)}
                       />
                     );
                   })
+                ) : (
+                  <Loading></Loading>
                 )}
               </div>
             </div>

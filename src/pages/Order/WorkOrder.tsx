@@ -11,10 +11,8 @@ import {
 } from '../../modules/Order/configuration';
 import { useWorkOrder } from '../../modules/Order/useWorkOrder';
 import { CustomGrid, CustomTableView } from '../../components';
-import TabThree from '../../components/Tabs/TabThree';
-import ProFormLayout from '../Form/ProFormLayout';
 import WorkOrdersView from '../../modules/Order/OrderWorkView';
-import Loader from '../../common/Loader';
+import Loader from '../../common/LoaderPage';
 
 const WorkOrderPage: React.FC = () => {
   const {
@@ -24,6 +22,7 @@ const WorkOrderPage: React.FC = () => {
     reFetchDataWorkOrders,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
+    loadingScroll,
     workOrderDetail,
     onSubmitWorkOrders,
     register,
@@ -31,6 +30,7 @@ const WorkOrderPage: React.FC = () => {
     onScroll,
     listInnerRef,
     showView,
+    onFilterWorkOrder,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -87,10 +87,12 @@ const WorkOrderPage: React.FC = () => {
         <div className="">
           <CustomTableView
             data={workOrders}
-            onClickDetailWorkOrder={() => onClickDetailWorkOrder()}
+            onClickDetailWorkOrder={onClickDetailWorkOrder}
             loading={loading}
             onScroll={onScroll}
             listInnerRef={listInnerRef}
+            onFilter={onFilterWorkOrder}
+            loadingScroll={loadingScroll}
           >
             {renderView(workOrderDetail)}
           </CustomTableView>

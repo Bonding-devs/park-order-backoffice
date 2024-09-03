@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import Loader from './common/Loader';
+import Loader from './common/LoaderPage/index.tsx';
 import { AuthProvider } from './context/AuthContext'; // Importar AuthProvider
 import AppRoutes from './routes/AppRoutes.tsx';
 
@@ -20,9 +20,7 @@ function App() {
     <Loader />
   ) : (
     <AuthProvider>
-
-        <AppRoutes />
-  
+      <AppRoutes />
     </AuthProvider>
   );
 }
