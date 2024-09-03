@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import SelectOptionOne from '../../components/Forms/SelectOption/SelectOptionOne';
 import { CustomDatePicker, CustomSelect } from '../../components';
 import {
   optionPriorityWorkOrders,

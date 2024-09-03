@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CustomPriority from '../CustomPriority/CustomPriority';
 import CustomStatus from '../CustomStatus/CustomStatus';
+import userEmpty from '../../images/user/user-empty.jpg';
 
 const CustomTableCell: React.FC = ({ object, item, onClick }: any) => {
   return (
@@ -12,11 +13,10 @@ const CustomTableCell: React.FC = ({ object, item, onClick }: any) => {
     >
       <div className="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
         <img
-          src={object.imgSrc}
+          src={object.imgSrc || userEmpty}
           alt="profile"
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full rounded-full object-cover object-center"
         />
-        <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"></span>
       </div>
 
       <div className="flex-grid flex  w-full">
