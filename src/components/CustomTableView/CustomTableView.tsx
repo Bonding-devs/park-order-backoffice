@@ -109,7 +109,7 @@ const CustomTableView: React.FC = ({
                     );
                   })
                 ) : (
-                  <Loading></Loading>
+                  <Loading />
                 )}
               </div>
             </div>

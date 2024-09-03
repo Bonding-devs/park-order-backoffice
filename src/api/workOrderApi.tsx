@@ -47,11 +47,11 @@ export const createWorkOrders = async (data): Promise<any> => {
 };
 
 export const getWorkOrderById = async ({ id }): Promise<any> => {
+  const url = `${WORK_ORDER_URL.Base}/${id}`;
   try {
     const response = await createApiRequest({
-      url: WORK_ORDER_URL.Base,
+      url: url,
       method: HTTP_METHODS.GET,
-      id: id,
     });
     return response;
   } catch (error) {
