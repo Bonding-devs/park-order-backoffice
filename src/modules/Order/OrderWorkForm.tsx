@@ -139,6 +139,7 @@ const WorkOrdersForm: React.FC = ({
           <div className="inline-flex justify-end space-x-4">
             <input
               type="submit"
+              value="Create"
               className="flex items-center justify-center rounded bg-primary px-8 py-2.5 text-center font-medium text-gray hover:bg-opacity-90"
             />
           </div>
