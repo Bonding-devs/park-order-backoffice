@@ -67,6 +67,8 @@ import WorkOrderPage from '../pages/Order/WorkOrder';
 
 import ProtectedRoute from './ProtectedRoute';
 import RoleProtectedRoute from './RoleProtectedRoute';
+import { Locations } from '../pages/Locations/Locations';
+import DetailsNavigatorPage from '../pages/Locations/DetailsNavigatorPage';
 
 const AppRoutes = () => (
   <Routes>
@@ -132,6 +134,8 @@ const AppRoutes = () => (
           </>
         }
       />
+      <Route path="/locations" element={<Locations />} />
+      <Route path="/locations/details/:id" element={<DetailsNavigatorPage />} />
       <Route element={<RoleProtectedRoute allowedRoles={['admin', 'owner']} />}>
         <Route
           path="/dashboard/marketing"
