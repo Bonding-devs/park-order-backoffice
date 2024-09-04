@@ -24,11 +24,11 @@ export const createWorkOrders = async (data): Promise<any> => {
   const dataform = {
     title,
     description,
-    status,
+    status: status.value,
     locationId: 'aed5004c-2672-4eca-b2a4-8bc0f50bf867',
     categoryId: '0dc85fb7-b048-4760-92c9-ffc2ee37938f',
     issueId: '29ccfebf-2c20-4aa7-bb17-b4e749c3e38a',
-    priority,
+    priority: priority.value,
     recurrence: 'none',
     scheduledDate: new Date(scheduledDate),
   };

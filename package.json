@@ -14,6 +14,7 @@
     "url": "https://tailadmin.com"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.5",
     "@tanstack/react-query": "^5.53.3",
     "apexcharts": "^3.37.0",
     "axios": "^1.7.4",

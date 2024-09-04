@@ -31,6 +31,8 @@ const WorkOrderPage: React.FC = () => {
     listInnerRef,
     showView,
     onFilterWorkOrder,
+    control,
+    errors,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -49,6 +51,8 @@ const WorkOrderPage: React.FC = () => {
             register={register}
             handleSubmit={handleSubmit}
             onSubmitWorkOrders={onSubmitWorkOrders}
+            control={control}
+            errors={errors}
           />
         );
 

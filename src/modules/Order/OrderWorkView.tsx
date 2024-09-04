@@ -16,7 +16,7 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
         </p>
       </div>
       <div className="mt-6 border-t border-stroke dark:border-strokedark">
-        <div className="divide-gray-400 divide-y divide-opacity-75">
+        <div>
           <div className="px-4 py-6  sm:px-0">
             <div>
               <label className="text-gray-900 text-sm font-medium leading-6">
@@ -56,7 +56,7 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
                   Work Order ID:
                 </label>
                 <span className="text-gray-700 mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-                  {data.recurrenceEndDate}
+                  {data.recurrenceEndDate || ''}
                 </span>
               </div>
             </div>
@@ -66,7 +66,9 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
               Assign to [users/teams]
             </label>
             <div className="text-gray-700 mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-              {data.assignedTeam?.id} - {data.assignedUser?.id}
+              {`${data.assignedUser?.firstName || ''} ${
+                data.assignedUser?.lastName || ''
+              }`}
             </div>
           </div>
 
@@ -74,16 +76,16 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
             <label className="text-gray-900 text-sm font-medium leading-6">
               Issues
             </label>
-            <span className="text-gray-700 mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-              {data.issues?.id}
-            </span>
+            <div className="text-gray-700 mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+              {data.issue?.name || ''}
+            </div>
           </div>
           <div className="px-4 py-6  sm:px-0">
             <label className="text-gray-900 block text-sm font-medium leading-6">
               Location
             </label>
             <div className="text-gray-900 mt-2 text-sm sm:col-span-2 sm:mt-0">
-              {data.location?.id}
+              {data.location?.name || ''}
             </div>
           </div>
 
@@ -92,7 +94,7 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
               Category
             </label>
             <div className="text-gray-900 mt-2 text-sm sm:col-span-2 sm:mt-0">
-              {data.category?.id}
+              {data.category?.name || ''}
             </div>
           </div>
         </div>
