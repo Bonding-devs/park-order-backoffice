@@ -8,10 +8,10 @@ const CustomTableCell: React.FC = ({ object, item, onClick }: any) => {
   return (
     <div
       key={item}
-      className="flex cursor-pointer items-center rounded px-4 py-2 hover:bg-gray-2 dark:hover:bg-strokedark"
+      className="flex cursor-pointer  rounded px-4 py-2 hover:bg-gray-2 dark:hover:bg-strokedark "
       onClick={() => onClick()}
     >
-      <div className="relative mr-3.5 h-11 w-full max-w-11 content-start rounded-full">
+      <div className="relative mr-3.5 mt-1 h-11 w-full max-w-11 content-start  rounded-full">
         <img
           src={object.imgSrc || userEmpty}
           alt="profile"
