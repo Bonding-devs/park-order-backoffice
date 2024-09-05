@@ -22,6 +22,7 @@ export const useWorkOrder = () => {
   const limit = 10;
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
@@ -188,5 +189,7 @@ export const useWorkOrder = () => {
     listInnerRef,
     showView,
     onFilterWorkOrder: onLoadPaginateData,
+    control,
+    errors,
   };
 };

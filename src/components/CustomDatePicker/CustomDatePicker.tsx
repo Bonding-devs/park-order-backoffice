@@ -1,4 +1,5 @@
 import flatpickr from 'flatpickr';
+import moment from 'moment';
 import { useEffect } from 'react';
 
 const CustomDatePicker = ({ name, register }) => {
@@ -7,8 +8,9 @@ const CustomDatePicker = ({ name, register }) => {
     flatpickr('.form-datepicker', {
       mode: 'single',
       static: true,
+      minDate: moment().add(1, 'days').format('YYYY/MM/DD'),
       monthSelectorType: 'static',
-      dateFormat: 'Y-m-d H:i',
+      dateFormat: 'Y-m-d',
       prevArrow:
         '<svg className="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
       nextArrow:
@@ -19,7 +21,7 @@ const CustomDatePicker = ({ name, register }) => {
   return (
     <div className="relative">
       <input
-        {...register(name, { required: true })}
+        {...register(name, { required: 'Please Enter a Date' })}
         className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
         placeholder="mm/dd/yyyy"
         data-class="flatpickr-right"
