@@ -88,7 +88,6 @@ const RightSide: React.FC<RightSideParams> = ({ location, selectedItem }) => {
           address={location.address}
           description={location.description}
           photo={location.photo.path}
-          createdAt={location.createdAt}
         />
       ) : null;
     case RightSideOptions.CREATE:

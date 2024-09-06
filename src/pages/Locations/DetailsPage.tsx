@@ -1,12 +1,13 @@
 import React from 'react';
 import { CiLocationOn, CiCalendarDate } from 'react-icons/ci';
+import { PrincipalButton } from '../../components/CustomButons/PrincipalButton';
+import { TitleText } from '../../components/Text/TitleText';
 
 interface DetailsPageProps {
   name: string;
   address: string;
   description: string;
   photo: string;
-  createdAt: string;
 }
 
 const DetailsPage: React.FC<DetailsPageProps> = ({
@@ -14,31 +15,32 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
   address,
   description,
   photo,
-  createdAt,
 }) => {
   return (
-    <div className="dark:bg-gray-800 rounded-md bg-white p-6 shadow-md m-5">
-      <h1 className="mb-4 text-2xl font-bold">{name}</h1>
-
-      <div className="mb-4">
-        <img
-            src={photo?? "https://www.casasnuevasaqui.com/guia/wp-content/uploads/2020/02/modern-spanish-style-house-1.jpg.webp"}
-          alt={`${name} photo`}
-          className="mb-2 h-48 w-full rounded-md object-cover"
-        />
-        <p className="text-gray-600 dark:text-gray-400">{description}</p>
+    <div className="dark:bg-gray-800 bg-white py-7.5">
+      <div className="mb-6 px-6 ">
+        <TitleText>{name}</TitleText>
       </div>
+      <div className="custom-border border-t" />
+      <div className="px-4 py-6">
+        <div className="custom-border mb-4 border-t">
+          <img
+            src={photo}
+            alt={`${name} photo`}
+            className="mb-6 h-100 w-full rounded-md object-cover"
+          />
+          <p className="text-gray-600 dark:text-gray-400">{description}</p>
+        </div>
 
-      <div className="mb-4 flex items-center ">
-      <CiLocationOn size={22} className="mr-2" />
-        <p className="text-gray-600 dark:text-gray-400">{address}</p>
-      </div>
+        <div className="mb-8 flex items-center ">
+          <CiLocationOn size={22} className="mr-2" />
+          <p className="text-gray-600 dark:text-gray-400">{address}</p>
+        </div>
 
-      <div className="mb-4 mr-4 flex items-center">
-      <CiCalendarDate size={22} className="mr-2" />
-        <p className="text-gray-600 dark:text-gray-400">
-          {new Date(createdAt).toLocaleDateString()}
-        </p>
+        <div className="flex justify-around">
+          <PrincipalButton bgColor="bg-green-700">Edit</PrincipalButton>
+          <PrincipalButton bgColor="bg-red">Delete</PrincipalButton>
+        </div>
       </div>
     </div>
   );

@@ -3,15 +3,14 @@ import { CustomInput } from '../../components/CustomInput/CustomInput';
 import { CustomTextarea } from '../../components/CustomInput/CustomTextarea';
 import { CustomLabel } from '../../components/CustomLabel/CustomLabel';
 import { UploadImage } from './UploadImage';
-import { CustomOutlineSelect } from '../../components/CustomInput/CustomOutlineSelect';
-import { useForm, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { PrincipalButton } from '../../components/CustomButons/PrincipalButton';
 import { ImageDetails } from '../../models/image-details';
 import { SelectTeam } from './SelectTeam';
 import { CreateLocation } from '../../models/location-model';
 import { usePostLocations } from '../../modules/Locations/usePostLocation';
 import { toast, ToastContainer } from 'react-toastify';
-import { useLocations } from '../../context/LocationContext';
+import { TitleText } from '../../components/Text/TitleText';
 
 export const LocationForm: React.FC = () => {
   const {
@@ -21,8 +20,7 @@ export const LocationForm: React.FC = () => {
     formState: { errors },
   } = useFormContext();
   const [uploadedFile, setUploadedFile] = useState<ImageDetails | null>(null);
-  const { postLocation, isLoading, error,setCreateError } = usePostLocations();
-  
+  const { postLocation, isLoading, error, setCreateError } = usePostLocations();
 
   const onSubmit = (data) => {
     if (!uploadedFile) {
@@ -51,11 +49,12 @@ export const LocationForm: React.FC = () => {
 
   return (
     <>
-      
-      <div className="border-b border-stroke px-6 py-3 dark:border-strokedark">
-        <h2 className="pt-2  text-title-md2 font-medium text-black dark:text-white">
+      <div className="py-7.5 border-b custom-border">
+        <div className='px-6'>
+          <TitleText>
           New Location
-        </h2>
+          </TitleText>
+        </div>
       </div>
       <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -108,12 +107,13 @@ export const LocationForm: React.FC = () => {
               <SelectTeam />
             </div>
           </div>
-          <div className="pt-6">
+         
+        </div>
+        <div className="pt-6 flex px-6 border-t custom-border">
             <PrincipalButton type="submit" disabled={isLoading}>
               {!isLoading ? 'Create' : 'Create...'}
             </PrincipalButton>
           </div>
-        </div>
       </form>
     </>
   );
