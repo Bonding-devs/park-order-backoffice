@@ -7,7 +7,7 @@ import { createApiRequest } from '../services/axios';
 export const fetchWorkOrders = async (params): Promise<any> => {
   try {
     const response = await createApiRequest({
-      url: WORK_ORDER_URL.Base,
+      url: WORK_ORDER_URL.BASE,
       method: HTTP_METHODS.GET,
       params: params,
     });
@@ -35,7 +35,7 @@ export const createWorkOrders = async (data): Promise<any> => {
 
   try {
     const response = await createApiRequest({
-      url: WORK_ORDER_URL.Base,
+      url: WORK_ORDER_URL.BASE,
       method: HTTP_METHODS.POST,
       data: dataform,
     });
@@ -47,7 +47,7 @@ export const createWorkOrders = async (data): Promise<any> => {
 };
 
 export const getWorkOrderById = async ({ id }): Promise<any> => {
-  const url = `${WORK_ORDER_URL.Base}/${id}`;
+  const url = `${WORK_ORDER_URL.BASE}/${id}`;
   try {
     const response = await createApiRequest({
       url: url,
@@ -56,6 +56,22 @@ export const getWorkOrderById = async ({ id }): Promise<any> => {
     return response;
   } catch (error) {
     console.error('Error fetch Work Orders methods:', error);
+    throw error;
+  }
+};
+
+export const updateWorkOrder = async ({ id, data }): Promise<any> => {
+  const url = `${WORK_ORDER_URL.BASE}/${id}`;
+
+  try {
+    const response = await createApiRequest({
+      url: url,
+      method: HTTP_METHODS.PUT,
+      data: data,
+    });
+    return response;
+  } catch (error) {
+    console.error('Error Update Work Orders methods:', error);
     throw error;
   }
 };

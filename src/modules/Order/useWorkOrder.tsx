@@ -3,6 +3,7 @@ import {
   createWorkOrders,
   fetchWorkOrders,
   getWorkOrderById,
+  updateWorkOrder,
 } from '../../api/workOrderApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -70,7 +71,8 @@ export const useWorkOrder = () => {
       params: {},
       scroll: true,
       filter: 'all',
-      paginate: { offset, limit },
+      paginate: { offset: 0, limit },
+      refetch: true,
     });
   };
 
@@ -117,6 +119,7 @@ export const useWorkOrder = () => {
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      console.log(Math.round(scrollTop + clientHeight) === scrollHeight);
       if (Math.round(scrollTop + clientHeight) === scrollHeight) {
         setOffSet(currPage * limit);
       }
@@ -134,6 +137,7 @@ export const useWorkOrder = () => {
     scroll = false,
     filter = 'all',
     paginate,
+    refetch = false,
   }) => {
     if (!scroll) setLoading(true);
     try {
@@ -161,7 +165,9 @@ export const useWorkOrder = () => {
         const counterResponse = workOrdersResponse.length < limit ? 0 : 1;
         setPrevPage(currPage);
         setCurrPage(currPage + counterResponse);
-        setWorkOrders(mergeUniqueElementsById(workOrders, workOrdersResponse));
+        setWorkOrders(
+          mergeUniqueElementsById(workOrders, workOrdersResponse, refetch)
+        );
       }
 
       setError(null);
@@ -169,6 +175,20 @@ export const useWorkOrder = () => {
       setError('Failed to fetch work orders');
     } finally {
       if (!scroll) setLoading(false);
+    }
+  };
+
+  const editWorkOrder = async ({ id, data }) => {
+    try {
+      const workOrdersResponseEdited = await updateWorkOrder({
+        id,
+        data,
+      });
+      setError(null);
+      setWorOrderDetail(workOrdersResponseEdited);
+      toast.success('Work Order Successfully Edited');
+    } catch (err) {
+      setError('Failed to fetch work orders');
     }
   };
 
@@ -191,5 +211,6 @@ export const useWorkOrder = () => {
     onFilterWorkOrder: onLoadPaginateData,
     control,
     errors,
+    editWorkOrder,
   };
 };

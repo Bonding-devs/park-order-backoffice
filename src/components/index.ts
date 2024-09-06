@@ -5,6 +5,7 @@ import CustomPriority from './CustomPriority/CustomPriority';
 import CustomStatus from './CustomStatus/CustomStatus';
 import CustomSelect from './CustomSelect/CustomSelect';
 import CustomDatePicker from './CustomDatePicker/CustomDatePicker';
+import CustomMultiSelect from './CustomMultiSelect/CustomMultiSelect';
 
 export {
   CustomGrid,
@@ -14,4 +15,5 @@ export {
   CustomStatus,
   CustomSelect,
   CustomDatePicker,
+  CustomMultiSelect,
 };

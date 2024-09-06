@@ -14,13 +14,9 @@ const WorkOrdersForm: React.FC = ({
   control,
   errors,
 }) => {
-  const handleSubmitData = async (data) => {
-    onSubmitWorkOrders(data);
-  };
-
   return (
     <form
-      onSubmit={handleSubmit(handleSubmitData)}
+      onSubmit={handleSubmit(onSubmitWorkOrders)}
       className="no-scrollbar max-h-full space-y-3.5 overflow-auto "
     >
       <div className="sticky flex items-center justify-between border-b border-stroke px-6 py-3 dark:border-strokedark">
