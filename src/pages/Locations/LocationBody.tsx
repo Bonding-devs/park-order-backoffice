@@ -33,10 +33,10 @@ export const LocationBody: React.FC = ({}) => {
   };
   return (
     <>
-      <div className="rounded-sm border border-stroke shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="flex h-[calc(100vh-186px)] overflow-hidden  rounded-sm sm:h-[calc(100vh-174px)]">
+      <div className="rounded-sm border shadow-default custom-border">
+        <div className="flex h-[calc(100vh-186px)] overflow-hidden  rounded-sm sm:h-[calc(100vh-174px)] ">
           {/* left */}
-          <div className="h-full border-stroke bg-white xsm:w-full xl:w-2/4 ">
+          <div className="h-full border-stroke bg-white xsm:w-full xl:w-2/4 overflow-scroll">
             {
               <div className="flex flex-col">
                 <div className="m-3">
@@ -60,7 +60,7 @@ export const LocationBody: React.FC = ({}) => {
             }
           </div>
           {/* Right */}
-          <div className="hidden h-full flex-col border-l border-stroke bg-white dark:border-strokedark xl:flex xl:w-3/4 ">
+          <div className="hidden h-full flex-col border-l custom-border xl:flex xl:w-3/4 overflow-scroll ">
             <RightSide
               selectedItem
               location={items[selectedItem] ? items[selectedItem] : null}
@@ -84,6 +84,7 @@ const RightSide: React.FC<RightSideParams> = ({ location, selectedItem }) => {
     case RightSideOptions.VIEW:
       return selectedItem !== null && location != null ? (
         <DetailsPage
+          id={location.id}
           name={location.name}
           address={location.address}
           description={location.description}
