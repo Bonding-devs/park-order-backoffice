@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { fetchLocations } from '../../api/locationsApi';
 import { LocationModel } from '../../models/location-model';
+import { RightSideOptions, useLocations } from '../../context/LocationContext';
 
 const limit = 10;
 
@@ -12,7 +13,24 @@ export const useGetLocations = () => {
   const lastItemRef = useRef<HTMLDivElement | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
+  const { load, setLoad,setMode } = useLocations();
 
+  useEffect(() => {
+    if (load) {
+      setLoad(false);
+      setMode(RightSideOptions.VIEW);
+      defaultValues();
+      loadMoreItems();
+    }
+  }, [load]);
+
+  const defaultValues = () => {
+    offset = 0;
+    setIsLast(() => false);
+    setItems(() => []);
+    setError(() => null);
+    setSelectedItem(null);
+  };
   const loadMoreItems = async (): Promise<void> => {
     if (isLast || loading) return;
 

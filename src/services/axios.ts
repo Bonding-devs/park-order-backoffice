@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios, { AxiosProgressEvent, CancelToken } from 'axios';
 import { HTTP_METHODS, STORAGE_KEYS } from '../globals';
 import { AUTH_URL } from '../constant';
 
@@ -67,22 +67,35 @@ export const createApiRequest = async ({
   method,
   data = null,
   params = null,
+  onUploadProgress,
+  headers,
+  cancelToken,
 }: {
   url: string;
   method: HTTP_METHODS;
   data?: any;
   params?: any;
+  onUploadProgress?: (progressEvent: AxiosProgressEvent) => void;
+  headers?: any;
+  cancelToken?: CancelToken;
 }) => {
   try {
     const config: any = {
       url,
       method,
+      headers,
+      cancelToken,
     };
+
     if (data !== null) {
       config.data = data;
     }
     if (params !== null) {
       config.params = params;
+    }
+
+    if(onUploadProgress){
+      config.onUploadProgress = onUploadProgress;
     }
 
     const response = await axiosInstance(config);

@@ -22,3 +22,12 @@ export interface LocationModel {
   teamInCharge: TeamInCharge;
   createdAt: string;
 }
+
+
+export interface CreateLocation {
+  name: string;
+  address: string;
+  description: string;
+  photoId: string;
+  teamInChargeId: string;
+}

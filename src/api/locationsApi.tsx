@@ -1,4 +1,5 @@
 import { HTTP_METHODS } from "../globals";
+import { CreateLocation } from "../models/location-model";
 import { createApiRequest } from "../services/axios";
 
 interface LocationsParams {
@@ -21,4 +22,19 @@ export const fetchLocations = async (params?: LocationsParams): Promise<any> => 
       throw error;
     }
   };
-  
+
+  export const createLocation = async (data: CreateLocation): Promise<any> => {
+    const url = '/api/v1/locations';
+    try {
+      const response = await createApiRequest({
+        url: url,
+        method: HTTP_METHODS.POST,
+        data,
+      });
+      return response;
+    } catch (error) {
+      console.error('Error Creating Location:', error);
+      throw 'Error Creating Location';
+    }
+  };
+

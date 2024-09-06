@@ -17,7 +17,7 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
   createdAt,
 }) => {
   return (
-    <div className="dark:bg-gray-800 rounded-md bg-white p-6 shadow-md">
+    <div className="dark:bg-gray-800 rounded-md bg-white p-6 shadow-md m-5">
       <h1 className="mb-4 text-2xl font-bold">{name}</h1>
 
       <div className="mb-4">
