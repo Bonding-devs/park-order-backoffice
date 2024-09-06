@@ -19,7 +19,7 @@ export const LocationItem: React.FC<LocationItemParams> = (props) => {
       <div className="relative mr-3.5 h-14 w-full max-w-14 rounded-full">
         <img
           src={
-            props.location.photo.path ??
+            props.location.photo?.path ??
             'https://www.casasnuevasaqui.com/guia/wp-content/uploads/2020/02/modern-spanish-style-house-1.jpg.webp'
           }
           alt="profile"

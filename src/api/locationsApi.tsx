@@ -39,6 +39,21 @@ export const createLocation = async (data: CreateLocation): Promise<any> => {
   }
 };
 
+export const putLocation = async (locationId:string ,data: CreateLocation): Promise<any> => {
+  const url = `/api/v1/locations/${locationId}`;
+  try {
+    const response = await createApiRequest({
+      url: url,
+      method: HTTP_METHODS.PUT,
+      data,
+    });
+    return response;
+  } catch (error) {
+    console.error('Error Updating Location:', error);
+    throw 'Error Updating Location';
+  }
+};
+
 export const fetchQrCode = async (locationId: string): Promise<string> => {
   const url = `/api/v1/locations/${locationId}/qrcode`;
   try {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { uploadImage } from '../../api/imagesApi';
+import { uploadImage } from '../../../api/imagesApi';
 import { IoClose } from 'react-icons/io5';
-import { TextError } from '../../components/Text/TextError';
-import { ImageDetails } from '../../models/image-details';
+import { TextError } from '../../../components/Text/TextError';
+import { ImageDetails } from '../../../models/image-details';
 import axios, { Axios, CancelTokenSource } from 'axios';
 
 interface UploadImageProps {
@@ -68,7 +68,7 @@ export const UploadImage: React.FC<UploadImageProps> = ({
     setFilePreview(null);
     setUploadedFile(null);
     setUploadProgress(0);
-    reset();
+    // reset();
   };
 
   const handleCancel = () => {
@@ -107,7 +107,7 @@ export const UploadImage: React.FC<UploadImageProps> = ({
       ) : (
         <div className="flex items-center space-x-4">
           <img
-            src={filePreview}
+            src={filePreview ?? uploadedFile.path}
             alt="Preview"
             className="h-12 w-12 rounded-md object-cover"
           />

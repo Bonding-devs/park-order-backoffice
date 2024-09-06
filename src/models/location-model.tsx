@@ -9,6 +9,7 @@ export interface Organization {
 
 export interface TeamInCharge {
   id: string;
+  name: string;
 }
 
 export interface LocationModel {

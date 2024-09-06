@@ -5,6 +5,10 @@ export enum RightSideOptions {
   UPDATE,
   CREATE,
 }
+
+export const isCreateOption = (option: RightSideOptions) => {
+  return option === RightSideOptions.CREATE;
+}
 interface LocationContextType {
   load: boolean;
   setLoad: (option: boolean) => void;

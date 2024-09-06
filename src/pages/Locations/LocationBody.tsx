@@ -3,12 +3,11 @@ import { useGetLocations } from '../../modules/Locations/useLocations';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '../../common/Loader';
-import DetailsPage from './DetailsPage';
+import DetailsPage from './View/DetailsPage';
 import { LocationItem } from './LocationItem';
 import { RightSideOptions, useLocations } from '../../context/LocationContext';
 import { LocationModel } from '../../models/location-model';
-import { LocationForm } from './LocationForm';
-import { FormProvider, useForm } from 'react-hook-form';
+import { LocationFormProvider } from './Form/LocationFormProvider';
 
 export const LocationBody: React.FC = ({}) => {
   const navigate = useNavigate();
@@ -33,10 +32,10 @@ export const LocationBody: React.FC = ({}) => {
   };
   return (
     <>
-      <div className="rounded-sm border shadow-default custom-border">
+      <div className="custom-border rounded-sm border shadow-default">
         <div className="flex h-[calc(100vh-186px)] overflow-hidden  rounded-sm sm:h-[calc(100vh-174px)] ">
           {/* left */}
-          <div className="h-full border-stroke bg-white xsm:w-full xl:w-2/4 overflow-scroll">
+          <div className="h-full overflow-scroll border-stroke bg-white xsm:w-full xl:w-2/4">
             {
               <div className="flex flex-col">
                 <div className="m-3">
@@ -60,7 +59,7 @@ export const LocationBody: React.FC = ({}) => {
             }
           </div>
           {/* Right */}
-          <div className="hidden h-full flex-col border-l custom-border xl:flex xl:w-3/4 overflow-scroll ">
+          <div className="custom-border hidden h-full flex-col overflow-scroll border-l bg-white xl:flex xl:w-3/4">
             <RightSide
               selectedItem
               location={items[selectedItem] ? items[selectedItem] : null}
@@ -79,7 +78,7 @@ interface RightSideParams {
 
 const RightSide: React.FC<RightSideParams> = ({ location, selectedItem }) => {
   const { mode } = useLocations();
-  const methods = useForm();
+
   switch (mode) {
     case RightSideOptions.VIEW:
       return selectedItem !== null && location != null ? (
@@ -89,13 +88,18 @@ const RightSide: React.FC<RightSideParams> = ({ location, selectedItem }) => {
           address={location.address}
           description={location.description}
           photo={location.photo.path}
+          team={location.teamInCharge?.name}
         />
       ) : null;
     case RightSideOptions.CREATE:
+      return <LocationFormProvider option={mode}/>;
+
+    case RightSideOptions.UPDATE:
       return (
-        <FormProvider {...methods}>
-          <LocationForm />
-        </FormProvider>
+        <LocationFormProvider
+          option={mode}
+          location={location}
+        />
       );
     default:
       break;

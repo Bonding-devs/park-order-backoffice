@@ -1,24 +1,40 @@
 import { useFormContext } from 'react-hook-form';
-import { CustomOutlineSelect } from '../../components/CustomInput/CustomOutlineSelect';
+import { CustomOutlineSelect } from '../../../components/CustomInput/CustomOutlineSelect';
 import { useEffect, useState } from 'react';
-import { TeamWithoutUsers } from '../../models/team';
-import { fetchAllTeams } from '../../api/teamsApi';
+import { TeamWithoutUsers } from '../../../models/team';
+import { fetchAllTeams } from '../../../api/teamsApi';
 import { toast } from 'react-toastify';
 
-export const SelectTeam: React.FC = () => {
+interface SelectTeamProps {
+  value?: string;
+}
+
+export const SelectTeam: React.FC<SelectTeamProps> = ({ value }) => {
   const [teams, setTeams] = useState<TeamWithoutUsers[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const {
     register,
     formState: { errors },
+    setValue,
+    getValues
   } = useFormContext();
 
   const fetchTeams = async () => {
+    setIsLoading(true);
     try {
+      console.log(getValues('teamInChargeId'))
       const response = await fetchAllTeams();
       setTeams(response);
+
+      if (value) {
+        // setValue('teamInChargeId', value);
+      }
+      setIsLoading(true);
     } catch (error) {
-        setError(error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -33,11 +49,9 @@ export const SelectTeam: React.FC = () => {
     }
   }, [error]);
 
-
-
   const handleClick = async () => {
-    if(error && teams.length < 1){
-        await fetchTeams();
+    if (error && teams.length < 1) {
+      await fetchTeams();
     }
   };
 
@@ -50,11 +64,12 @@ export const SelectTeam: React.FC = () => {
       })}
       error={errors.teamInChargeId?.message.toString()}
     >
-      <option value=""  defaultChecked disabled>
+      <option value="" defaultChecked disabled>
         Select an option
       </option>
-      {teams.map(team => (
-          <option key={team.id} value={team.id}>
+      {!isLoading &&
+        teams.map((team) => (
+          <option key={team.id} value={team.id} selected={team.id === value}>
             {team.name}
           </option>
         ))}

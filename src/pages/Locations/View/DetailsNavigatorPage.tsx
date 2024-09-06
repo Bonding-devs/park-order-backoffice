@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import DetailsPage from './DetailsPage';
 import { ToastContainer } from 'react-toastify';
-import DefaultLayout from '../../layout/DefaultLayout';
+import DefaultLayout from '../../../layout/DefaultLayout';
 
 const DetailsNavigatorPage: React.FC = () => {
   const location = useLocation();
@@ -20,7 +20,8 @@ const DetailsNavigatorPage: React.FC = () => {
           address={selectedItem.address}
           description={selectedItem.description}
           photo={selectedItem.photo}
-          createdAt={selectedItem.createdAt}
+          id={selectedItem.id}
+          team={selectedItem.team}
         />
       </DefaultLayout>
     </div>

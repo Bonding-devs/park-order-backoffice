@@ -18,9 +18,9 @@ export const useGetLocations = () => {
   useEffect(() => {
     if (load) {
       setLoad(false);
-      setMode(RightSideOptions.VIEW);
       defaultValues();
-      loadMoreItems();
+      setMode(RightSideOptions.VIEW);
+      loadMoreItems(true);
     }
   }, [load]);
 
@@ -31,7 +31,7 @@ export const useGetLocations = () => {
     setError(() => null);
     setSelectedItem(null);
   };
-  const loadMoreItems = async (): Promise<void> => {
+  const loadMoreItems = async (start = false): Promise<void> => {
     if (isLast || loading) return;
 
     try {
@@ -40,14 +40,15 @@ export const useGetLocations = () => {
         offset,
         limit,
       })) as LocationModel[];
+      console.log(`offset ${offset}`)
+      console.log(newItems)
       offset = offset + 1;
       if (!newItems.length) {
         setIsLast(true);
         return;
       }
-
-      setItems((prevItems) => [...prevItems, ...newItems]);
-      if (selectedItem === null) {
+      setItems((prevItems) => [...prevItems, ...newItems]);      
+      if (selectedItem === null || start) {
         setSelectedItem(0);
       }
     } catch (error) {

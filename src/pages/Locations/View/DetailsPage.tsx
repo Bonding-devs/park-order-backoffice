@@ -1,8 +1,10 @@
 import React from 'react';
 import { CiLocationOn, CiCalendarDate } from 'react-icons/ci';
-import { PrincipalButton } from '../../components/CustomButons/PrincipalButton';
-import { TitleText } from '../../components/Text/TitleText';
-import { LocationQrCode } from './View/LocationQrCode';
+import { PrincipalButton } from '../../../components/CustomButons/PrincipalButton';
+import { TitleText } from '../../../components/Text/TitleText';
+import { LocationQrCode } from './LocationQrCode';
+import { RightSideOptions, useLocations } from '../../../context/LocationContext';
+import { FaUsers } from 'react-icons/fa';
 
 interface DetailsPageProps {
   id: string;
@@ -10,6 +12,7 @@ interface DetailsPageProps {
   address: string;
   description: string;
   photo: string;
+  team: string;
 }
 
 const DetailsPage: React.FC<DetailsPageProps> = ({
@@ -18,7 +21,14 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
   address,
   description,
   photo,
+  team,
 }) => {
+  const { setMode } = useLocations();
+
+  const handleEdit = () => {
+    setMode(RightSideOptions.UPDATE);
+  };
+
   return (
     <div className="dark:bg-gray-800 bg-white py-7.5">
       <div className="mb-6 px-6 ">
@@ -40,6 +50,14 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
               {address}
             </p>
           </div>
+          <div className="flex flex-1 items-center">
+            <div>
+              <FaUsers size={22} className="mr-2" />
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 break-all">
+              {team}
+            </p>
+          </div>
         </div>
 
         <div className="mb-8 flex justify-between">
@@ -51,7 +69,9 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
           </div>
         </div>
         <div className="flex justify-around">
-          <PrincipalButton bgColor="bg-green-700">Edit</PrincipalButton>
+          <PrincipalButton bgColor="bg-green-700" onClick={handleEdit}>
+            Edit
+          </PrincipalButton>
           <PrincipalButton bgColor="bg-red">Delete</PrincipalButton>
         </div>
       </div>

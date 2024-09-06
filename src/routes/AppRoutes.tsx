@@ -68,7 +68,7 @@ import WorkOrderPage from '../pages/Order/WorkOrder';
 import ProtectedRoute from './ProtectedRoute';
 import RoleProtectedRoute from './RoleProtectedRoute';
 import { Locations } from '../pages/Locations/Locations';
-import DetailsNavigatorPage from '../pages/Locations/DetailsNavigatorPage';
+import DetailsNavigatorPage from '../pages/Locations/View/DetailsNavigatorPage';
 
 const AppRoutes = () => (
   <Routes>
