@@ -46,7 +46,7 @@ export const LocationQrCode: React.FC<LocationQrCodeProps> = ({ id }) => {
   return (
     <>
       {isLoading ? (
-        <div className="flex h-25 w-25 items-center justify-center rounded-lg bg-gray">
+        <div className="flex h-37.5 w-37.5 items-center justify-center rounded-lg bg-gray">
           <p className="text-gray-600 ">Loading...</p>
         </div>
       ) : qrCode ? (

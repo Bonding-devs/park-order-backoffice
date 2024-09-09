@@ -1,6 +1,6 @@
 import { LocationModel } from '../../models/location-model';
 import { CiLocationOn } from 'react-icons/ci';
-
+import userEmpty from '../../images/user/user-empty.jpg';
 interface LocationItemParams {
   location: LocationModel;
   handleClick?: React.MouseEventHandler<HTMLDivElement>;
@@ -19,8 +19,7 @@ export const LocationItem: React.FC<LocationItemParams> = (props) => {
       <div className="relative mr-3.5 h-14 w-full max-w-14 rounded-full">
         <img
           src={
-            props.location.photo?.path ??
-            'https://www.casasnuevasaqui.com/guia/wp-content/uploads/2020/02/modern-spanish-style-house-1.jpg.webp'
+            props.location.photo?.path || userEmpty
           }
           alt="profile"
           className="h-full w-full rounded-full object-cover object-center"
@@ -34,7 +33,6 @@ export const LocationItem: React.FC<LocationItemParams> = (props) => {
             {props.location.name}
           </h5>
           <div className="flex items-center ">
-            <CiLocationOn size={22} className="mr-2" />
 
             <p className="text-sm">{props.location.address}</p>
           </div>

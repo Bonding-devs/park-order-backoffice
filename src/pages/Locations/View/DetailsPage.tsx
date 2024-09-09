@@ -1,13 +1,12 @@
 import React from 'react';
-import { CiLocationOn, CiCalendarDate } from 'react-icons/ci';
-import { PrincipalButton } from '../../../components/CustomButons/PrincipalButton';
 import { TitleText } from '../../../components/Text/TitleText';
 import { LocationQrCode } from './LocationQrCode';
 import {
   RightSideOptions,
   useLocations,
 } from '../../../context/LocationContext';
-import { FaUsers } from 'react-icons/fa';
+import { LabelValueText } from '../../../components/Text/labelValueText';
+import { EditButton } from '../../../components/CustomButtons/EditButton';
 
 interface DetailsPageProps {
   id: string;
@@ -33,50 +32,43 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
   };
 
   return (
-    <div className="dark:bg-gray-800 bg-white py-7.5">
-      <div className="mb-6 px-6 ">
-        <TitleText>{name}</TitleText>
+    <div className="dark:bg-gray-800 bg-white px-6 py-7.5">
+      <div className="mb-6 ">
+        <div className="flex justify-between">
+          <TitleText>{name}</TitleText>
+          <EditButton onHandleClick={handleEdit} />
+        </div>
+        <p className="text-gray-500 mt-3 max-w-2xl text-sm leading-6 ">
+          {description}
+        </p>
       </div>
+
       <div className="custom-border border-t" />
-      <div className="px-4 py-6">
+      <div className=" py-6">
         <div className="custom-border mb-4 border-t">
           <img
             src={photo}
             alt={`${name} photo`}
             className="mb-6 h-100 w-full rounded-md object-cover"
           />
-          <div className="flex space-x-4">
-            <div className="flex-1">
-              <div className="flex flex-1 items-center">
-                <div>
-                  <CiLocationOn size={22} className="mr-2" />
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 break-all">
-                  {address}
-                </p>
-              </div>
-              <div className="flex flex-1 items-center">
-                <div>
-                  <FaUsers size={22} className="mr-2" />
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 break-all">
-                  {team}
-                </p>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400">{description}</p>
-            </div>
-            <div className="flex-1" >
-              <LocationQrCode id={id} />
-            </div>
+          <div className="mb-6 flex space-x-4">
+            <LabelValueText label="Address" value={address} />
+            <LabelValueText label="Team" value={team} />
           </div>
         </div>
-        <div className="flex justify-around">
+        <div className="flex flex-col justify-center">
+          <label className="text-gray-900 block text-sm font-medium leading-6 ">
+            QR Code
+          </label>
+          <LocationQrCode id={id} />
+        </div>
+      </div>
+      {/* <div className="flex justify-around">
           <PrincipalButton bgColor="bg-green-700" onClick={handleEdit}>
             Edit
           </PrincipalButton>
           <PrincipalButton bgColor="bg-red">Delete</PrincipalButton>
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 };

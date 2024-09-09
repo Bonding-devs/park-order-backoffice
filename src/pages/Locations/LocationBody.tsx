@@ -2,12 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { useGetLocations } from '../../modules/Locations/useLocations';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import Loader from '../../common/Loader';
+
 import DetailsPage from './View/DetailsPage';
 import { LocationItem } from './LocationItem';
 import { RightSideOptions, useLocations } from '../../context/LocationContext';
 import { LocationModel } from '../../models/location-model';
 import { LocationFormProvider } from './Form/LocationFormProvider';
+import LoaderPage from '../../common/LoaderPage';
 
 export const LocationBody: React.FC = ({}) => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export const LocationBody: React.FC = ({}) => {
                     );
                   })}
                   <div ref={lastItemRef} />
-                  {loading ? <Loader></Loader> : null}
+                  {loading ? <LoaderPage></LoaderPage> : null}
                 </div>
 
                 {}
