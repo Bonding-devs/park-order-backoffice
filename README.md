@@ -17,4 +17,4 @@ Run : <code>npm run build</code>
 
 Default build output directory: /dist
 
-This command will generate a dist as build folder in the root of your template that you can upload to your server
+This command will generate a dist as build folder in the root of your template that you can upload to your server.
