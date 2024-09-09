@@ -1,14 +1,13 @@
 import { WORK_ORDER_URL } from '../constant';
 import { HTTP_METHODS } from '../globals';
 /* ARREGLAR EL TYPE CUANDO SE SEPA LA ESTRUCTURA */
-import { PaymentMethodResponse } from '../models/paymentMethod';
+
 import { createApiRequest } from '../services/axios';
 
 export const fetchWorkOrders = async (params): Promise<any> => {
-  const url = WORK_ORDER_URL.Base;
   try {
     const response = await createApiRequest({
-      url: url,
+      url: WORK_ORDER_URL.Base,
       method: HTTP_METHODS.GET,
       params: params,
     });
@@ -20,28 +19,43 @@ export const fetchWorkOrders = async (params): Promise<any> => {
 };
 
 export const createWorkOrders = async (data): Promise<any> => {
-  const { title, description, status } = data;
-  const url = WORK_ORDER_URL.Base;
-  debugger;
+  const { title, description, status, priority, scheduledDate } = data;
+
   const dataform = {
-    title: title,
-    description: description,
-    status: status,
-    locationId: 'bf84be3a-5cd7-4b34-8d12-0896c9e99da3',
-    categoryId: '4192b59b-6885-4cee-98fe-b8f0097e0557',
-    issueId: 'b9a749c7-6349-4f80-a437-ed039c3b855e',
-    priority: 'b9a749c7-6349-4f80-a437-ed039c3b855e',
+    title,
+    description,
+    status: status.value,
+    locationId: 'aed5004c-2672-4eca-b2a4-8bc0f50bf867',
+    categoryId: '0dc85fb7-b048-4760-92c9-ffc2ee37938f',
+    issueId: '29ccfebf-2c20-4aa7-bb17-b4e749c3e38a',
+    priority: priority.value,
     recurrence: 'none',
+    scheduledDate: new Date(scheduledDate),
   };
+
   try {
     const response = await createApiRequest({
-      url: url,
+      url: WORK_ORDER_URL.Base,
       method: HTTP_METHODS.POST,
       data: dataform,
     });
     return response;
   } catch (error) {
     console.error('Error create Work Orders methods:', error);
+    throw error;
+  }
+};
+
+export const getWorkOrderById = async ({ id }): Promise<any> => {
+  const url = `${WORK_ORDER_URL.Base}/${id}`;
+  try {
+    const response = await createApiRequest({
+      url: url,
+      method: HTTP_METHODS.GET,
+    });
+    return response;
+  } catch (error) {
+    console.error('Error fetch Work Orders methods:', error);
     throw error;
   }
 };

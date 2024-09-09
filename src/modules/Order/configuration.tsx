@@ -115,9 +115,9 @@ export const optionStatusWorkOrders = [
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        stroke-width="1.5"
+        stroke-width="2"
         stroke="currentColor"
-        className="size-9"
+        className="mr-2 h-6 w-6"
       >
         <path
           stroke-linecap="round"
@@ -138,9 +138,9 @@ export const optionStatusWorkOrders = [
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        stroke-width="1.5"
+        stroke-width="2"
         stroke="currentColor"
-        className="size-9"
+        className="mr-2 h-6 w-6"
       >
         <path
           stroke-linecap="round"
@@ -161,15 +161,14 @@ export const optionStatusWorkOrders = [
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 14 10"
-        stroke-width="1.5"
+        stroke-width="2"
         stroke="currentColor"
-        className="size-9"
+        className="mr-2 h-6 w-6"
       >
         <path
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
-          stroke-width="1.5"
           d="M1 5h12m0 0L9 1m4 4L9 9"
         />
       </svg>
@@ -186,9 +185,9 @@ export const optionStatusWorkOrders = [
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        stroke-width="1.5"
+        stroke-width="2"
         stroke="currentColor"
-        className="size-9"
+        className="mr-2 h-6 w-6"
       >
         <path
           stroke-linecap="round"
@@ -198,5 +197,38 @@ export const optionStatusWorkOrders = [
       </svg>
     ),
     text: 'Done',
+  },
+];
+
+export const optionPriorityWorkOrders = [
+  {
+    id: 'none',
+    name: 'priority',
+    value: 'none',
+    required: false,
+    text: 'None',
+  },
+  {
+    id: 'low',
+    name: 'priority',
+    value: 'low',
+    required: false,
+
+    text: 'Low',
+  },
+  {
+    id: 'medium',
+    name: 'priority',
+    value: 'medium',
+    required: false,
+
+    text: 'Medium',
+  },
+  {
+    id: 'high',
+    name: 'priority',
+    value: 'high',
+    required: false,
+    text: 'High',
   },
 ];

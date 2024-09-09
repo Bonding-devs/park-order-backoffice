@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
-import { createWorkOrders, fetchWorkOrders } from '../../api/workOrderApi';
+import {
+  createWorkOrders,
+  fetchWorkOrders,
+  getWorkOrderById,
+} from '../../api/workOrderApi';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { mergeUniqueElementsById } from '../../utils/mergeUniqueElementsById';
 
 export const useWorkOrder = () => {
   const listInnerRef = useRef();
   const [workOrders, setWorkOrders] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [loadingSideView, setLoadingSideView] = useState(false);
+  const [loadingScroll, setLoadingScroll] = useState(false);
   const [lastList, setLastList] = useState(false);
   const [currPage, setCurrPage] = useState(0);
   const [prevPage, setPrevPage] = useState(0);
@@ -17,61 +22,62 @@ export const useWorkOrder = () => {
   const limit = 10;
 
   const {
+    control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const [workOrderDetail, setWorOrderDetail] = useState({});
 
   useEffect(() => {
-    getWorkOrders({});
+    onLoadPaginateData({
+      params: {},
+      scroll: false,
+      filter: 'all',
+      paginate: { offset, limit },
+    });
   }, []);
 
   useEffect(() => {
     if (!lastList && prevPage !== currPage) {
-      getWorkOrders({
+      onLoadPaginateData({
+        params: {},
         scroll: true,
+        filter: 'all',
+        paginate: { offset, limit },
       });
     }
   }, [offset]);
 
-  const getWorkOrders = async ({ scroll = false }) => {
-    if (!scroll) setLoading(true);
+  const getWorkOrders = async ({ params = {}, paginate = {} }) => {
     try {
       const workOrdersResponse = await fetchWorkOrders({
-        offset,
-        limit,
+        ...params,
+        ...paginate,
       });
-      if (!workOrdersResponse.length) {
-        setLastList(true);
-        return;
-      }
 
-      setWorkOrders([...workOrders, ...workOrdersResponse]);
-      if (!scroll) {
-        setShowView('workorderview');
-        setWorOrderDetail(workOrdersResponse[0]);
-      }
-      setPrevPage(currPage);
-      setCurrPage(currPage + 1);
       setError(null);
+      return workOrdersResponse;
     } catch (err) {
       setError('Failed to fetch work orders');
-    } finally {
-      if (!scroll) setLoading(false);
     }
   };
 
   const reFetchDataWorkOrders = () => {
-    getWorkOrders({});
+    onLoadPaginateData({
+      params: {},
+      scroll: true,
+      filter: 'all',
+      paginate: { offset, limit },
+    });
   };
 
   const onClickCreateWorkOrder = () => {
     setShowView('loading');
     //Implementar the todas las llamadas que se necesitan
-
-    later(2000)
+    later(1000)
       .then(() => {
         setShowView('workorderform');
       })
@@ -80,23 +86,27 @@ export const useWorkOrder = () => {
       });
   };
 
-  const onClickDetailWorkOrder = () => {
+  const onClickDetailWorkOrder = async (id) => {
     setShowView('loading');
-    //Implementar the todas las llamadas que se necesitan
-
-    later(2000)
-      .then(() => {
-        setShowView('workorderview');
-      })
-      .catch(() => {
-        console.log('error');
+    try {
+      const workOrdersResponseDetail = await getWorkOrderById({
+        id,
       });
+
+      setWorOrderDetail(workOrdersResponseDetail);
+      setShowView('workorderview');
+
+      setError(null);
+    } catch (err) {
+      setError('Failed to fetch work order');
+    }
   };
 
   const onSubmitWorkOrders = async (data) => {
     try {
       await createWorkOrders(data);
       setError(null);
+      reset();
       toast.success('Successfully created!');
       reFetchDataWorkOrders();
     } catch (err) {
@@ -107,10 +117,7 @@ export const useWorkOrder = () => {
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-
-      console.log('entra', Math.round(scrollTop + clientHeight), scrollHeight);
       if (Math.round(scrollTop + clientHeight) === scrollHeight) {
-        console.log('currPage * limit', currPage * limit);
         setOffSet(currPage * limit);
       }
     }
@@ -122,6 +129,49 @@ export const useWorkOrder = () => {
     });
   }
 
+  const onLoadPaginateData = async ({
+    params,
+    scroll = false,
+    filter = 'all',
+    paginate,
+  }) => {
+    if (!scroll) setLoading(true);
+    try {
+      const workOrdersResponse = await getWorkOrders({
+        params,
+        paginate,
+      });
+      if (!workOrdersResponse.length) {
+        setLastList(true);
+        return;
+      }
+
+      if (!scroll) {
+        setShowView('workorderview');
+        setWorOrderDetail(workOrdersResponse[0]);
+      }
+
+      if (filter != 'all') {
+        setOffSet(0);
+        setPrevPage(0);
+        setCurrPage(0);
+        setLastList(false);
+        setWorkOrders(workOrdersResponse);
+      } else {
+        const counterResponse = workOrdersResponse.length < limit ? 0 : 1;
+        setPrevPage(currPage);
+        setCurrPage(currPage + counterResponse);
+        setWorkOrders(mergeUniqueElementsById(workOrders, workOrdersResponse));
+      }
+
+      setError(null);
+    } catch (err) {
+      setError('Failed to fetch work orders');
+    } finally {
+      if (!scroll) setLoading(false);
+    }
+  };
+
   return {
     workOrders,
     loading,
@@ -130,7 +180,7 @@ export const useWorkOrder = () => {
     reFetchDataWorkOrders,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
-    loadingSideView,
+    loadingScroll,
     workOrderDetail,
     onSubmitWorkOrders,
     register,
@@ -138,5 +188,8 @@ export const useWorkOrder = () => {
     onScroll,
     listInnerRef,
     showView,
+    onFilterWorkOrder: onLoadPaginateData,
+    control,
+    errors,
   };
 };

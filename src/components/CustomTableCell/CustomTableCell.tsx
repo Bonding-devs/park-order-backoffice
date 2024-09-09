@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
 
 import CustomPriority from '../CustomPriority/CustomPriority';
-import CustomState from '../CustomStatus/CustomStatus';
+import CustomStatus from '../CustomStatus/CustomStatus';
+import userEmpty from '../../images/user/user-empty.jpg';
 
 const CustomTableCell: React.FC = ({ object, item, onClick }: any) => {
   return (
     <div
       key={item}
-      className="flex cursor-pointer items-center rounded px-4 py-2 hover:bg-gray-2 dark:hover:bg-strokedark"
+      className="flex cursor-pointer  rounded px-4 py-2 hover:bg-gray-2 dark:hover:bg-strokedark "
       onClick={() => onClick()}
     >
-      <div className="relative mr-3.5 h-11 w-full max-w-11 rounded-full">
+      <div className="relative mr-3.5 mt-1 h-11 w-full max-w-11 content-start  rounded-full">
         <img
-          src={object.imgSrc}
+          src={object.imgSrc || userEmpty}
           alt="profile"
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full rounded-full object-cover object-center"
         />
-        <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full border-2 border-gray-2 bg-success"></span>
       </div>
 
-      <div className="flex-grid flex  w-full">
-        <div className="flex-auto ">
-          <h5 className="text-sm font-medium text-black dark:text-white">
-            {object.title}
-          </h5>
-          <p className="text-sm">{object.description}</p>
-
-          <CustomState status={object.status} />
+      <div className=" block w-full ">
+        <div>
+          <div className="">
+            <h5 className="text-sm font-medium text-black dark:text-white">
+              {object.title}
+            </h5>
+            <p className="text-sm">{object.description}</p>
+          </div>
         </div>
-        <div className="flex-auto text-right">
-          <h5 className="text-sm font-medium text-black dark:text-white">
-            {`# ${item}`}
-          </h5>
-          <CustomPriority priority={object.priority} />
+        <div className=" mt-2">
+          <div className="flex-auto text-right">
+            <CustomStatus status={object.status} />
+          </div>
         </div>
       </div>
     </div>
