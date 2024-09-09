@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchQrCode } from '../../../api/locationsApi';
 import { toast } from 'react-toastify';
 import { QRComponent } from '../../../components/QR/QRComponent';
+import { PreviewModal } from '../../../components/BondingComponents/PreviewModal';
 
 interface LocationQrCodeProps {
   id: string;
@@ -11,6 +12,7 @@ export const LocationQrCode: React.FC<LocationQrCodeProps> = ({ id }) => {
   const [qrCode, setQrCode] = useState<string | null>();
   const [error, setError] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isQrOpen, setIsQrOpen] = useState(false);
 
   const loadQrCode = async () => {
     setIsLoading(true);
@@ -37,17 +39,30 @@ export const LocationQrCode: React.FC<LocationQrCodeProps> = ({ id }) => {
     }
   }, [error]);
 
+  const onHandleClick = () => {
+    setIsQrOpen(true);
+  };
+
   return (
     <>
       {isLoading ? (
-        <div className="h-25 w-25 bg-gray flex items-center justify-center rounded-lg">
+        <div className="flex h-25 w-25 items-center justify-center rounded-lg bg-gray">
           <p className="text-gray-600 ">Loading...</p>
         </div>
       ) : qrCode ? (
-        <QRComponent base64String={qrCode} />
+        <div onClick={onHandleClick}>
+          <QRComponent base64String={qrCode} />
+        </div>
       ) : error ? (
         <div>error </div>
       ) : null}
+
+      {isQrOpen && qrCode && (
+        <PreviewModal modalOpen={isQrOpen} setModalOpen={setIsQrOpen} title='QR Code'>
+            <QRComponent base64String={qrCode} size={500} />
+          </PreviewModal>
+        
+      )}
     </>
   );
 };

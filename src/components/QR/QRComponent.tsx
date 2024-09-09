@@ -1,18 +1,18 @@
-import { QRCode } from 'react-qrcode-logo';
+import QRCode from 'react-qr-code';
 
 interface QRComponentProps{
     base64String: string
+    size?: number
 } 
 
-export const QRComponent: React.FC<QRComponentProps> = ({base64String}) => {
+export const QRComponent: React.FC<QRComponentProps> = ({base64String,size = 150}) => {
+  
   return (
     <QRCode
       value={base64String}
-      size={100}
+      size={size}
       bgColor={'#ffffff'}
       fgColor={'#000000'}
-      qrStyle="squares"
-      eyeRadius={10}
     />
   );
 };

@@ -3,7 +3,10 @@ import { CiLocationOn, CiCalendarDate } from 'react-icons/ci';
 import { PrincipalButton } from '../../../components/CustomButons/PrincipalButton';
 import { TitleText } from '../../../components/Text/TitleText';
 import { LocationQrCode } from './LocationQrCode';
-import { RightSideOptions, useLocations } from '../../../context/LocationContext';
+import {
+  RightSideOptions,
+  useLocations,
+} from '../../../context/LocationContext';
 import { FaUsers } from 'react-icons/fa';
 
 interface DetailsPageProps {
@@ -42,30 +45,29 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
             alt={`${name} photo`}
             className="mb-6 h-100 w-full rounded-md object-cover"
           />
-          <div className="flex flex-1 items-center">
-            <div>
-              <CiLocationOn size={22} className="mr-2" />
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <div className="flex flex-1 items-center">
+                <div>
+                  <CiLocationOn size={22} className="mr-2" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 break-all">
+                  {address}
+                </p>
+              </div>
+              <div className="flex flex-1 items-center">
+                <div>
+                  <FaUsers size={22} className="mr-2" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 break-all">
+                  {team}
+                </p>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400">{description}</p>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 break-all">
-              {address}
-            </p>
-          </div>
-          <div className="flex flex-1 items-center">
-            <div>
-              <FaUsers size={22} className="mr-2" />
+            <div className="flex-1" >
+              <LocationQrCode id={id} />
             </div>
-            <p className="text-gray-600 dark:text-gray-400 break-all">
-              {team}
-            </p>
-          </div>
-        </div>
-
-        <div className="mb-8 flex justify-between">
-          <div className="flex flex-1 items-center">
-            <p className="text-gray-600 dark:text-gray-400">{description}</p>
-          </div>
-          <div className="flex flex-1  justify-center">
-            <LocationQrCode id={id} />
           </div>
         </div>
         <div className="flex justify-around">

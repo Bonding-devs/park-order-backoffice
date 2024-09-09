@@ -61,10 +61,7 @@ export const fetchQrCode = async (locationId: string): Promise<string> => {
       url: url,
       method: HTTP_METHODS.GET,
     });
-    console.log(response);
-    // mock data
-    return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAA...';
-    return response.qrCode;
+    return response.qrCode; 
   } catch (error) {
     console.error('Error Getting QrCode:', error);
     throw 'Error Getting QrCode';
