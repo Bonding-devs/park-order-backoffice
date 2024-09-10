@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchQrCode } from '../../../api/locationsApi';
 import { toast } from 'react-toastify';
 import { QRComponent } from '../../../components/QR/QRComponent';
-import { PreviewModal } from '../../../components/BondingComponents/PreviewModal';
+import { PreviewModal } from '../../../components/Common/PreviewModal';
 
 interface LocationQrCodeProps {
   id: string;

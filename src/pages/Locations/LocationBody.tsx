@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useGetLocations } from '../../modules/Locations/useLocations';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-
 import DetailsPage from './View/DetailsPage';
 import { LocationItem } from './LocationItem';
 import { RightSideOptions, useLocations } from '../../context/LocationContext';

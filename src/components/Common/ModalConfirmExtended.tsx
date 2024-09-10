@@ -24,7 +24,6 @@ const ModalConfirmExtended: React.FC<ModalConfirmExtendedProps> = ({
   const trigger = useRef<any>(null);
   const modal = useRef<any>(null);
 
-  // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!modal.current) return;
@@ -40,7 +39,6 @@ const ModalConfirmExtended: React.FC<ModalConfirmExtendedProps> = ({
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!modalOpen || keyCode !== 27) return;
@@ -58,18 +56,11 @@ const ModalConfirmExtended: React.FC<ModalConfirmExtendedProps> = ({
         }`}
       >
         <div
-          // ref={modal}
+          ref={modal}
           onFocus={() => setModalOpen(true)}
           onBlur={() => setModalOpen(false)}
           className="w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:px-17.5 md:py-15"
         >
-          {/* <span className="mx-auto inline-block">
-            <div className="relative inline-flex items-center justify-center w-12 h-12 ">
-                <div className={`absolute inset-0 ${color} opacity-25 rounded-full`}/>
-                {icon}
-                
-            </div>
-          </span> */}
           <h3 className="mt-5.5 pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
             {title}
           </h3>

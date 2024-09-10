@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CreateLocation } from '../../models/location-model';
-import { createLocation, putLocation } from '../../api/locationsApi';
+import { createLocation, updateLocation } from '../../api/locationsApi';
 import { delay } from '../../utils/delay';
 import { useLocations } from '../../context/LocationContext';
 import { useFormContext } from 'react-hook-form';
@@ -25,10 +25,10 @@ export const usePostLocations = () => {
     }
   };
 
-  const updateLocation = async (locationId: string,location: CreateLocation): Promise<void> => {
+  const updateLocationInfo = async (locationId: string,location: CreateLocation): Promise<void> => {
     setIsLoading(true);
     try {
-      await putLocation(locationId,location);
+      await updateLocation(locationId,location);
       setLoad(true);
       reset();
     } catch (error) {
@@ -43,6 +43,6 @@ export const usePostLocations = () => {
     error,
     postLocation,
     setCreateError,
-    updateLocation,
+    updateLocationInfo,
   };
 };

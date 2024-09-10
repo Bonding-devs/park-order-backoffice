@@ -73,12 +73,6 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
           <LocationQrCode id={id} />
         </div>
       </div>
-      {/* <div className="flex justify-around">
-          <PrincipalButton bgColor="bg-green-700" onClick={handleEdit}>
-            Edit
-          </PrincipalButton>
-          <PrincipalButton bgColor="bg-red">Delete</PrincipalButton>
-        </div> */}
     </div>
   );
 };

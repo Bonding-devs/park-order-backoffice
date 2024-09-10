@@ -15,7 +15,7 @@ import {
   isCreateOption,
   RightSideOptions,
 } from '../../../context/LocationContext';
-import ModalConfirmExtended from '../../../components/BondingComponents/ModalConfirmExtended';
+import ModalConfirmExtended from '../../../components/Common/ModalConfirmExtended';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
 interface LocationFormProps {
@@ -44,7 +44,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({
         }
       : null
   );
-  const { postLocation, updateLocation, isLoading, error, setCreateError } =
+  const { postLocation, updateLocationInfo, isLoading, error, setCreateError } =
     usePostLocations();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -80,7 +80,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({
   }, [error]);
 
   const onDeactivate = () => {
-    updateLocation(uLocation.id, location);
+    updateLocationInfo(uLocation.id, location);
   };
 
   const textButton = isCreateOption(option) ? 'Create' : 'Update';

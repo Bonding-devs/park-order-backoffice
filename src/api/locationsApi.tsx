@@ -39,7 +39,7 @@ export const createLocation = async (data: CreateLocation): Promise<any> => {
   }
 };
 
-export const putLocation = async (locationId:string ,data: CreateLocation): Promise<any> => {
+export const updateLocation = async (locationId:string ,data: CreateLocation): Promise<any> => {
   const url = `/api/v1/locations/${locationId}`;
   try {
     const response = await createApiRequest({

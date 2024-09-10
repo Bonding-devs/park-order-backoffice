@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { shiftApplicationDetails } from '../../api/shiftsApi';
 import userPlaceholder from '../../images/user/default_user.jpg';
-import BondingSpinner, { SpinnerSize } from '../BondingComponents/BondingSpinner';
+import BondingSpinner, { SpinnerSize } from './BondingSpinner';
 
 const ShiftApplicantProfileModal = ({ applicantId, onClose, onAccept, onReject, isLoading, defaultApplicant }) => {
     const [applicant, setApplicant] = useState(null);

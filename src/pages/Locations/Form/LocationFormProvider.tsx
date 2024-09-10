@@ -15,7 +15,6 @@ export const LocationFormProvider: React.FC<LocationFormProviderProps> = ({
   option,
   location,
 }) => {
-    console.log('vuelve')
   const methods = useForm({
     defaultValues: !isCreateOption(option)
       ? {

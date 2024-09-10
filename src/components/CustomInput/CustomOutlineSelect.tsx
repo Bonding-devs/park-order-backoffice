@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { TextError } from '../Text/TextError';
+import { ErrorText } from '../Text/ErrorText';
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   register?: UseFormRegisterReturn;
@@ -23,7 +23,7 @@ export const CustomOutlineSelect: React.FC<React.PropsWithChildren<Props>> = ({
       >
         {children}
       </select>
-      {error && <TextError error={error} />}
+      {error && <ErrorText error={error} />}
     </div>
   );
 };

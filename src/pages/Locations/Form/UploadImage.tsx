@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { uploadImage } from '../../../api/imagesApi';
 import { IoClose } from 'react-icons/io5';
-import { TextError } from '../../../components/Text/TextError';
+import { ErrorText } from '../../../components/Text/ErrorText';
 import { ImageDetails } from '../../../models/image-details';
-import axios, { Axios, CancelTokenSource } from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 
 interface UploadImageProps {
   uploadedFile?: ImageDetails;
@@ -19,7 +19,6 @@ export const UploadImage: React.FC<UploadImageProps> = ({
     register,
     setValue,
     clearErrors,
-    reset,
     formState: { errors },
   } = useFormContext();
   const [filePreview, setFilePreview] = useState(null);
@@ -43,7 +42,6 @@ export const UploadImage: React.FC<UploadImageProps> = ({
         setUploadProgress,
         cancelTokenSource:source,
       });
-      console.log(data);
       setUploadedFile({ name: file.name, path: data.path, id: data.id });
       setIsUploading(false);
       setShowPopUp(false);
@@ -68,7 +66,6 @@ export const UploadImage: React.FC<UploadImageProps> = ({
     setFilePreview(null);
     setUploadedFile(null);
     setUploadProgress(0);
-    // reset();
   };
 
   const handleCancel = () => {
@@ -100,7 +97,7 @@ export const UploadImage: React.FC<UploadImageProps> = ({
           </label>
           {errors.file && (
             <div className="mt-3">
-              <TextError error="Please select an image file to upload." />
+              <ErrorText error="Please select an image file to upload." />
             </div>
           )}
         </div>
