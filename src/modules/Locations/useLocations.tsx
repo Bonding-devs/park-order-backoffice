@@ -1,19 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { fetchLocations } from '../../api/locationsApi';
 import { LocationModel } from '../../models/location-model';
 import { RightSideOptions, useLocations } from '../../context/LocationContext';
+import { useNearScreen } from '../../hooks/useNearScreen';
+import { debounce } from 'throttle-debounce';
 
 const limit = 10;
 
 export const useGetLocations = () => {
   const [items, setItems] = useState<LocationModel[]>([]);
-  const [isLast, setIsLast] = useState<boolean>(false);
+  const [last, setLast] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  let offset = 0;
-  const lastItemRef = useRef<HTMLDivElement | null>(null);
+  const [offset, setOffset] = useState(0);
+  const externalRef = useRef();
   const [error, setError] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const { load, setLoad,setMode } = useLocations();
+  const { load, setLoad, setMode } = useLocations();
+  const { isNearScreen } = useNearScreen({
+    externalRef: loading ? null : externalRef,
+    once: false,
+  });
 
   useEffect(() => {
     if (load) {
@@ -25,29 +31,41 @@ export const useGetLocations = () => {
   }, [load]);
 
   const defaultValues = () => {
-    offset = 0;
-    setIsLast(() => false);
+    setOffset(0);
+    setLast(() => false);
     setItems(() => []);
     setError(() => null);
     setSelectedItem(null);
   };
+
+  const handleNextPage = () => setOffset(offset + 1);
+
+  const debounceHandleNextPage = useCallback(
+    debounce(1000, handleNextPage, { atBegin: false }),
+    []
+  );
+
+  useEffect(() => {
+    if (isNearScreen) debounceHandleNextPage();
+  }, [debounceHandleNextPage, isNearScreen]);
+
   const loadMoreItems = async (start = false): Promise<void> => {
-    if (isLast || loading) return;
+    if (last || loading) return;
 
     try {
       setLoading(true);
       const newItems = (await fetchLocations({
-        offset,
+        offset: offset * limit,
         limit,
       })) as LocationModel[];
-      console.log(`offset ${offset}`)
-      console.log(newItems)
-      offset = offset + 1;
-      if (!newItems.length) {
-        setIsLast(true);
+
+      console.log(`${offset} offset, ${newItems.length} newItems.length`);
+      setItems((prevItems) => [...prevItems, ...newItems]);
+
+      if (newItems.length % limit !== 0) {
+        setLast(true);
         return;
       }
-      setItems((prevItems) => [...prevItems, ...newItems]);      
       if (selectedItem === null || start) {
         setSelectedItem(0);
       }
@@ -59,54 +77,14 @@ export const useGetLocations = () => {
   };
 
   useEffect(() => {
-    let isFetching = false;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !loading && isLast && !isFetching) {
-          isFetching = true;
-          loadMoreItems().finally(() => {
-            isFetching = false;
-          });
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    if (lastItemRef.current) {
-      observer.observe(lastItemRef.current);
-    }
-
-    return () => {
-      if (lastItemRef.current) {
-        observer.unobserve(lastItemRef.current);
-      }
-    };
-  }, [loading, isLast, lastItemRef.current]);
-
-  useEffect(() => {
-    const fetchDataAndCheckHeight = async () => {
-      await loadMoreItems();
-      console.log(
-        `${lastItemRef.current} && ${
-          lastItemRef.current?.getBoundingClientRect().bottom
-        } <= ${window.innerHeight}`
-      );
-      if (
-        lastItemRef.current &&
-        lastItemRef.current.getBoundingClientRect().bottom <= window.innerHeight
-      ) {
-        await loadMoreItems();
-      }
-    };
-    fetchDataAndCheckHeight();
-  }, []);
+    loadMoreItems();
+  }, [offset]);
 
   return {
     items,
     loading,
     error,
-    lastItemRef,
+    externalRef,
     selectedItem,
     setSelectedItem,
   };

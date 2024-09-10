@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TitleText } from '../../../components/Text/TitleText';
 import { LocationQrCode } from './LocationQrCode';
 import {
@@ -26,13 +26,23 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
   team,
 }) => {
   const { setMode } = useLocations();
+  const componentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (componentRef.current) {
+      componentRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [id]);
 
   const handleEdit = () => {
     setMode(RightSideOptions.UPDATE);
   };
 
   return (
-    <div className="dark:bg-gray-800 bg-white px-6 py-7.5">
+    <div className="dark:bg-gray-800 bg-white px-6 py-7.5" ref={componentRef}>
       <div className="mb-6 ">
         <div className="flex justify-between">
           <TitleText>{name}</TitleText>

@@ -8,11 +8,11 @@ import { LocationItem } from './LocationItem';
 import { RightSideOptions, useLocations } from '../../context/LocationContext';
 import { LocationModel } from '../../models/location-model';
 import { LocationFormProvider } from './Form/LocationFormProvider';
-import LoaderPage from '../../common/LoaderPage';
+import { Loader } from '../../common/LoaderPage/Loader';
 
 export const LocationBody: React.FC = ({}) => {
   const navigate = useNavigate();
-  const { loading, items, error, lastItemRef, selectedItem, setSelectedItem } =
+  const { loading, items, error, externalRef, selectedItem, setSelectedItem } =
     useGetLocations();
   const { setMode } = useLocations();
   useEffect(() => {
@@ -31,6 +31,7 @@ export const LocationBody: React.FC = ({}) => {
       });
     }
   };
+
   return (
     <>
       <div className="custom-border rounded-sm border shadow-default">
@@ -51,11 +52,9 @@ export const LocationBody: React.FC = ({}) => {
                       />
                     );
                   })}
-                  <div ref={lastItemRef} />
-                  {loading ? <LoaderPage></LoaderPage> : null}
+                  <div ref={externalRef} id="visor" />
                 </div>
-
-                {}
+                {loading ? <div className="self-center"><Loader></Loader></div> : null}
               </div>
             }
           </div>
@@ -93,15 +92,10 @@ const RightSide: React.FC<RightSideParams> = ({ location, selectedItem }) => {
         />
       ) : null;
     case RightSideOptions.CREATE:
-      return <LocationFormProvider option={mode}/>;
+      return <LocationFormProvider option={mode} />;
 
     case RightSideOptions.UPDATE:
-      return (
-        <LocationFormProvider
-          option={mode}
-          location={location}
-        />
-      );
+      return <LocationFormProvider option={mode} location={location} />;
     default:
       break;
   }
