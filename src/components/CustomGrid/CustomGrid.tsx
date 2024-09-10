@@ -7,7 +7,7 @@ import {
   usePagination,
 } from 'react-table';
 import { CustomGridProps } from '../../types/customGrid';
-import BondingSpinner from '../BondingComponents/BondingSpinner';
+import BondingSpinner from '../Common/BondingSpinner';
 
 const CustomGrid = ({
   showSearchInput = false,

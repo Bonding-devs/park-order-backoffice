@@ -4,7 +4,9 @@ import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/logo.svg';
 import LinkAuth from '../LinkAuth/LinkAuth';
 import { useAuth } from '../../context/AuthContext';
-
+import IconLocation from '../../images/icon/icon-location.svg'
+import { SidebarItem } from './SidebarItem';
+import { CiLocationOn } from 'react-icons/ci';
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
@@ -128,6 +130,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Work Orders
                 </NavLink>
+              </li>
+              <li>
+                <SidebarItem
+                  to="/locations"
+                  name="Locations"
+                  include="locations"
+                >
+                     <CiLocationOn size={22}  />
+                </SidebarItem>
               </li>
 
               <LinkAuth user={user} allowedRoles={['owner']}>

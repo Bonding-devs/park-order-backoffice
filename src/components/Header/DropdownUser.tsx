@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ModalConfirm from '../BondingComponents/ModalConfirm';
+import ModalConfirm from '../Common/ModalConfirm';
 import { useAuth } from '../../context/AuthContext';
 import userPlaceholder from '../../images/user/user-24.png';
 
