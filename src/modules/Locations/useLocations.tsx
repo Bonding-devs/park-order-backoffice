@@ -58,8 +58,6 @@ export const useGetLocations = () => {
         offset: offset * limit,
         limit,
       })) as LocationModel[];
-
-      console.log(`${offset} offset, ${newItems.length} newItems.length`);
       setItems((prevItems) => [...prevItems, ...newItems]);
 
       if (newItems.length % limit !== 0) {

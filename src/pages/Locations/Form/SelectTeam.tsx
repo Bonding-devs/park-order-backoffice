@@ -16,20 +16,13 @@ export const SelectTeam: React.FC<SelectTeamProps> = ({ value }) => {
   const {
     register,
     formState: { errors },
-    setValue,
-    getValues
   } = useFormContext();
 
   const fetchTeams = async () => {
     setIsLoading(true);
     try {
-      console.log(getValues('teamInChargeId'))
       const response = await fetchAllTeams();
       setTeams(response);
-
-      if (value) {
-        // setValue('teamInChargeId', value);
-      }
       setIsLoading(true);
     } catch (error) {
       setError(error);

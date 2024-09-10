@@ -69,10 +69,8 @@ export const UploadImage: React.FC<UploadImageProps> = ({
   };
 
   const handleCancel = () => {
-    console.log('cancel')
     setShowPopUp(false);
     if (cancelTokenSource) {
-      console.log('abort')
       cancelTokenSource.cancel('Upload canceled by the user.');
     }
   };

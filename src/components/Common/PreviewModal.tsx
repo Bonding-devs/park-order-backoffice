@@ -48,7 +48,6 @@ export const PreviewModal: React.FC<PreviewModalProps> = ({
             {title ? <h2 className="text-lg font-semibold">{title}</h2> : <></>}
             <button
               onClick={() => {
-                console.log(false);
                 setModalOpen(false);
               }}
               className="text-gray-600 hover:text-gray-800"

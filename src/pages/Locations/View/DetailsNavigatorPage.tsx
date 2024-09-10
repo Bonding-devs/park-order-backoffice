@@ -5,12 +5,10 @@ import DefaultLayout from '../../../layout/DefaultLayout';
 
 const DetailsNavigatorPage: React.FC = () => {
   const location = useLocation();
-  const { selectedItem } = location.state || {}; // Desestructurar el objeto item
-  console.log(location.state);
+  const { selectedItem } = location.state || {};
   if (!selectedItem) {
     return <div>No data available</div>;
   }
-
   return (
     <div>
       <DefaultLayout>

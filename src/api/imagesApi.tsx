@@ -14,9 +14,7 @@ export const uploadImage = async ({
   const url = '/api/v1/files/upload';
   const data = new FormData();
   data.append('file', file);
-  try {
-    console.log(url);
-    
+  try {  
     const response = await createApiRequest({
       method: HTTP_METHODS.POST,
       url,

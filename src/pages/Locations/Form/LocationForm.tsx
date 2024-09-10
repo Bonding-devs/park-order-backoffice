@@ -66,8 +66,6 @@ export const LocationForm: React.FC<LocationFormProps> = ({
     if (isCreateOption(option)) {
       postLocation(location);
     } else {
-      console.log(location);
-      console.log('new location');
       setModalOpen(true);
     }
   };

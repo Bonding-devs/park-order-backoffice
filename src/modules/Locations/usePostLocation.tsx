@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { CreateLocation } from '../../models/location-model';
 import { createLocation, updateLocation } from '../../api/locationsApi';
-import { delay } from '../../utils/delay';
 import { useLocations } from '../../context/LocationContext';
 import { useFormContext } from 'react-hook-form';
 
