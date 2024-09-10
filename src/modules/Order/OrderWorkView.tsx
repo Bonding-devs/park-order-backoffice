@@ -3,10 +3,23 @@ import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomRadioOrder from '../../components/CustomRadioOrder/CustomRadioOrder';
 import moment from 'moment';
+import { CustomDatePicker, CustomMultiSelect } from '../../components';
 
-const WorkOrdersView: React.FC = ({ data, status }: any) => {
+const WorkOrdersView: React.FC = ({
+  data,
+  status,
+  editWorkOrder,
+  handleSubmit,
+  register,
+  control,
+  errors,
+  teamsDropdownWO,
+}: any) => {
   return (
-    <div className="no-scrollbar max-h-full space-y-3.5 overflow-auto px-6 py-7.5">
+    <form
+      onSubmit={handleSubmit(editWorkOrder)}
+      className="no-scrollbar max-h-full space-y-3.5 overflow-auto  px-6 py-7.5"
+    >
       <div className="px-4 sm:px-0">
         <h1 className="text-3xl font-semibold  leading-7 text-black dark:text-white">
           {data.title}
@@ -26,6 +39,8 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
                 <CustomRadioOrder
                   status={status}
                   statusSelected={data.status}
+                  onChange={editWorkOrder}
+                  id={data.id}
                 />
               </div>
             </div>
@@ -49,6 +64,8 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
                     ? moment(data.scheduledDate).format('DD/MM/YYYY')
                     : ''}
                 </span>
+
+                <CustomDatePicker name={'scheduledDate'} register={register} />
               </div>
 
               <div className="w-full xl:w-1/2">
@@ -69,6 +86,8 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
               {`${data.assignedUser?.firstName || ''} ${
                 data.assignedUser?.lastName || ''
               }`}
+
+              <CustomMultiSelect data={teamsDropdownWO} id={'assignedTeam'} />
             </div>
           </div>
 
@@ -99,7 +118,7 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

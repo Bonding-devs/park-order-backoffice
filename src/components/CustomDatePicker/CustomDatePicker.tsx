@@ -2,7 +2,12 @@ import flatpickr from 'flatpickr';
 import moment from 'moment';
 import { useEffect } from 'react';
 
-const CustomDatePicker = ({ name, register }) => {
+type PropsCustomDatePicker = {
+  name: string;
+  register?: any;
+};
+
+const CustomDatePicker = ({ name, register }): PropsCustomDatePicker => {
   useEffect(() => {
     // Init flatpickr
     flatpickr('.form-datepicker', {

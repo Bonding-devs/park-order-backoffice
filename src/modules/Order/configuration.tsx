@@ -121,7 +121,7 @@ export const optionStatusWorkOrders = [
       >
         <path
           stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
           d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
         />
       </svg>
@@ -144,7 +144,7 @@ export const optionStatusWorkOrders = [
       >
         <path
           stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
           d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"
         />
       </svg>
@@ -168,7 +168,7 @@ export const optionStatusWorkOrders = [
         <path
           stroke="currentColor"
           stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
           d="M1 5h12m0 0L9 1m4 4L9 9"
         />
       </svg>

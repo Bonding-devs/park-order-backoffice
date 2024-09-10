@@ -13,8 +13,10 @@ import { useWorkOrder } from '../../modules/Order/useWorkOrder';
 import { CustomGrid, CustomTableView } from '../../components';
 import WorkOrdersView from '../../modules/Order/OrderWorkView';
 import Loader from '../../common/LoaderPage';
+import { useTeams } from '../../modules/Teams/useTeams';
 
 const WorkOrderPage: React.FC = () => {
+  const { teamsDropdownWO } = useTeams();
   const {
     workOrders,
     loading,
@@ -33,6 +35,7 @@ const WorkOrderPage: React.FC = () => {
     onFilterWorkOrder,
     control,
     errors,
+    editWorkOrder,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -61,6 +64,12 @@ const WorkOrderPage: React.FC = () => {
           <WorkOrdersView
             data={workOrderDetail}
             status={optionStatusWorkOrders}
+            editWorkOrder={editWorkOrder}
+            handleSubmit={handleSubmit}
+            register={register}
+            control={control}
+            errors={errors}
+            teamsDropdownWO={teamsDropdownWO}
           />
         );
 

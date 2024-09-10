@@ -3,9 +3,16 @@ import React from 'react';
 type StatusProp = {
   status: any;
   statusSelected: string;
+  onChange: () => void;
+  id: string;
 };
 
-const CustomRadioOrder: React.FC = ({ status, statusSelected }: StatusProp) => {
+const CustomRadioOrder: React.FC = ({
+  status,
+  statusSelected,
+  onChange,
+  id,
+}: StatusProp) => {
   return (
     <>
       <div className="item-center flex flex-wrap gap-2 ">
@@ -19,6 +26,14 @@ const CustomRadioOrder: React.FC = ({ status, statusSelected }: StatusProp) => {
               className="peer hidden"
               required={item.required}
               checked={item.value === statusSelected}
+              onChange={(e) => {
+                onChange({
+                  id: id,
+                  data: {
+                    [item.name]: e.currentTarget.value,
+                  },
+                });
+              }}
             />
             <div className="text-gray-500 border-gray-200 dark:hover:text-gray-300 dark:border-gray-700 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 flex w-full cursor-pointer items-center justify-center rounded-lg border bg-white p-3 peer-checked:border-blue-600 peer-checked:text-blue-600 dark:peer-checked:text-blue-500">
               {item.svg}

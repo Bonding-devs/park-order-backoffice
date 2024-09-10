@@ -1,4 +1,4 @@
-export const mergeUniqueElementsById = (arr1, arr2) => {
+export const mergeUniqueElementsById = (arr1, arr2, refetch) => {
   // Crear un Set con los ids del primer array (arr1)
   const idsSet = new Set(arr1.map((item) => item.id));
 
@@ -6,7 +6,9 @@ export const mergeUniqueElementsById = (arr1, arr2) => {
   const uniqueFromArr2 = arr2.filter((item) => !idsSet.has(item.id));
 
   // Concatenar los elementos de arr1 con los elementos únicos de arr2
-  const mergedArray = arr1.concat(uniqueFromArr2);
+  const mergedArray = refetch
+    ? [...uniqueFromArr2, ...arr1]
+    : arr1.concat(uniqueFromArr2);
 
   return mergedArray;
 };
