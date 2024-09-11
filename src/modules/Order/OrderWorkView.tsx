@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomRadioOrder from '../../components/CustomRadioOrder/CustomRadioOrder';
 import moment from 'moment';
+import { Comments } from '../../pages/Order/Comments/Comments';
 
 const WorkOrdersView: React.FC = ({ data, status }: any) => {
   return (
@@ -97,6 +98,7 @@ const WorkOrdersView: React.FC = ({ data, status }: any) => {
               {data.category?.name || ''}
             </div>
           </div>
+          <Comments workOrderId={data.id}/>
         </div>
       </div>
     </div>
