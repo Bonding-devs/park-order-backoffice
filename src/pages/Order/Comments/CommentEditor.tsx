@@ -45,7 +45,7 @@ export const CommentEditor: React.FC<CommentEditorProps> = ({
     <form onSubmit={handleSubmit}>
       <div className="flex w-full items-start justify-center">
         <InitialName initial={initial} />
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-2 flex flex-col">
           <CustomTextarea
             placeholder="Add a comment..."
             value={commentText}
@@ -56,7 +56,7 @@ export const CommentEditor: React.FC<CommentEditorProps> = ({
             type="submit"
             value={loading ? buttonText + 'ing...' : buttonText}
             disabled={loading}
-            className={`w-full rounded bg-blue-500 p-2 text-white ${
+            className={`self-end rounded bg-blue-500 px-6 py-2 text-white ${
               loading
                 ? 'cursor-not-allowed bg-opacity-50'
                 : 'hover:bg-opacity-90'

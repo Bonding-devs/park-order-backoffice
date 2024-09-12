@@ -58,7 +58,7 @@ export const CommentsList: React.FC<CommentsListProps> = ({ workOrderId }) => {
           <button
             onClick={changePage}
             
-            className=" mt-2 rounded bg-slate-100 px-15 py-2 text-black"
+            className=" mt-2 rounded bg-slate-100 px-4 py-1"
           >
             Load More
           </button>

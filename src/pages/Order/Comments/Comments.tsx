@@ -12,12 +12,14 @@ export const Comments: React.FC<CommentsProps> = ({ workOrderId }) => {
       <div className="text-gray-900 mb-2 block text-sm font-medium leading-6">
         Comments
       </div>
-      <div className="custom-border mb-8 border-t" />
+      <div className="custom-border mb-0 border-t" />
       <div className="flex flex-col items-center ">
         <div className="w-full">
           <CommentsProvider>
-            <CommentEditor workOrderId={workOrderId} />
+            <div className='mb-4'>
             <CommentsList workOrderId={workOrderId} />
+            </div>
+            <CommentEditor workOrderId={workOrderId} />
           </CommentsProvider>
         </div>
       </div>
