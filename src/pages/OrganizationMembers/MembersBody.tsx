@@ -43,7 +43,7 @@ export const MembersBody: React.FC = () => {
         />
         {loading ? (
           <div className="self-center">
-            <Loader></Loader>
+            <Loader/>
           </div>
         ) : null}
       </div>

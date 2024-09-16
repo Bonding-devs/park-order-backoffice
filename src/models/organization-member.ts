@@ -1,13 +1,5 @@
-interface Photo {
-    id: string;
-    path: string;
-  }
-  
-  interface Role {
-    id: number;
-    name: string;
-  }
-  
+import { Photo } from "./photo";
+import { Role } from "./role";
 export interface OrganizationMember {
     id: string;
     firstName: string;

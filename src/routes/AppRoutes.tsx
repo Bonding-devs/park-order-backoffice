@@ -121,7 +121,6 @@ const AppRoutes = () => (
     />
 
     <Route element={<ProtectedRoute />}>
-      <Route path="/work-orders" element={<WorkOrderPage />} />
       <Route
         path="/dashboard"
         element={<Navigate to="/dashboard/analytics" replace />}
@@ -137,7 +136,8 @@ const AppRoutes = () => (
       />
       <Route
         element={<RoleProtectedRoute allowedRoles={['organization_admin']} />}
-      >
+      > 
+        <Route path="/work-orders" element={<WorkOrderPage />} />
         <Route path="/locations" element={<Locations />} />
         <Route
           path="/locations/details/:id"
