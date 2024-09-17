@@ -1,7 +1,4 @@
-export interface Photo {
-  id: string;
-  path: string;
-}
+import { Photo } from "./photo";
 
 export interface Organization {
   id: string;

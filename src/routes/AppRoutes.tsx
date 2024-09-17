@@ -69,6 +69,7 @@ import ProtectedRoute from './ProtectedRoute';
 import RoleProtectedRoute from './RoleProtectedRoute';
 import { Locations } from '../pages/Locations/Locations';
 import DetailsNavigatorPage from '../pages/Locations/View/DetailsNavigatorPage';
+import { OrganizationMembers } from '../pages/OrganizationMembers/OrganizationMembers';
 
 const AppRoutes = () => (
   <Routes>
@@ -120,7 +121,6 @@ const AppRoutes = () => (
     />
 
     <Route element={<ProtectedRoute />}>
-      <Route path="/work-orders" element={<WorkOrderPage />} />
       <Route
         path="/dashboard"
         element={<Navigate to="/dashboard/analytics" replace />}
@@ -134,8 +134,30 @@ const AppRoutes = () => (
           </>
         }
       />
-      <Route path="/locations" element={<Locations />} />
-      <Route path="/locations/details/:id" element={<DetailsNavigatorPage />} />
+      <Route
+        element={<RoleProtectedRoute allowedRoles={['organization_admin']} />}
+      > 
+        <Route path="/work-orders" element={<WorkOrderPage />} />
+        <Route path="/locations" element={<Locations />} />
+        <Route
+          path="/locations/details/:id"
+          element={
+            <>
+              <PageTitle title="Locations" />
+              <DetailsNavigatorPage />
+            </>
+          }
+        />
+        <Route
+          path="/organization-members"
+          element={
+            <>
+              <PageTitle title="Members" />
+              <OrganizationMembers />
+            </>
+          }
+        />
+      </Route>
       <Route element={<RoleProtectedRoute allowedRoles={['admin', 'owner']} />}>
         <Route
           path="/dashboard/marketing"
