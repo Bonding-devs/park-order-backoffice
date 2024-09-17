@@ -7,3 +7,9 @@ export interface OrganizationMember {
     photo: Photo;
     role: Role;
   }
+
+export interface CreateOrganizationMember {
+    email: string;
+    firstName: string;
+    lastName: string;
+}

@@ -147,8 +147,8 @@ const ManualPaginatedDataTable: React.FC<DataTableProps> = ({
                 }}              
               >
                 {row.cells.map((cell, key) => (
-                  <td {...cell.getCellProps()} key={key}>
-                    <div className="text-gray-700 font-serif text-sm font-normal">
+                  <td {...cell.getCellProps()} key={key} className='truncate pb-0 '>
+                    <div className="p-0 text-gray-700 font-serif text-sm font-normal ">
                       {cell.render('Cell')}
                     </div>
                   </td>
