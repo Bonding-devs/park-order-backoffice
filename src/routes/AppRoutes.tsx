@@ -70,6 +70,7 @@ import RoleProtectedRoute from './RoleProtectedRoute';
 import { Locations } from '../pages/Locations/Locations';
 import DetailsNavigatorPage from '../pages/Locations/View/DetailsNavigatorPage';
 import { OrganizationMembers } from '../pages/OrganizationMembers/OrganizationMembers';
+import { TeamsAndUsers } from '../pages/TeamsAndUsers';
 
 const AppRoutes = () => (
   <Routes>
@@ -154,6 +155,15 @@ const AppRoutes = () => (
             <>
               <PageTitle title="Members" />
               <OrganizationMembers />
+            </>
+          }
+        />
+        <Route
+          path="/teams"
+          element={
+            <>
+              <PageTitle title="Teams / Users" />
+              <TeamsAndUsers />
             </>
           }
         />

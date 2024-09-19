@@ -9,3 +9,10 @@ export interface User {
     emailVerified: boolean;
     photo: Photo;
 }
+
+export interface BasicUser {
+    id: string;
+    firstName: string;
+    lastName: string;
+    photo: Photo;
+}
