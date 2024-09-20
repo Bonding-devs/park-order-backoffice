@@ -7,10 +7,9 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import WorkOrdersForm from '../../modules/Order/OrderWorkForm';
 import WorkOrdersView from '../../modules/Order/OrderWorkView';
-import {
-  optionStatusWorkOrders,
-} from '../../modules/Order/configuration';
-import { useWorkOrder } from '../../modules/Order/useWorkOrder'; // Importamos el hook
+import { optionStatusWorkOrders } from '../../modules/Order/configuration';
+import { useWorkOrder, WorkOrderView } from '../../modules/Order/useWorkOrder';
+
 
 const WorkOrderPage: React.FC = () => {
   const {
@@ -42,9 +41,9 @@ const WorkOrderPage: React.FC = () => {
 
   const renderView = () => {
     switch (showView) {
-      case 'loading':
+      case WorkOrderView.Loading:
         return <Loader />;
-      case 'workorderform':
+      case WorkOrderView.Form:
         return (
           <WorkOrdersForm
             register={register}
@@ -55,7 +54,7 @@ const WorkOrderPage: React.FC = () => {
           />
         );
 
-      case 'workorderview':
+      case WorkOrderView.View:
         return (
           <WorkOrdersView
             data={workOrderDetail}

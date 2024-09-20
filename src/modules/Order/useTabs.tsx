@@ -1,9 +1,14 @@
 import { useState } from 'react';
 
-export const useTabs = () => {
-    const [activeTab, setActiveTab] = useState('all');
+export enum WorkOrderFilter {
+    All = 'all',
+    Done = 'done',
+}
 
-    const changeTab = (newTab: string) => {
+export const useTabs = () => {
+    const [activeTab, setActiveTab] = useState<WorkOrderFilter>(WorkOrderFilter.All);
+
+    const changeTab = (newTab: WorkOrderFilter) => {
         setActiveTab(newTab);
     };
 

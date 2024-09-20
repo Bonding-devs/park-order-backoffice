@@ -1,7 +1,9 @@
 import React from 'react';
 import Loader from '../../common/LoaderPage/index.tsx';
 import Loading from '../../common/Loading';
+import { WorkOrderFilter } from '../../modules/Order/useTabs.tsx';
 import CustomTableCell from '../CustomTableCell/CustomTableCell';
+
 
 const CustomTableView: React.FC = ({
   children,
@@ -27,20 +29,20 @@ const CustomTableView: React.FC = ({
                 <div className="relative right-0">
                   <ul className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl">
                     <li
-                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === 'all' ? activeClasses : inactiveClasses
+                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === WorkOrderFilter.All ? activeClasses : inactiveClasses
                         }`}
                       onClick={() => {
-                        changeTab('all');
+                        changeTab(WorkOrderFilter.All);
                       }}
                     >
                       All
                     </li>
 
                     <li
-                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === 'done' ? activeClasses : inactiveClasses
+                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === WorkOrderFilter.Done ? activeClasses : inactiveClasses
                         }`}
                       onClick={() => {
-                        changeTab('done');
+                        changeTab(WorkOrderFilter.Done);
                       }}
                     >
                       Done

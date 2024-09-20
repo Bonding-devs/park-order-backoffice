@@ -8,7 +8,13 @@ import {
 } from '../../api/workOrderApi';
 import { mergeUniqueElementsById } from '../../utils/mergeUniqueElementsById';
 import { usePagination } from './usePagination';
-import { useTabs } from './useTabs';
+import { useTabs, WorkOrderFilter } from './useTabs';
+
+export enum WorkOrderView {
+  Loading = 'loading',
+  Form = 'workorderform',
+  View = 'workorderview',
+}
 
 export const useWorkOrder = () => {
   const listInnerRef = useRef();
@@ -16,7 +22,7 @@ export const useWorkOrder = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingScroll, setLoadingScroll] = useState(false);
-  const [showView, setShowView] = useState('loading');
+  const [showView, setShowView] = useState<WorkOrderView>(WorkOrderView.Loading);
   const limit = 10;
 
   const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -38,7 +44,7 @@ export const useWorkOrder = () => {
   useEffect(() => {
     if (!lastList) {
       onLoadPaginateData({
-        params: activeTab === 'done' ? { status: 'done' } : {},
+        params: activeTab === WorkOrderFilter.Done ? { status: WorkOrderFilter.Done } : {},
         scroll: true,
         paginate: { offset: getOffset(), limit },
       });
@@ -59,21 +65,21 @@ export const useWorkOrder = () => {
     }
   };
 
-  const reFetchDataWorkOrders = (filter = 'all') => {
+  const reFetchDataWorkOrders = (filter = WorkOrderFilter.All) => {
     setWorkOrders([]);
     resetPagination();
     onLoadPaginateData({
-      params: filter === 'done' ? { status: 'done' } : {},
+      params: filter === WorkOrderFilter.Done ? { status: WorkOrderFilter.Done } : {},
       scroll: false,
       paginate: { offset: getOffset(), limit },
     });
   };
 
   const onClickCreateWorkOrder = () => {
-    setShowView('loading');
+    setShowView(WorkOrderView.Loading);
     later(1000)
       .then(() => {
-        setShowView('workorderform');
+        setShowView(WorkOrderView.Form);
       })
       .catch(() => {
         console.log('error');
@@ -81,15 +87,11 @@ export const useWorkOrder = () => {
   };
 
   const onClickDetailWorkOrder = async (id) => {
-    setShowView('loading');
+    setShowView(WorkOrderView.Loading);
     try {
-      const workOrdersResponseDetail = await getWorkOrderById({
-        id,
-      });
-
+      const workOrdersResponseDetail = await getWorkOrderById({ id });
       setWorOrderDetail(workOrdersResponseDetail);
-      setShowView('workorderview');
-
+      setShowView(WorkOrderView.View);
       setError(null);
     } catch (err) {
       setError('Failed to fetch work order');
@@ -141,7 +143,7 @@ export const useWorkOrder = () => {
       }
 
       if (!scroll) {
-        setShowView('workorderview');
+        setShowView(WorkOrderView.View);
         setWorOrderDetail(workOrdersResponse[0]);
       }
 
