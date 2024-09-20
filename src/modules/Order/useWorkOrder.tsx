@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import {
   createWorkOrders,
   fetchWorkOrders,
   getWorkOrderById,
 } from '../../api/workOrderApi';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { mergeUniqueElementsById } from '../../utils/mergeUniqueElementsById';
+import { usePagination } from './usePagination';
+import { useTabs } from './useTabs';
 
 export const useWorkOrder = () => {
   const listInnerRef = useRef();
@@ -14,42 +16,34 @@ export const useWorkOrder = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingScroll, setLoadingScroll] = useState(false);
-  const [lastList, setLastList] = useState(false);
-  const [currPage, setCurrPage] = useState(0);
-  const [prevPage, setPrevPage] = useState(0);
-  const [offset, setOffSet] = useState(0);
   const [showView, setShowView] = useState('loading');
   const limit = 10;
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
+  const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
   const [workOrderDetail, setWorOrderDetail] = useState({});
 
-  useEffect(() => {
-    onLoadPaginateData({
-      params: {},
-      scroll: false,
-      filter: 'all',
-      paginate: { offset, limit },
-    });
-  }, []);
+
+  const { currPage, lastList, incrementPage, resetPagination, getOffset, setLastList } =
+    usePagination({ limit });
+
+
+  const { activeTab, changeTab } = useTabs();
+
 
   useEffect(() => {
-    if (!lastList && prevPage !== currPage) {
+    reFetchDataWorkOrders(activeTab);
+  }, [activeTab]);
+
+
+  useEffect(() => {
+    if (!lastList) {
       onLoadPaginateData({
-        params: {},
+        params: activeTab === 'done' ? { status: 'done' } : {},
         scroll: true,
-        filter: 'all',
-        paginate: { offset, limit },
+        paginate: { offset: getOffset(), limit },
       });
     }
-  }, [offset]);
+  }, [currPage]);
 
   const getWorkOrders = async ({ params = {}, paginate = {} }) => {
     try {
@@ -65,18 +59,18 @@ export const useWorkOrder = () => {
     }
   };
 
-  const reFetchDataWorkOrders = () => {
+  const reFetchDataWorkOrders = (filter = 'all') => {
+    setWorkOrders([]);
+    resetPagination();
     onLoadPaginateData({
-      params: {},
-      scroll: true,
-      filter: 'all',
-      paginate: { offset, limit },
+      params: filter === 'done' ? { status: 'done' } : {},
+      scroll: false,
+      paginate: { offset: getOffset(), limit },
     });
   };
 
   const onClickCreateWorkOrder = () => {
     setShowView('loading');
-    //Implementar the todas las llamadas que se necesitan
     later(1000)
       .then(() => {
         setShowView('workorderform');
@@ -118,7 +112,7 @@ export const useWorkOrder = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
       if (Math.round(scrollTop + clientHeight) === scrollHeight) {
-        setOffSet(currPage * limit);
+        incrementPage();
       }
     }
   };
@@ -132,7 +126,6 @@ export const useWorkOrder = () => {
   const onLoadPaginateData = async ({
     params,
     scroll = false,
-    filter = 'all',
     paginate,
   }) => {
     if (!scroll) setLoading(true);
@@ -141,6 +134,7 @@ export const useWorkOrder = () => {
         params,
         paginate,
       });
+
       if (!workOrdersResponse.length) {
         setLastList(true);
         return;
@@ -151,17 +145,12 @@ export const useWorkOrder = () => {
         setWorOrderDetail(workOrdersResponse[0]);
       }
 
-      if (filter != 'all') {
-        setOffSet(0);
-        setPrevPage(0);
-        setCurrPage(0);
-        setLastList(false);
-        setWorkOrders(workOrdersResponse);
+      if (scroll) {
+        setWorkOrders((prevOrders) =>
+          mergeUniqueElementsById(prevOrders, workOrdersResponse)
+        );
       } else {
-        const counterResponse = workOrdersResponse.length < limit ? 0 : 1;
-        setPrevPage(currPage);
-        setCurrPage(currPage + counterResponse);
-        setWorkOrders(mergeUniqueElementsById(workOrders, workOrdersResponse));
+        setWorkOrders(workOrdersResponse);
       }
 
       setError(null);
@@ -176,7 +165,6 @@ export const useWorkOrder = () => {
     workOrders,
     loading,
     error,
-    getWorkOrders,
     reFetchDataWorkOrders,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
@@ -188,8 +176,9 @@ export const useWorkOrder = () => {
     onScroll,
     listInnerRef,
     showView,
-    onFilterWorkOrder: onLoadPaginateData,
     control,
     errors,
+    activeTab,
+    changeTab,
   };
 };

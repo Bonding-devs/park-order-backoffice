@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Modal from '../../common/Modal';
+import Loader from '../../common/LoaderPage';
+import { CustomTableView } from '../../components';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import WorkOrdersForm from '../../modules/Order/OrderWorkForm';
+import WorkOrdersView from '../../modules/Order/OrderWorkView';
 import {
-  columnWorkOrders,
   optionStatusWorkOrders,
 } from '../../modules/Order/configuration';
-import { useWorkOrder } from '../../modules/Order/useWorkOrder';
-import { CustomGrid, CustomTableView } from '../../components';
-import WorkOrdersView from '../../modules/Order/OrderWorkView';
-import Loader from '../../common/LoaderPage';
+import { useWorkOrder } from '../../modules/Order/useWorkOrder'; // Importamos el hook
 
 const WorkOrderPage: React.FC = () => {
   const {
@@ -30,9 +28,10 @@ const WorkOrderPage: React.FC = () => {
     onScroll,
     listInnerRef,
     showView,
-    onFilterWorkOrder,
     control,
     errors,
+    activeTab,
+    changeTab,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -95,10 +94,11 @@ const WorkOrderPage: React.FC = () => {
             loading={loading}
             onScroll={onScroll}
             listInnerRef={listInnerRef}
-            onFilter={onFilterWorkOrder}
+            activeTab={activeTab}
+            changeTab={changeTab}
             loadingScroll={loadingScroll}
           >
-            {renderView(workOrderDetail)}
+            {renderView()}
           </CustomTableView>
         </div>
       </DefaultLayout>
