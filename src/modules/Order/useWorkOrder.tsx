@@ -6,6 +6,7 @@ import {
   fetchWorkOrders,
   getWorkOrderById,
 } from '../../api/workOrderApi';
+import { WorkOrder } from '../../models/workOrder';
 import { mergeUniqueElementsById } from '../../utils/mergeUniqueElementsById';
 import { usePagination } from './usePagination';
 import { useTabs, WorkOrderFilter } from './useTabs';
@@ -18,7 +19,8 @@ export enum WorkOrderView {
 
 export const useWorkOrder = () => {
   const listInnerRef = useRef();
-  const [workOrders, setWorkOrders] = useState([]);
+  const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingScroll, setLoadingScroll] = useState(false);
@@ -132,7 +134,7 @@ export const useWorkOrder = () => {
   }) => {
     if (!scroll) setLoading(true);
     try {
-      const workOrdersResponse = await getWorkOrders({
+      const workOrdersResponse: WorkOrder[] = await getWorkOrders({
         params,
         paginate,
       });
@@ -167,7 +169,6 @@ export const useWorkOrder = () => {
     workOrders,
     loading,
     error,
-    reFetchDataWorkOrders,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
     loadingScroll,

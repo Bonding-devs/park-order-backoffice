@@ -10,13 +10,11 @@ import WorkOrdersView from '../../modules/Order/OrderWorkView';
 import { optionStatusWorkOrders } from '../../modules/Order/configuration';
 import { useWorkOrder, WorkOrderView } from '../../modules/Order/useWorkOrder';
 
-
 const WorkOrderPage: React.FC = () => {
   const {
     workOrders,
     loading,
     error,
-    reFetchDataWorkOrders,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
     loadingScroll,
@@ -53,7 +51,6 @@ const WorkOrderPage: React.FC = () => {
             errors={errors}
           />
         );
-
       case WorkOrderView.View:
         return (
           <WorkOrdersView
@@ -61,7 +58,6 @@ const WorkOrderPage: React.FC = () => {
             status={optionStatusWorkOrders}
           />
         );
-
       default:
         return <></>;
     }
@@ -85,21 +81,19 @@ const WorkOrderPage: React.FC = () => {
           )}
         />
         <ToastContainer />
+        <CustomTableView
+          data={workOrders}
+          onClickDetailWorkOrder={onClickDetailWorkOrder}
+          loading={loading}
+          onScroll={onScroll}
+          listInnerRef={listInnerRef}
+          activeTab={activeTab}
+          changeTab={changeTab}
+          loadingScroll={loadingScroll}
+        >
+          {renderView()}
+        </CustomTableView>
 
-        <div className="">
-          <CustomTableView
-            data={workOrders}
-            onClickDetailWorkOrder={onClickDetailWorkOrder}
-            loading={loading}
-            onScroll={onScroll}
-            listInnerRef={listInnerRef}
-            activeTab={activeTab}
-            changeTab={changeTab}
-            loadingScroll={loadingScroll}
-          >
-            {renderView()}
-          </CustomTableView>
-        </div>
       </DefaultLayout>
     </>
   );
