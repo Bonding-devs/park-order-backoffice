@@ -9,23 +9,8 @@ import {
 import { WorkOrder } from '../../models/workOrder';
 import { mergeUniqueElementsById } from '../../utils/mergeUniqueElementsById';
 import { usePagination } from './usePagination';
+import { useSearch } from './useSearch';
 import { useTabs, WorkOrderFilter } from './useTabs';
-
-
-const useSearch = (initialTerm: string, delay: number) => {
-  const [searchTerm, setSearchTerm] = useState(initialTerm);
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialTerm);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, delay);
-
-    return () => clearTimeout(handler);
-  }, [searchTerm, delay]);
-
-  return { searchTerm, setSearchTerm, debouncedSearchTerm };
-};
 
 export enum WorkOrderView {
   Loading = 'loading',

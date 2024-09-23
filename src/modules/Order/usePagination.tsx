@@ -1,13 +1,15 @@
 import { useState } from 'react';
 
-export const usePagination = ({ limit }) => {
+export const usePagination = ({ limit }: { limit: number }) => {
     const [currPage, setCurrPage] = useState(0);
     const [lastList, setLastList] = useState(false);
 
     const getOffset = () => currPage * limit;
 
     const incrementPage = () => {
-        setCurrPage((prevPage) => prevPage + 1);
+        if (!lastList) {
+            setCurrPage((prevPage) => prevPage + 1);
+        }
     };
 
     const resetPagination = () => {
