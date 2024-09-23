@@ -15,6 +15,8 @@ interface CustomTableViewProps {
   activeTab: WorkOrderFilter;
   changeTab: (tab: WorkOrderFilter) => void;
   loadingScroll: boolean;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
 const CustomTableView: React.FC<CustomTableViewProps> = ({
@@ -27,6 +29,8 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
   activeTab,
   changeTab,
   loadingScroll,
+  searchTerm,
+  setSearchTerm,
 }) => {
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
@@ -41,16 +45,13 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
                 <div className="relative right-0">
                   <ul className="bg-blue-gray-50/60 relative flex list-none flex-wrap rounded-xl">
                     <li
-                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === WorkOrderFilter.All ? activeClasses : inactiveClasses
-                        }`}
+                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === WorkOrderFilter.All ? activeClasses : inactiveClasses}`}
                       onClick={() => changeTab(WorkOrderFilter.All)}
                     >
                       All
                     </li>
-
                     <li
-                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === WorkOrderFilter.Done ? activeClasses : inactiveClasses
-                        }`}
+                      className={`flex-auto cursor-pointer border-b-2 pt-2 text-center text-sm font-medium hover:text-primary md:text-base ${activeTab === WorkOrderFilter.Done ? activeClasses : inactiveClasses}`}
                       onClick={() => changeTab(WorkOrderFilter.Done)}
                     >
                       Done
@@ -63,6 +64,8 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
               <form className="sticky mb-7">
                 <input
                   type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full rounded border border-stroke bg-gray-2 py-2.5 pl-5 pr-10 text-sm outline-none focus:border-primary dark:border-strokedark dark:bg-boxdark-2"
                   placeholder="Search..."
                 />

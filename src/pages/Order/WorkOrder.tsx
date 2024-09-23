@@ -29,6 +29,8 @@ const WorkOrderPage: React.FC = () => {
     errors,
     activeTab,
     changeTab,
+    searchTerm,
+    setSearchTerm,
   } = useWorkOrder();
 
   useEffect(() => {
@@ -90,10 +92,11 @@ const WorkOrderPage: React.FC = () => {
           activeTab={activeTab}
           changeTab={changeTab}
           loadingScroll={loadingScroll}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
         >
           {renderView()}
         </CustomTableView>
-
       </DefaultLayout>
     </>
   );

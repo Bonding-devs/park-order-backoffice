@@ -18,35 +18,53 @@ export enum WorkOrderView {
 }
 
 export const useWorkOrder = () => {
-  const listInnerRef = useRef();
+  const listInnerRef = useRef<HTMLDivElement>(null);
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
-
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingScroll, setLoadingScroll] = useState(false);
   const [showView, setShowView] = useState<WorkOrderView>(WorkOrderView.Loading);
   const limit = 10;
 
-  const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
-  const [workOrderDetail, setWorOrderDetail] = useState({});
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('');
 
+  const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [workOrderDetail, setWorOrderDetail] = useState<WorkOrder | null>(null);
 
   const { currPage, lastList, incrementPage, resetPagination, getOffset, setLastList } =
     usePagination({ limit });
 
-
   const { activeTab, changeTab } = useTabs();
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
 
 
   useEffect(() => {
-    reFetchDataWorkOrders(activeTab);
+    setSearchTerm('');
+    reFetchDataWorkOrders(activeTab, '');
   }, [activeTab]);
 
 
   useEffect(() => {
+    reFetchDataWorkOrders(activeTab, debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
     if (!lastList) {
       onLoadPaginateData({
-        params: activeTab === WorkOrderFilter.Done ? { status: WorkOrderFilter.Done } : {},
+        params: {
+          status: activeTab === WorkOrderFilter.Done ? WorkOrderFilter.Done : undefined,
+          textToSearch: debouncedSearchTerm || undefined,
+        },
         scroll: true,
         paginate: { offset: getOffset(), limit },
       });
@@ -67,11 +85,14 @@ export const useWorkOrder = () => {
     }
   };
 
-  const reFetchDataWorkOrders = (filter = WorkOrderFilter.All) => {
+  const reFetchDataWorkOrders = (filter = WorkOrderFilter.All, textToSearch = '') => {
     setWorkOrders([]);
     resetPagination();
     onLoadPaginateData({
-      params: filter === WorkOrderFilter.Done ? { status: WorkOrderFilter.Done } : {},
+      params: {
+        status: filter === WorkOrderFilter.Done ? WorkOrderFilter.Done : undefined,
+        textToSearch: textToSearch || undefined,
+      },
       scroll: false,
       paginate: { offset: getOffset(), limit },
     });
@@ -88,7 +109,7 @@ export const useWorkOrder = () => {
       });
   };
 
-  const onClickDetailWorkOrder = async (id) => {
+  const onClickDetailWorkOrder = async (id: string) => {
     setShowView(WorkOrderView.Loading);
     try {
       const workOrdersResponseDetail = await getWorkOrderById({ id });
@@ -100,7 +121,7 @@ export const useWorkOrder = () => {
     }
   };
 
-  const onSubmitWorkOrders = async (data) => {
+  const onSubmitWorkOrders = async (data: any) => {
     try {
       await createWorkOrders(data);
       setError(null);
@@ -121,7 +142,7 @@ export const useWorkOrder = () => {
     }
   };
 
-  function later(delay) {
+  function later(delay: number) {
     return new Promise(function (resolve) {
       setTimeout(resolve, delay);
     });
@@ -131,8 +152,9 @@ export const useWorkOrder = () => {
     params,
     scroll = false,
     paginate,
-  }) => {
+  }: any) => {
     if (!scroll) setLoading(true);
+
     try {
       const workOrdersResponse: WorkOrder[] = await getWorkOrders({
         params,
@@ -183,5 +205,7 @@ export const useWorkOrder = () => {
     errors,
     activeTab,
     changeTab,
+    searchTerm,
+    setSearchTerm,
   };
 };
