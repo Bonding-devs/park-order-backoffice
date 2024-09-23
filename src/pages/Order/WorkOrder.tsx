@@ -17,7 +17,6 @@ const WorkOrderPage: React.FC = () => {
     error,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
-    loadingScroll,
     workOrderDetail,
     onSubmitWorkOrders,
     register,
@@ -91,7 +90,6 @@ const WorkOrderPage: React.FC = () => {
           listInnerRef={listInnerRef}
           activeTab={activeTab}
           changeTab={changeTab}
-          loadingScroll={loadingScroll}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         >

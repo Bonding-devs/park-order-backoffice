@@ -22,7 +22,6 @@ export const useWorkOrder = () => {
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [loadingScroll, setLoadingScroll] = useState(false);
   const [showView, setShowView] = useState<WorkOrderView>(WorkOrderView.Loading);
   const limit = 10;
 
@@ -154,7 +153,6 @@ export const useWorkOrder = () => {
     paginate,
   }: any) => {
     if (!scroll) setLoading(true);
-
     try {
       const workOrdersResponse: WorkOrder[] = await getWorkOrders({
         params,
@@ -193,7 +191,6 @@ export const useWorkOrder = () => {
     error,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
-    loadingScroll,
     workOrderDetail,
     onSubmitWorkOrders,
     register,

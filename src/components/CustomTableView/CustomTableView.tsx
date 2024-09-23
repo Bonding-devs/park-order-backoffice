@@ -1,6 +1,5 @@
 import React, { RefObject } from 'react';
 import Loader from '../../common/LoaderPage';
-import Loading from '../../common/Loading';
 import { WorkOrder } from '../../models/workOrder';
 import { WorkOrderFilter } from '../../modules/Order/useTabs';
 import CustomTableCell from '../CustomTableCell/CustomTableCell';
@@ -14,7 +13,6 @@ interface CustomTableViewProps {
   listInnerRef: RefObject<HTMLDivElement>;
   activeTab: WorkOrderFilter;
   changeTab: (tab: WorkOrderFilter) => void;
-  loadingScroll: boolean;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
 }
@@ -28,7 +26,6 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
   listInnerRef,
   activeTab,
   changeTab,
-  loadingScroll,
   searchTerm,
   setSearchTerm,
 }) => {
@@ -73,7 +70,7 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
               <div className="max-h-full space-y-3.5 overflow-auto" onScroll={onScroll} ref={listInnerRef}>
                 {loading ? (
                   <Loader />
-                ) : !loadingScroll ? (
+                ) :
                   data.map((object, index) => (
                     <CustomTableCell
                       key={object.id}
@@ -82,9 +79,7 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
                       onClick={() => onClickDetailWorkOrder(object.id)}
                     />
                   ))
-                ) : (
-                  <Loading />
-                )}
+                }
               </div>
             </div>
           </div>
