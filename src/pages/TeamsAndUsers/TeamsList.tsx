@@ -35,7 +35,6 @@ export const TeamsList: React.FC = () => {
               />
             );
           })}
-          <div ref={externalRef} id="visor" />
         </div>
         {loading && (
           <div className="self-center">

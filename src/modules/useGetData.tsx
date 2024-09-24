@@ -58,7 +58,6 @@ export const useGetData = <T extends { id?: string }>(
     setLoading(true);
     try {
       const result = await fetchFunction({ offset, limit });
-      console.log(result);
       setData((prevData) => {
         const newData = result.data.filter(
           (newItem) => !prevData.some((prevItem) => prevItem.id === newItem.id)
@@ -73,7 +72,7 @@ export const useGetData = <T extends { id?: string }>(
         return;
       }
     } catch (error) {
-      setError(`Failed to fetch Locations ${type}`);
+      setError(`Failed to fetch ${type}`);
       delay(1000).then(() => setError(null));
     } finally {
       setLoading(false);
@@ -91,6 +90,11 @@ export const useGetData = <T extends { id?: string }>(
         break;
       case ManageData.DELETE:
         setData((prevData) => prevData.filter((item) => item.id !== data.id));
+        break;
+      case ManageData.EDIT:
+        setData((prevData) =>
+          prevData.map((item) => (item.id === data.id ? data : item))
+        );
         break;
     }
   };

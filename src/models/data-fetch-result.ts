@@ -1,6 +1,7 @@
 export enum ManageData {
     CREATE,
     DELETE,
+    EDIT,
 }
 
 export interface DataFetchResult<T> {

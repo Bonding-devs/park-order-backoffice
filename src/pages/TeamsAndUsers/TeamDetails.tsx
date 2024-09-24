@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { TitleText } from '../../components/Text/TitleText';
 import { Team } from '../../models/team';
-import TeamMemberItem from './TeamMemberItem';
+import { ManageMembers } from './Details/ManageMembers';
+import React from 'react';
+import { TeamProvider } from './Details/TeamContext';
 
 interface TeamDetailsProps {
   team: Team;
@@ -39,13 +41,10 @@ const TeamDetails: React.FC<TeamDetailsProps> = ({ team }) => {
           {team.description}
         </p>
       </div>
-      <div className="custom-border border-t" />
-      <h2 className="mt-4 font-bold">Members</h2>
-      <div className="mx-8 my-3">
-        {team.users.map((member) => (
-          <TeamMemberItem key={member.id} member={member} />
-        ))}
-      </div>
+      <div className="custom-border mb-4 border-t" />
+      <TeamProvider team={team}>
+        <ManageMembers />
+      </TeamProvider>
     </div>
   );
 };
