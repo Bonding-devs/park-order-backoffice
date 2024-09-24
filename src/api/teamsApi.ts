@@ -80,3 +80,15 @@ export const removeUsersFromTeam = async (teamId: string, userIds: string[]): Pr
     throw error;
   }
 }
+
+export const deleteTeam = async (teamId: string): Promise<void> => {
+  try {
+    await createApiRequest({
+      url: `${url}/${teamId}`,
+      method: HTTP_METHODS.DELETE,
+    });
+  } catch (error) {
+    console.error('Error delete team:', error);
+    throw error;
+  }
+}
