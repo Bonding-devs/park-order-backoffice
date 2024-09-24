@@ -5,7 +5,7 @@ import { DataFetchResult } from '../models/data-fetch-result';
 
 export enum RightSideTeamsOptions {
   VIEW,
-  UPDATE,
+  EDIT,
   CREATE,
   ADD_USER,
 }

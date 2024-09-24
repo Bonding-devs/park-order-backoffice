@@ -1,6 +1,6 @@
 import { HTTP_METHODS } from "../globals";
 import { Params } from "../models/params";
-import { Team, TeamWithoutUsers } from "../models/team";
+import { CreateTeam, Team, TeamWithoutUsers } from "../models/team";
 import { createApiRequest } from "../services/axios";
 import { delay } from "../utils/delay";
 
@@ -89,6 +89,34 @@ export const deleteTeam = async (teamId: string): Promise<void> => {
     });
   } catch (error) {
     console.error('Error delete team:', error);
+    throw error;
+  }
+}
+
+export const createTeam = async (team: CreateTeam): Promise<Team> => {
+  try {
+    const response = await createApiRequest({
+      url: url,
+      method: HTTP_METHODS.POST,
+      data: team,
+    });
+    return await fetchTeamById(response.id);
+  } catch (error) {
+    console.error('Error create team:', error);
+    throw error;
+  }
+}
+
+export const updateTeam = async (id: string,data: CreateTeam): Promise<Team> => {
+  try {
+    await createApiRequest({
+      url: `${url}/${id}`,
+      method: HTTP_METHODS.PUT,
+      data
+    });
+    return await fetchTeamById(id);
+  } catch (error) {
+    console.error('Error update team:', error);
     throw error;
   }
 }

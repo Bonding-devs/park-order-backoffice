@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useMembers } from '../../../context/MembersContext';
 import { MembersControl, useTeam } from './TeamContext';
-import TeamMemberItem from '../TeamMemberItem';
+import TeamMemberItem from './TeamMemberItem';
 import { useManageTeamMembers } from '../../../modules/teams/useManageTeamMembers';
 import {
   PrincipalButton,

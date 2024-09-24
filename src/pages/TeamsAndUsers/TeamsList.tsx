@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Loader } from '../../common/LoaderPage/Loader';
-import { useTeams } from '../../context/TeamsContext';
+import { RightSideTeamsOptions, useTeams } from '../../context/TeamsContext';
 import { TeamItem } from './TeamItem';
 import { toast } from 'react-toastify';
 import { Team } from '../../models/team';
 
 export const TeamsList: React.FC = () => {
-  const { data, loading, error, externalRef, selectedItem, setSelectedItem } =
+  const { data, loading, error, externalRef, selectedItem, setSelectedItem , setMode} =
     useTeams();
   useEffect(() => {
     if (error) {
@@ -17,6 +17,7 @@ export const TeamsList: React.FC = () => {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>, team: Team) => {
     event.preventDefault();
     setSelectedItem(team);
+    setMode(RightSideTeamsOptions.VIEW);
   };
 
   return (

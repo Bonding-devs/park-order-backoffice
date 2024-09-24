@@ -87,6 +87,7 @@ export const useGetData = <T extends { id?: string }>(
     switch (action) {
       case ManageData.CREATE:
         setData((prevData) => [data, ...prevData]);
+        setSelectedItem(data);
         break;
       case ManageData.DELETE:
         setData((prevData) => prevData.filter((item) => item.id !== data.id));
@@ -95,6 +96,7 @@ export const useGetData = <T extends { id?: string }>(
         setData((prevData) =>
           prevData.map((item) => (item.id === data.id ? data : item))
         );
+        setSelectedItem(data);
         break;
     }
   };

@@ -4,7 +4,7 @@ import {
   SizeButton,
 } from '../../../components/CustomButtons/PrincipalButton';
 import { useManageTeamMembers } from '../../../modules/teams/useManageTeamMembers';
-import TeamMemberItem from '../TeamMemberItem';
+import TeamMemberItem from './TeamMemberItem';
 import { MembersControl, useTeam } from './TeamContext';
 import { toast } from 'react-toastify';
 import ModalConfirmExtended from '../../../components/Common/ModalConfirmExtended';

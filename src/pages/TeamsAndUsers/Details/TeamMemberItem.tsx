@@ -1,8 +1,8 @@
 // TeamMember.tsx
 import React from 'react';
-import ImageWithPlaceholder from '../../common/Image/ImageWithPlaceholder';
-import { OrganizationMember } from '../../models/organization-member';
-import { CustomCheckbox } from '../../components/CustomInput/CustomCheckbox';
+import ImageWithPlaceholder from '../../../common/Image/ImageWithPlaceholder';
+import { OrganizationMember } from '../../../models/organization-member';
+import { CustomCheckbox } from '../../../components/CustomInput/CustomCheckbox';
 
 interface TeamMemberProps {
   member: OrganizationMember;

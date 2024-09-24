@@ -6,6 +6,7 @@ import { TeamsList } from './TeamsList';
 import { TeamsProvider } from '../../context/TeamsContext';
 import { RightSideTeam } from './RightSideTeam';
 import { MembersProvider } from '../../context/MembersContext';
+import { TeamsAndUsersHeader } from './TeamsAndUsersHeader';
 
 export const TeamsAndUsers: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ export const TeamsAndUsers: React.FC = () => {
         <ToastContainer />
         <MembersProvider>
           <TeamsProvider>
+            <TeamsAndUsersHeader />
             <ShadowContainer>
               <div className="w-1/3 overflow-y-auto">
                 <TeamsList />

@@ -10,3 +10,8 @@ export interface Team {
     description: string;
     users: OrganizationMember[];
 }
+
+export interface CreateTeam {
+    name: string;
+    description: string;
+}
