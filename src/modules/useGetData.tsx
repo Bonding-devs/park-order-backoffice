@@ -83,20 +83,23 @@ export const useGetData = <T extends { id?: string }>(
     loadMoreItems();
   }, [offset]);
 
-  const manageData = (data: T, action: ManageData) => {
+  const manageData = (element: T, action: ManageData) => {
     switch (action) {
       case ManageData.CREATE:
-        setData((prevData) => [data, ...prevData]);
-        setSelectedItem(data);
+        setData((prevData) => [element, ...prevData]);
+        setSelectedItem(element);
         break;
       case ManageData.DELETE:
-        setData((prevData) => prevData.filter((item) => item.id !== data.id));
+        setSelectedItem(null);
+        setData((prevData) =>
+          prevData.filter((item) => item.id !== element.id)
+        );
         break;
       case ManageData.EDIT:
         setData((prevData) =>
-          prevData.map((item) => (item.id === data.id ? data : item))
+          prevData.map((item) => (item.id === element.id ? element : item))
         );
-        setSelectedItem(data);
+        setSelectedItem(element);
         break;
     }
   };
