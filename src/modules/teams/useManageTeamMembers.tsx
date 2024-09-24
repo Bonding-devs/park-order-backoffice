@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addUsersToTeam } from '../../api/teamsApi';
+import { addUsersToTeam, removeUsersFromTeam } from '../../api/teamsApi';
 import { delay } from '../../utils/delay';
 import {
   MembersControl,
@@ -9,7 +9,7 @@ import { useTeams } from '../../context/TeamsContext';
 import { ManageData } from '../../models/data-fetch-result';
 import { toast } from 'react-toastify';
 
-export const useAddTeamMembers = (teamId: string) => {
+export const useManageTeamMembers = (teamId: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { setMode } = useTeam();
@@ -23,7 +23,7 @@ export const useAddTeamMembers = (teamId: string) => {
     }
   };
 
-  const onSubmit = async () => {
+  const onAddSubmit = async () => {
     setIsLoading(true);
     try {
       const team = await addUsersToTeam(teamId, selected);
@@ -38,5 +38,20 @@ export const useAddTeamMembers = (teamId: string) => {
     }
   };
 
-  return { selected, onHandleSelect, onSubmit, isLoading , error};
+  const onEditSubmit = async () => { 
+    setIsLoading(true);
+    try {
+      const team = await removeUsersFromTeam(teamId, selected);
+      toast.success('Users removed from team');
+      manageData(team, ManageData.EDIT);
+      setMode(MembersControl.VIEW);
+    } catch (error) {
+      setError('Error removing users from team');
+      delay(2000).then(() => setError(null));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return { selected, onHandleSelect, onAddSubmit, onEditSubmit, isLoading , error};
 };

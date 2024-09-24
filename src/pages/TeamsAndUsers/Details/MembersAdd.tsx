@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useMembers } from '../../../context/MembersContext';
 import { MembersControl, useTeam } from './TeamContext';
 import TeamMemberItem from '../TeamMemberItem';
-import { useAddTeamMembers } from '../../../modules/teams/useAddTeamMembers';
+import { useManageTeamMembers } from '../../../modules/teams/useManageTeamMembers';
 import {
   PrincipalButton,
   SizeButton,
@@ -16,10 +16,10 @@ export const MembersAdd: React.FC = () => {
   const {
     selected,
     onHandleSelect,
-    onSubmit,
+    onAddSubmit,
     error: errorAdd,
     isLoading: isLoadingAdd,
-  } = useAddTeamMembers(team.id);
+  } = useManageTeamMembers(team.id);
 
   useEffect(() => {
     const errorText = error || errorAdd;
@@ -44,7 +44,7 @@ export const MembersAdd: React.FC = () => {
           <PrincipalButton
             disabled={isLoadingAdd}
             size={SizeButton.Small}
-            onClick={onSubmit}
+            onClick={onAddSubmit}
           >
             {!isLoadingAdd ? textButton : `${textButton}ing...`}
           </PrincipalButton>
@@ -66,6 +66,7 @@ export const MembersAdd: React.FC = () => {
             const checked = selected.includes(member.id);
             return (
               <TeamMemberItem
+                key={member.id}
                 member={member}
                 activateCheckbox={true}
                 onHandleSelect={onHandleSelect}

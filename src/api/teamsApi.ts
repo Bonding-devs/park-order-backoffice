@@ -65,3 +65,18 @@ export const addUsersToTeam = async (teamId: string, userIds: string[]): Promise
     throw error;
   }
 }
+
+export const removeUsersFromTeam = async (teamId: string, userIds: string[]): Promise<Team> => {
+  try {
+    // await createApiRequest({
+    //   url: `${url}/${teamId}/users`,
+    //   method: HTTP_METHODS.DELETE,
+    //   data: userIds,
+    // });
+    await delay(3000);
+    return await fetchTeamById(teamId);
+  } catch (error) {
+    console.error('Error remove users from team:', error);
+    throw error;
+  }
+}
