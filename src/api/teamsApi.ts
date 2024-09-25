@@ -53,12 +53,11 @@ export const fetchTeamById = async (id: string): Promise<Team> => {
 
 export const addUsersToTeam = async (teamId: string, userIds: string[]): Promise<Team> => {
   try {
-    // await createApiRequest({
-    //   url: `${url}/${teamId}/users`,
-    //   method: HTTP_METHODS.POST,
-    //   data: userIds,
-    // });
-    await delay(3000);
+    await createApiRequest({
+      url: `${url}/${teamId}/users`,
+      method: HTTP_METHODS.POST,
+      data: {userIds},
+    });
     return await fetchTeamById(teamId);
   } catch (error) {
     console.error('Error add users to team:', error);
