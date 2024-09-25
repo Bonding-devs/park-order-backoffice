@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Loader } from '../../../common/LoaderPage/Loader';
 import { useGetComments } from '../../../modules/Comments/useGetComments';
-import { InitialName } from './CommentEditor';
 import { toast } from 'react-toastify';
 import { dateHelpers } from '../../../utils/dateHelpers';
+import { InitialName } from '../../../common/InitialName';
 
 interface CommentsListProps {
   workOrderId: string;

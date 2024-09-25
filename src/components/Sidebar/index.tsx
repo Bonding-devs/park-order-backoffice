@@ -5,7 +5,7 @@ import LinkAuth from '../LinkAuth/LinkAuth';
 import { useAuth } from '../../context/AuthContext';
 import { SidebarItem } from './SidebarItem';
 import { CiLocationOn } from 'react-icons/ci';
-import { FaUsers } from 'react-icons/fa';
+import { FaUsers, FaUsersCog} from 'react-icons/fa';
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
@@ -145,6 +145,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     to="/organization-members"
                     name="Members"
                     include="organization-members"
+                  >
+                    <FaUsersCog size={22} />
+                  </SidebarItem>
+                </li>
+                <li>
+                  <SidebarItem
+                    to="/teams"
+                    name="Teams / Users"
+                    include="teams"
                   >
                     <FaUsers size={22} />
                   </SidebarItem>
