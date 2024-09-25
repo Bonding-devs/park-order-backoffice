@@ -1,20 +1,16 @@
-import React, { useEffect } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Loader from '../../common/LoaderPage';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import { CustomTableView } from '../../components';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { PrincipalButton } from '../../components/CustomButtons/PrincipalButton';
 import DefaultLayout from '../../layout/DefaultLayout';
-import WorkOrdersForm from '../../modules/Order/OrderWorkForm';
-import WorkOrdersView from '../../modules/Order/OrderWorkView';
-import { optionStatusWorkOrders } from '../../modules/Order/configuration';
-import { useWorkOrder, WorkOrderView } from '../../modules/Order/useWorkOrder';
+import { useWorkOrder } from '../../modules/Order/useWorkOrder';
+import WorkOrderDetail from './WorkOrderDetail';
 
 const WorkOrderPage: React.FC = () => {
   const {
     workOrders,
     loading,
-    error,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
     workOrderDetail,
@@ -32,38 +28,6 @@ const WorkOrderPage: React.FC = () => {
     setSearchTerm,
   } = useWorkOrder();
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-  }, [error]);
-
-  const renderView = () => {
-    switch (showView) {
-      case WorkOrderView.Loading:
-        return <Loader />;
-      case WorkOrderView.Form:
-        return (
-          <WorkOrdersForm
-            register={register}
-            handleSubmit={handleSubmit}
-            onSubmitWorkOrders={onSubmitWorkOrders}
-            control={control}
-            errors={errors}
-          />
-        );
-      case WorkOrderView.View:
-        return (
-          <WorkOrdersView
-            data={workOrderDetail}
-            status={optionStatusWorkOrders}
-          />
-        );
-      default:
-        return <></>;
-    }
-  };
-
   return (
     <>
       <DefaultLayout>
@@ -71,14 +35,9 @@ const WorkOrderPage: React.FC = () => {
           pageName="Work Orders"
           reDirectionUrl="/work-order"
           render={() => (
-            <>
-              <button
-                onClick={() => onClickCreateWorkOrder()}
-                className="rounded-md bg-primary px-9 py-3 font-medium text-white hover:bg-opacity-90"
-              >
-                New Order Work
-              </button>
-            </>
+            <PrincipalButton onClick={onClickCreateWorkOrder}>
+              New Order Work
+            </PrincipalButton>
           )}
         />
         <ToastContainer />
@@ -93,7 +52,15 @@ const WorkOrderPage: React.FC = () => {
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         >
-          {renderView()}
+          <WorkOrderDetail
+            showView={showView}
+            register={register}
+            handleSubmit={handleSubmit}
+            onSubmitWorkOrders={onSubmitWorkOrders}
+            control={control}
+            errors={errors}
+            workOrderDetail={workOrderDetail}
+          />
         </CustomTableView>
       </DefaultLayout>
     </>

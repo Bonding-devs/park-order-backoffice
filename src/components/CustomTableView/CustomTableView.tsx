@@ -34,7 +34,7 @@ const CustomTableView: React.FC<CustomTableViewProps> = ({
 
   return (
     <>
-      <div className="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-200px)]">
+      <div className="h-[calc(100vh-186px)] overflow-hidden sm:h-[calc(100vh-240px)]">
         <div className="h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:flex">
           <div className="hidden h-full flex-col xl:flex xl:w-2/4">
             <div className="sticky items-center border-b border-stroke px-6 py-3 dark:border-strokedark">

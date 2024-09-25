@@ -32,7 +32,7 @@ export const useWorkOrder = () => {
 
   const { searchTerm, setSearchTerm, debouncedSearchTerm } = useSearch('', 1000);
 
-  const { currPage, lastList, incrementPage, resetPagination, getOffset, setLastList } = usePagination({ limit });
+  const { currPage, incrementPage, resetPagination, getOffset, setIsLastList } = usePagination({ limit });
   const { activeTab, changeTab } = useTabs();
 
 
@@ -47,14 +47,18 @@ export const useWorkOrder = () => {
   }, [activeTab, debouncedSearchTerm]);
 
   useEffect(() => {
-    if (!lastList) {
-      onLoadPaginateData({
-        params: queryParams,
-        scroll: true,
-        paginate: { offset: getOffset(), limit },
-      });
-    }
+    onLoadPaginateData({
+      params: queryParams,
+      scroll: true,
+      paginate: { offset: getOffset(), limit },
+    });
   }, [currPage]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
 
   const getWorkOrders = async ({ params = {}, paginate = {} }) => {
@@ -125,13 +129,13 @@ export const useWorkOrder = () => {
     params,
     scroll = false,
     paginate,
-  }: any) => {
+  }) => {
     if (!scroll) setLoading(true);
     try {
       const workOrdersResponse = await getWorkOrders({ params, paginate });
 
       if (!workOrdersResponse.length) {
-        setLastList(true);
+        setIsLastList(true);
         return;
       }
 
@@ -155,7 +159,6 @@ export const useWorkOrder = () => {
   return {
     workOrders,
     loading,
-    error,
     onClickCreateWorkOrder,
     onClickDetailWorkOrder,
     workOrderDetail,
