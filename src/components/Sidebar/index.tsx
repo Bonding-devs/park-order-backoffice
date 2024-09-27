@@ -5,7 +5,10 @@ import LinkAuth from '../LinkAuth/LinkAuth';
 import { useAuth } from '../../context/AuthContext';
 import { SidebarItem } from './SidebarItem';
 import { CiLocationOn } from 'react-icons/ci';
-import { FaUsers, FaUsersCog} from 'react-icons/fa';
+import { FaChartBar, FaUsers, FaUsersCog, FaChevronDown } from 'react-icons/fa';
+import SidebarLinkGroup from './SidebarLinkGroup';
+import React from 'react';
+import { SidebarSubItem } from './SidebarSubItem';
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
@@ -132,32 +135,68 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </NavLink>
                 </li>
                 <li>
-                  <SidebarItem
-                    to="/locations"
-                    name="Locations"
-                    include="locations"
-                  >
+                  <SidebarItem to="/locations" include="locations">
                     <CiLocationOn size={22} />
+                    Locations
                   </SidebarItem>
                 </li>
                 <li>
                   <SidebarItem
                     to="/organization-members"
-                    name="Members"
                     include="organization-members"
                   >
                     <FaUsersCog size={22} />
+                    Members
                   </SidebarItem>
                 </li>
                 <li>
-                  <SidebarItem
-                    to="/teams"
-                    name="Teams / Users"
-                    include="teams"
-                  >
+                  <SidebarItem to="/teams" include="teams">
                     <FaUsers size={22} />
+                    Teams / Users
                   </SidebarItem>
                 </li>
+
+                <SidebarLinkGroup
+                  activeCondition={
+                    pathname === '/reports' || pathname.includes('reports')
+                  }
+                >
+                  {(handleClick, open) => (
+                    <React.Fragment>
+                      <SidebarItem
+                        to="/reports"
+                        include="reports"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        <FaChartBar size={22} />
+                        Reports
+                        <FaChevronDown
+                          className={`ml-auto transition-transform ${
+                            open ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </SidebarItem>
+                      <div
+                        className={`translate transform overflow-hidden ${
+                          !open && 'hidden'
+                        }`}
+                      >
+                        <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <SidebarSubItem to="/reports/order-summary">
+                              Work Orders Summary
+                            </SidebarSubItem>
+                          </li>
+                        </ul>
+                      </div>
+                    </React.Fragment>
+                  )}
+                </SidebarLinkGroup>
               </LinkAuth>
 
               <LinkAuth user={user} allowedRoles={['owner']}>
