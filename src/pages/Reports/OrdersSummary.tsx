@@ -2,19 +2,19 @@ import { ApexOptions } from 'apexcharts';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import Datepicker from 'react-tailwindcss-datepicker';
-import { getDataByRange, TimeRange } from '../../../../utils/dateUtils';
-import { useGetWOReportSummary } from '../../../../modules/Reports/useGetWOReportSummary';
+import { getDataByRange, TimeRange } from '../../utils/dateUtils';
+import { useGetWOReportSummary } from '../../modules/Reports/useGetWOReportSummary';
 import {
   PrincipalButton,
   SizeButton,
-} from '../../../../components/CustomButtons/PrincipalButton';
-import { ButtonsGroup } from '../../../../components/ButtonsGroup/ButtonsGroup';
-import { enumToArray } from '../../../../utils/arrayHelper';
-import Legend, { LegendItem } from '../../../../components/Legend/Legend';
+} from '../../components/CustomButtons/PrincipalButton';
+import { ButtonsGroup } from '../../components/ButtonsGroup/ButtonsGroup';
+import { enumToArray } from '../../utils/arrayHelper';
+import Legend, { LegendItem } from '../../components/Legend/Legend';
 
 const timeRanges = enumToArray(TimeRange);
 
-const Chart: React.FC = () => {
+const OrdersSummary: React.FC = () => {
   const [timeRange, setTimeRange] = useState(TimeRange.Day);
   const { data, date, today, handleDateChange, isLoading, error, reload } =
     useGetWOReportSummary();
@@ -30,7 +30,7 @@ const Chart: React.FC = () => {
     colors: ['#3C50E0', '#80CAEE'],
     chart: {
       fontFamily: 'Satoshi, sans-serif',
-      height: 335,
+      height: 300,
       type: 'area',
       dropShadow: {
         enabled: true,
@@ -79,7 +79,7 @@ const Chart: React.FC = () => {
     },
     xaxis: {
       type: 'category',
-      categories, // Usamos las fechas o semanas o meses como categorías
+      categories,
       axisBorder: {
         show: false,
       },
@@ -115,13 +115,17 @@ const Chart: React.FC = () => {
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
-        <Legend items={legendItems} />
-        <Datepicker
-          value={date}
-          onChange={handleDateChange}
-          required={true}
-          maxDate={today}
-        />
+        <h4 className="text-xl font-semibold text-black dark:text-white">
+          Created vs Finished
+        </h4>
+        <div className="w-100">
+          <Datepicker
+            value={date}
+            onChange={handleDateChange}
+            required={true}
+            maxDate={today}
+          />
+        </div>
         <div className="flex w-full max-w-45 justify-end">
           <ButtonsGroup
             values={timeRanges}
@@ -145,9 +149,10 @@ const Chart: React.FC = () => {
               },
             ]}
             type="area"
-            height={350}
+            height={300}
           />
         </div>
+        <Legend items={legendItems} />
         {isLoading && <div className="flex justify-center">Loading...</div>}
         {error && (
           <div className="flex items-center justify-center">
@@ -166,4 +171,4 @@ const Chart: React.FC = () => {
   );
 };
 
-export default Chart;
+export default OrdersSummary;

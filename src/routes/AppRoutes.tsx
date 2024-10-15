@@ -71,8 +71,7 @@ import { Locations } from '../pages/Locations/Locations';
 import DetailsNavigatorPage from '../pages/Locations/View/DetailsNavigatorPage';
 import { OrganizationMembers } from '../pages/OrganizationMembers/OrganizationMembers';
 import { TeamsAndUsers } from '../pages/TeamsAndUsers';
-import OrdersSummary from '../pages/Reports/WorkOrders/WorkOrdersSummary/OrdersSummary';
-import WorkOrdersByLocation from '../pages/Reports/WorkOrders/WorkOrdersByLocation/WorkOrdersByLocation';
+import Reports from '../pages/Reports/Reports';
 
 const AppRoutes = () => (
   <Routes>
@@ -170,23 +169,15 @@ const AppRoutes = () => (
           }
         />
         <Route
-          path="/reports/order-summary"
+          path="/reports"
           element={
             <>
               <PageTitle title="Reports" />
-              <OrdersSummary />
+              <Reports />
             </>
           }
         />
-        <Route
-          path="/reports/report-by-location"
-          element={
-            <>
-              <PageTitle title="Reports" />
-              <WorkOrdersByLocation />
-            </>
-          }
-        />
+        
       </Route>
       <Route element={<RoleProtectedRoute allowedRoles={['admin', 'owner']} />}>
         <Route

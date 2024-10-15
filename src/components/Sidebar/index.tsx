@@ -61,7 +61,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector('body')?.classList.remove('sidebar-expanded');
     }
   }, [sidebarExpanded]);
-  
+
   return (
     <aside
       ref={sidebar}
@@ -156,55 +156,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     Teams / Users
                   </SidebarItem>
                 </li>
-
-                <SidebarLinkGroup
-                  activeCondition={
-                    true
-                    // pathname === '/reports' || pathname.includes('/reports')
-                  }
-                >
-                  {(handleClick, open) => (
-                    <React.Fragment>
-                      <SidebarItem
-                        to="/reports"
-                        include="reports"
-                        pathname={pathname}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <FaChartBar size={22} />
-                        Reports
-                        <FaChevronDown
-                          className={`ml-auto transition-transform ${
-                            open ? 'rotate-180' : ''
-                          }`}
-                        />
-                      </SidebarItem>
-                      <div
-                        className={`translate transform overflow-hidden ${
-                          !open && 'hidden'
-                        }`}
-                      >
-                        <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <SidebarSubItem to="/reports/order-summary">
-                              Work Orders Summary
-                            </SidebarSubItem>
-                          </li>
-                          <li>
-                            <SidebarSubItem to="/reports/report-by-location">
-                              Work Orders By Location
-                            </SidebarSubItem>
-                          </li>
-                        </ul>
-                      </div>
-                    </React.Fragment>
-                  )}
-                </SidebarLinkGroup>
+                
+                <li>
+                  <SidebarItem to="/reports" include="reports" pathname={pathname}>
+                  <FaChartBar size={22} />
+                    Reports
+                  </SidebarItem>
+                </li>
               </LinkAuth>
 
               <LinkAuth user={user} allowedRoles={['owner']}>
