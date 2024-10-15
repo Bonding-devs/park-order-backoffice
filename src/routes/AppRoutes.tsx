@@ -72,6 +72,7 @@ import DetailsNavigatorPage from '../pages/Locations/View/DetailsNavigatorPage';
 import { OrganizationMembers } from '../pages/OrganizationMembers/OrganizationMembers';
 import { TeamsAndUsers } from '../pages/TeamsAndUsers';
 import OrdersSummary from '../pages/Reports/WorkOrders/WorkOrdersSummary/OrdersSummary';
+import WorkOrdersByLocation from '../pages/Reports/WorkOrders/WorkOrdersByLocation/WorkOrdersByLocation';
 
 const AppRoutes = () => (
   <Routes>
@@ -174,6 +175,15 @@ const AppRoutes = () => (
             <>
               <PageTitle title="Reports" />
               <OrdersSummary />
+            </>
+          }
+        />
+        <Route
+          path="/reports/work-orders-ßby-location"
+          element={
+            <>
+              <PageTitle title="Work Orders by location" />
+              <WorkOrdersByLocation />
             </>
           }
         />

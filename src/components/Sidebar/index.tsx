@@ -192,6 +192,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Work Orders Summary
                             </SidebarSubItem>
                           </li>
+                          <li>
+                            <SidebarSubItem to="/reports/work-orders-by-location">
+                              Work Orders By Location
+                            </SidebarSubItem>
+                          </li>
                         </ul>
                       </div>
                     </React.Fragment>
