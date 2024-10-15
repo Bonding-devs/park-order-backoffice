@@ -1,18 +1,21 @@
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+
+import { NavLink } from "react-router-dom";
 
 interface ItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
   to: string;
   include: string;
+  pathname: string;
 }
 
 export const SidebarItem: React.FC<ItemProps> = ({
   children,
   to,
   include,
+  pathname,
   ...props
 }) => {
-  const { pathname } = location;
   return (
     <NavLink
       to={to}

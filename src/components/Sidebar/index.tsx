@@ -61,7 +61,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector('body')?.classList.remove('sidebar-expanded');
     }
   }, [sidebarExpanded]);
-
+  
   return (
     <aside
       ref={sidebar}
@@ -135,7 +135,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </NavLink>
                 </li>
                 <li>
-                  <SidebarItem to="/locations" include="locations">
+                  <SidebarItem to="/locations" include="locations" pathname={pathname}>
                     <CiLocationOn size={22} />
                     Locations
                   </SidebarItem>
@@ -144,13 +144,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   <SidebarItem
                     to="/organization-members"
                     include="organization-members"
+                    pathname={pathname}
                   >
                     <FaUsersCog size={22} />
                     Members
                   </SidebarItem>
                 </li>
                 <li>
-                  <SidebarItem to="/teams" include="teams">
+                  <SidebarItem to="/teams" include="teams" pathname={pathname}>
                     <FaUsers size={22} />
                     Teams / Users
                   </SidebarItem>
@@ -158,7 +159,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
                 <SidebarLinkGroup
                   activeCondition={
-                    pathname === '/reports' || pathname.includes('reports')
+                    true
+                    // pathname === '/reports' || pathname.includes('/reports')
                   }
                 >
                   {(handleClick, open) => (
@@ -166,6 +168,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <SidebarItem
                         to="/reports"
                         include="reports"
+                        pathname={pathname}
                         onClick={(e) => {
                           e.preventDefault();
                           sidebarExpanded
@@ -193,7 +196,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </SidebarSubItem>
                           </li>
                           <li>
-                            <SidebarSubItem to="/reports/work-orders-by-location">
+                            <SidebarSubItem to="/reports/report-by-location">
                               Work Orders By Location
                             </SidebarSubItem>
                           </li>

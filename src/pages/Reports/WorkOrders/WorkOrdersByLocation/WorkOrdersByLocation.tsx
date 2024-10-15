@@ -1,5 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import DefaultLayout from '../../../../layout/DefaultLayout';
+import Chart from './Chart';
 
 const WorkOrdersByLocation: React.FC = () => {
   return (
@@ -7,8 +8,7 @@ const WorkOrdersByLocation: React.FC = () => {
       <DefaultLayout>
         <ToastContainer />
         <div className="mt-4 ">
-          {/* <Chart /> */}
-          WorkOrdersByLocation
+          <Chart />
         </div>
       </DefaultLayout>
     </>

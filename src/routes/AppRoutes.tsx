@@ -179,10 +179,10 @@ const AppRoutes = () => (
           }
         />
         <Route
-          path="/reports/work-orders-ßby-location"
+          path="/reports/report-by-location"
           element={
             <>
-              <PageTitle title="Work Orders by location" />
+              <PageTitle title="Reports" />
               <WorkOrdersByLocation />
             </>
           }
