@@ -21,7 +21,7 @@ export const LocationFormProvider: React.FC<LocationFormProviderProps> = ({
           name: location.name,
           address: location.address,
           description: location.description,
-          teamInChargeId: location.teamInCharge.id,
+          teamInChargeId: location.teamInCharge?.id??'',
         }
       : {},
   });

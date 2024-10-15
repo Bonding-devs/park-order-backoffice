@@ -5,7 +5,10 @@ import LinkAuth from '../LinkAuth/LinkAuth';
 import { useAuth } from '../../context/AuthContext';
 import { SidebarItem } from './SidebarItem';
 import { CiLocationOn } from 'react-icons/ci';
-import { FaUsers, FaUsersCog} from 'react-icons/fa';
+import { FaChartBar, FaUsers, FaUsersCog, FaChevronDown } from 'react-icons/fa';
+import SidebarLinkGroup from './SidebarLinkGroup';
+import React from 'react';
+import { SidebarSubItem } from './SidebarSubItem';
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
@@ -132,30 +135,32 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </NavLink>
                 </li>
                 <li>
-                  <SidebarItem
-                    to="/locations"
-                    name="Locations"
-                    include="locations"
-                  >
+                  <SidebarItem to="/locations" include="locations" pathname={pathname}>
                     <CiLocationOn size={22} />
+                    Locations
                   </SidebarItem>
                 </li>
                 <li>
                   <SidebarItem
                     to="/organization-members"
-                    name="Members"
                     include="organization-members"
+                    pathname={pathname}
                   >
                     <FaUsersCog size={22} />
+                    Members
                   </SidebarItem>
                 </li>
                 <li>
-                  <SidebarItem
-                    to="/teams"
-                    name="Teams / Users"
-                    include="teams"
-                  >
+                  <SidebarItem to="/teams" include="teams" pathname={pathname}>
                     <FaUsers size={22} />
+                    Teams / Users
+                  </SidebarItem>
+                </li>
+                
+                <li>
+                  <SidebarItem to="/reports" include="reports" pathname={pathname}>
+                  <FaChartBar size={22} />
+                    Reports
                   </SidebarItem>
                 </li>
               </LinkAuth>

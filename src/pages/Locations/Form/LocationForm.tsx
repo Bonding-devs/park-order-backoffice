@@ -151,7 +151,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({
               <CustomLabel>Team</CustomLabel>
               <SelectTeam
                 value={
-                  isCreateOption(option) ? null : uLocation.teamInCharge.id
+                  isCreateOption(option) ? null : uLocation.teamInCharge?.id
                 }
               />
             </div>
